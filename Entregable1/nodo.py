@@ -8,7 +8,7 @@ PORT = 12345
 def server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
-        server_socket.bind(('localhost', PORT))
+        server_socket.bind(('0.0.0.0', PORT))
         server_socket.listen(5)
         while True:
             client_socket, client_address = server_socket.accept()
@@ -30,9 +30,9 @@ def escribir_mensaje(archivo,instruccion,dato,estatus,nodo,fecha):
                 archivo.write(f"\n{instruccion}|{dato}|{estatus}|{nodo}|{fecha}")
 
 
-def cliente(mensaje,puerto):
+def cliente(mensaje,puerto,ipDestino):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect(('localhost', puerto))
+    client_socket.connect((ipDestino, puerto))
     client_socket.send(mensaje.encode())
     response = client_socket.recv(1024).decode()
     escribir_mensaje("nodeDB.txt","INSTRUCTION",mensaje,"SEND",client_socket.getsockname()[0],datetime.now())
@@ -89,16 +89,16 @@ def mostrar_menu_envio():
                 
                 if opcionEnvio == 1:
                     print("Enviando mensaje a nodo 1... " )
-                    cliente(mensaje, 12345)
+                    cliente(mensaje, 12345,'192.168.252.130')
                 elif opcionEnvio == 2:
                     print("Enviando mensaje a nodo 2... " )
-                    cliente(mensaje, 12346)
+                    cliente(mensaje, 12346, '192.168.252.131')
                 elif opcionEnvio == 3:
                     print("Enviando mensaje a nodo 3... " )
-                    cliente(mensaje, 12347)
+                    cliente(mensaje, 12347, '192.168.252.132')
                 elif opcionEnvio == 4:
                     print("Enviando mensaje a nodo 4... " )
-                    cliente(mensaje, 12348)
+                    cliente(mensaje, 12348, '192.168.252.133')
                 elif opcionEnvio == 5:
                     print("Salir " )
                 else:
@@ -117,4 +117,5 @@ if __name__ == "__main__":
     
     #client_thread = threading.Thread(target=cliente)
     #client_thread.start()
+
 
