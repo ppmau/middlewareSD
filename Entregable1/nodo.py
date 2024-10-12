@@ -12,11 +12,8 @@ def asignar_puerto():
     with open("nodeport.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(' ')
-            print(portNode[0])
-            print(ipNode)
             if portNode[0] == ipNode:
                 PORT = portNode[1]
-    print(PORT)
 
 
 def server():
@@ -129,6 +126,6 @@ if __name__ == "__main__":
     server_thread = threading.Thread(target=server)
     server_thread.start()
     asignar_puerto()
-    #mostrar_opciones()
+    mostrar_opciones()
 
 
