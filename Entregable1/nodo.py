@@ -13,7 +13,7 @@ def asignar_puerto():
         for ports in nodeRelation:
             portNode = ports.strip().split(' ')
             if portNode[0] == ipNode:
-                PORT = portNode[1]
+                PORT = int(portNode[1])
 
 
 def server():
