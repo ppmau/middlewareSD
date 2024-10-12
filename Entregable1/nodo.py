@@ -102,11 +102,11 @@ def mostrar_menu_envio():
                 
                 if opcionEnvio == 1:
                     print("Enviando mensaje a nodo 1... " )
-                    client_thread = threading.Thread(target=cliente(mensaje, 12345,'192.168.252.134'))
+                    client_thread = threading.Thread(target=cliente(mensaje,12345,'192.168.252.134'))
                     client_thread.start()
                 elif opcionEnvio == 2:
                     print("Enviando mensaje a nodo 2... " )
-                    client_thread = threading.Thread(target=cliente(mensaje, 12346,'192.168.252.135'))
+                    client_thread = threading.Thread(target=cliente(mensaje,12346,'192.168.252.135'))
                     client_thread.start()
                 elif opcionEnvio == 3:
                     print("Enviando mensaje a nodo 3... " )
