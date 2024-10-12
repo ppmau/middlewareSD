@@ -9,9 +9,10 @@ def asignar_puerto():
     with open("nodeport.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(' ')
+            print(portNode)
             if portNode[0] == ipNode:
                 PORT = portNode[1]
-    print(PORT)
+    #print(PORT)
 
 
 def server():
