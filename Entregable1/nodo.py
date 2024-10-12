@@ -10,6 +10,7 @@ def asignar_puerto():
         for ports in nodeRelation:
             portNode = ports.strip().split(' ')
             print(portNode)
+            print(ipNode)
             if portNode[0] == ipNode:
                 PORT = portNode[1]
     #print(PORT)
