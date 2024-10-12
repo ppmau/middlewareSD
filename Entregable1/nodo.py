@@ -5,7 +5,7 @@ from datetime import datetime
 PORT = 0
 
 def asignar_puerto():
-    ipNodo = os.system("ifconfig ens33 | grep 'inet ' | awk '{print $2}'")
+    ipNode = os.system("ifconfig ens33 | grep 'inet ' | awk '{print $2}'")
     with open("nodeport.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(' ')
