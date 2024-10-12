@@ -8,7 +8,7 @@ PORT = 0
 def asignar_puerto():
     #ipNodo = os.system("ifconfig ens33 | grep 'inet ' | awk '{print $2}'")
     ipNode = '192.168.252.134'
-    with open("node-port.txt", "r") as nodeRelation:
+    with open("nodeport.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(' ')
             if portNode[0] == ipNode:
