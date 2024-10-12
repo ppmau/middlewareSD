@@ -2,7 +2,18 @@ import socket
 import threading
 import os
 from datetime import datetime
-PORT = 12345
+PORT = 0
+
+
+def asignar_puerto():
+    #ipNodo = os.system("ifconfig ens33 | grep 'inet ' | awk '{print $2}'")
+    ipNode = '192.168.252.134'
+    with open("node-port.txt", "r") as nodeRelation:
+        for ports in nodeRelation:
+            portNode = ports.strip().split(' ')
+            if portNode[0] == ipNode:
+                PORT = portNode[1]
+    print(PORT)
 
 
 def server():
@@ -114,6 +125,7 @@ if __name__ == "__main__":
     # Crear el hilo para el servidor
     server_thread = threading.Thread(target=server)
     server_thread.start()
-    mostrar_opciones()
+    asignar_puerto()
+    #mostrar_opciones()
 
 
