@@ -1,11 +1,14 @@
 import socket
 import threading
 import os
+import subprocess
 from datetime import datetime
 PORT = 0
 
 def asignar_puerto():
-    ipNode = os.system("ip -4 addr show ens33 | awk '/inet / {print $2}' | cut -d/ -f1")
+    osComand = "ip -4 addr show ens33 | awk '/inet / {print $2}' | cut -d/ -f1"
+    ipNode = subprocess.check_output(osComand, shell=True, text=True).strip()
+    
     with open("nodeport.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(' ')
