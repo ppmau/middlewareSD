@@ -5,15 +5,13 @@ from datetime import datetime
 PORT = 0
 
 def asignar_puerto():
-    ipNode = os.system("ip -4 addr show eth0 | awk '/inet / {print $2}' | cut -d/ -f1")
+    ipNode = os.system("ip -4 addr show ens33 | awk '/inet / {print $2}' | cut -d/ -f1")
     with open("nodeport.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(' ')
-            print(portNode)
-            print(ipNode)
             if portNode[0] == ipNode:
                 PORT = portNode[1]
-    #print(PORT)
+    print(PORT)
 
 
 def server():
