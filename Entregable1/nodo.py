@@ -123,9 +123,9 @@ def mostrar_menu_envio():
 
 if __name__ == "__main__":
     # Crear el hilo para el servidor
+    asignar_puerto()
     server_thread = threading.Thread(target=server)
     server_thread.start()
-    asignar_puerto()
     mostrar_opciones()
 
 
