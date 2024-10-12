@@ -14,6 +14,8 @@ def asignar_puerto():
             portNode = ports.strip().split(' ')
             if portNode[0] == ipNode:
                 PORT = int(portNode[1])
+    
+    print(f"puerto asignado PORT:{PORT}")
 
 
 def server():
@@ -55,7 +57,7 @@ def cliente(mensaje,puerto,ipDestino):
 def mostrar_opciones():
     opcionAccion = 0
     while opcionAccion != 3:
-            os.system('cls')
+            os.system('clear')
             print("\n           Menú\n")
             print("1. Enviar mensaje a un nodo\n")
             print("2. Mostrar mensajes del nodo\n")
@@ -87,7 +89,7 @@ def mostrar_menu_envio():
     opcionEnvio = 0
     while opcionEnvio != 5:
             try:
-                os.system('cls')
+                os.system('clear')
                 print("     Envio de mensajes\n")
                 print("1. Enviar mensaje al nodo 1")
                 print("2. Enviar mensaje al nodo 2")
