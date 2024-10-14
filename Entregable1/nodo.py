@@ -3,7 +3,6 @@ import threading
 import os
 import subprocess
 from datetime import datetime
-PORT = 0
 
 def asignar_puerto():
     osComand = "ip -4 addr show ens33 | awk '/inet / {print $2}' | cut -d/ -f1"
@@ -16,12 +15,13 @@ def asignar_puerto():
                 PORT = int(portNode[1])
     
     print(f"puerto asignado PORT:{PORT}")
+    return PORT
 
 
 def server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
-        server_socket.bind(('0.0.0.0',PORT))
+        server_socket.bind(('0.0.0.0', asignar_puerto()))
         server_socket.listen(5)
         while True:
             client_socket, client_address = server_socket.accept()
@@ -102,11 +102,11 @@ def mostrar_menu_envio():
                 
                 if opcionEnvio == 1:
                     print("Enviando mensaje a nodo 1... " )
-                    client_thread = threading.Thread(target=cliente(mensaje,12345,'192.168.252.134'))
+                    client_thread = threading.Thread(target=cliente(mensaje,int(12345),'192.168.252.134'))
                     client_thread.start()
                 elif opcionEnvio == 2:
                     print("Enviando mensaje a nodo 2... " )
-                    client_thread = threading.Thread(target=cliente(mensaje,12346,'192.168.252.135'))
+                    client_thread = threading.Thread(target=cliente(mensaje,int(12346),'192.168.252.135'))
                     client_thread.start()
                 elif opcionEnvio == 3:
                     print("Enviando mensaje a nodo 3... " )
