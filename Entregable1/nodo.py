@@ -13,7 +13,6 @@ def asignar_puerto():
             portNode = ports.strip().split(' ')
             if portNode[0] == ipNode:
                 PORT = int(portNode[1])
-    
     print(f"puerto asignado PORT:{PORT}")
     return PORT
 
