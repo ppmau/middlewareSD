@@ -14,19 +14,20 @@ def asignar_puerto():
             if portNode[0] == ipNode:
                 PORT = int(portNode[1])
     print(f"puerto asignado PORT:{PORT}")
-    return PORT
+    return PORT, ipNode
 
 
 def server():
+    PORT, ipNode = asignar_puerto()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
-        server_socket.bind(('0.0.0.0', asignar_puerto()))
+        server_socket.bind(('0.0.0.0', PORT ))
         server_socket.listen(5)
         while True:
             client_socket, client_address = server_socket.accept()
             data = client_socket.recv(1024).decode()
-            client_socket.send(f"El nodo ha recibido el mensaje: {data}".encode())
-            print(f"El nodo {client_address[0]} ha recibido el mensaje: {data}".encode())
+            client_socket.send(f"El nodo{ipNode} ha recibido el mensaje: {data}".encode())
+            print(f"Mensaje: {data} recibido desde {client_address[0]}".encode())
             escribir_mensaje("nodeDB.txt","INSTRUCTION",data,"RECIVED",client_address[0],datetime.now())
     except Exception as e:
         print(f"Error en el servidor: {e}")
