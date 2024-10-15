@@ -25,7 +25,8 @@ def server():
         while True:
             client_socket, client_address = server_socket.accept()
             data = client_socket.recv(1024).decode()
-            client_socket.send(f"El servidor {client_address[0]} ha recibido el mensaje: {data}".encode())
+            client_socket.send(f"El nodo ha recibido el mensaje: {data}".encode())
+            print(f"El nodo {client_address[0]} ha recibido el mensaje: {data}".encode())
             escribir_mensaje("nodeDB.txt","INSTRUCTION",data,"RECIVED",client_address[0],datetime.now())
     except Exception as e:
         print(f"Error en el servidor: {e}")
@@ -56,7 +57,7 @@ def cliente(mensaje,puerto,ipDestino):
 def mostrar_opciones():
     opcionAccion = 0
     while opcionAccion != 3:
-            #os.system('clear')
+            os.system('clear')
             print("\n           Menú\n")
             print("1. Enviar mensaje a un nodo\n")
             print("2. Mostrar mensajes del nodo\n")
@@ -88,7 +89,7 @@ def mostrar_menu_envio():
     opcionEnvio = 0
     while opcionEnvio != 5:
             try:
-                #os.system('clear')
+                os.system('clear')
                 print("     Envio de mensajes\n")
                 print("1. Enviar mensaje al nodo 1")
                 print("2. Enviar mensaje al nodo 2")
@@ -109,10 +110,13 @@ def mostrar_menu_envio():
                     client_thread.start()
                 elif opcionEnvio == 3:
                     print("Enviando mensaje a nodo 3... " )
-                    cliente(mensaje, 12347, '192.168.252.132')
+                    client_thread = threading.Thread(target=cliente(mensaje,int(12347),'192.168.252.136'))
+                    client_thread.start()
+
                 elif opcionEnvio == 4:
                     print("Enviando mensaje a nodo 4... " )
-                    cliente(mensaje, 12348, '192.168.252.133')
+                    client_thread = threading.Thread(target=cliente(mensaje,int(12348),'192.168.252.135'))
+                    client_thread.start()
                 elif opcionEnvio == 5:
                     print("Salir " )
                 else:
