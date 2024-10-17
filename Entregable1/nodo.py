@@ -26,7 +26,7 @@ def server():
         while True:
             client_socket, client_address = server_socket.accept()
             data = client_socket.recv(1024).decode()
-            client_socket.send(f"El nodo{ipNode} ha recibido el mensaje: {data}".encode())
+            client_socket.send(f"El nodo ha recibido el mensaje: {data} desde {ipNode}".encode() )
             print(f"Mensaje: {data} recibido desde {client_address[0]}".encode())
             escribir_mensaje("nodeDB.txt","INSTRUCTION",data,"RECIVED",client_address[0],datetime.now())
     except Exception as e:
@@ -100,7 +100,6 @@ def mostrar_menu_envio():
                 opcionEnvio = int(input("\nSelecciona una opción: "))
                 if opcionEnvio != 5:
                     mensaje = input("Mensaje a enviar: ")
-                
                 if opcionEnvio == 1:
                     print("Enviando mensaje a nodo 1... " )
                     client_thread = threading.Thread(target=cliente(mensaje,int(12345),'192.168.252.134'))
