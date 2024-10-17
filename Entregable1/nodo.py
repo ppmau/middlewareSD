@@ -26,7 +26,7 @@ def server():
         while True:
             client_socket, client_address = server_socket.accept()
             data = client_socket.recv(1024).decode()
-            client_socket.send(f"El nodo ha recibido el mensaje: {data} desde {ipNode}".encode() )
+            client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
             print(f"Mensaje: {data} recibido desde {client_address[0]}".encode())
             escribir_mensaje("nodeDB.txt","INSTRUCTION",data,"RECIVED",client_address[0],datetime.now())
     except Exception as e:
