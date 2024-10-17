@@ -49,7 +49,7 @@ def cliente(mensaje,puerto,ipDestino):
     client_socket.connect((ipDestino, puerto))
     client_socket.send(mensaje.encode())
     response = client_socket.recv(1024).decode()
-    escribir_mensaje("nodeDB.txt","INSTRUCTION",mensaje,"SEND",client_socket.getsockname()[0],datetime.now())
+    escribir_mensaje("nodeDB.txt","INSTRUCTION",mensaje,"SEND",ipDestino,datetime.now())
     print(f"{response}")
     client_socket.close()
     input("\nEnter para continuar... ")
