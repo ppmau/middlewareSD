@@ -27,7 +27,7 @@ def server():
             client_socket, client_address = server_socket.accept()
             data = client_socket.recv(1024).decode()
             client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
-            print(f"Mensaje: {data} recibido desde {client_address[0]}".encode())
+            print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
             escribir_mensaje("nodeDB.txt","INSTRUCTION",data,"RECIVED",client_address[0],datetime.now())
     except Exception as e:
         print(f"Error en el servidor: {e}")
@@ -45,14 +45,19 @@ def escribir_mensaje(archivo,instruccion,dato,estatus,nodo,fecha):
 
 
 def cliente(mensaje,puerto,ipDestino):
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect((ipDestino, puerto))
-    client_socket.send(mensaje.encode())
-    response = client_socket.recv(1024).decode()
-    escribir_mensaje("nodeDB.txt","INSTRUCTION",mensaje,"SEND",ipDestino,datetime.now())
-    print(f"{response}")
-    client_socket.close()
-    input("\nEnter para continuar... ")
+    try:
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect((ipDestino, puerto))
+        client_socket.send(mensaje.encode())
+        response = client_socket.recv(1024).decode()
+        escribir_mensaje("nodeDB.txt","INSTRUCTION",mensaje,"SEND",ipDestino,datetime.now())
+        print(f"{response}")
+        input("\nEnter para continuar... ")
+    except ConnectionRefusedError as e:
+        print(f"No se pudo conectar con el nodo en {ipDestino}:{puerto}. Conexión rechazada.")
+    finally:
+        client_socket.close()
+        
 
 
 def mostrar_opciones():
