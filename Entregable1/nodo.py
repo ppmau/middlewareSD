@@ -100,6 +100,8 @@ def mostrar_menu_envio():
                 opcionEnvio = int(input("\nSelecciona una opción: "))
                 if opcionEnvio != 5:
                     mensaje = input("Mensaje a enviar: ")
+                    if mensaje in None:
+                        print("Escriba contenido en el mensaje")
                 if opcionEnvio == 1:
                     print("Enviando mensaje a nodo 1... " )
                     client_thread = threading.Thread(target=cliente(mensaje,int(12345),'192.168.252.134'))
