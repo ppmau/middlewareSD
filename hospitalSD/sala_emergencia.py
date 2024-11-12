@@ -70,7 +70,7 @@ def mostrarOpTrabajadores():
 
 def insertarEmergencia(nombrePaciente,edadPaciente,descripcionEmergencia):
     print("Insertando emergencia")
-
+    
 def main():
     mostrarOpciones()
 

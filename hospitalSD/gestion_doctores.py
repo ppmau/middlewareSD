@@ -1,4 +1,5 @@
 import os
+import comunicacion_base
 
 def mostrarOpDoctores():
     opcionMenu = 0
@@ -22,7 +23,8 @@ def mostrarOpDoctores():
 
 def listarDoctores():
     os.system('cls')
-    print("Lista de doctores: ")
+    print("Lista de doctores")
+    comunicacion_base.lista_tabla("tbl_doctores")
     input("Enter para continuar...")
 
 
@@ -54,14 +56,16 @@ def mostrarOpEditarDoctor():
     listarDoctores()
     try:
         idDoctor = int(input("Ingrese el id del doctor a editar: "))
-        print("Validación de que id es existente") ######Trabajo en BASES
-        existeId = True
-        if existeId == True:
+        existeId = comunicacion_base.existe_id(idDoctor, "tbl_doctores") ######Trabajo en BASES
+        if existeId == 1:
             print("1.Modificar nombre")
             print("2.Modificar curp")
             print("3.Modificar nombre y curp")
             datoActualizar = input("Ingrese la opcion deseada: ")
             editarDoctorBD(idDoctor, datoActualizar)
+        else:
+            input("ID incorrecto, seleccione uno valido. Enter para continuar...")
+            mostrarOpEditarDoctor()
     except:
         input("Ingrese un número válido. Enter para continuar...")
         mostrarOpEditarDoctor()
