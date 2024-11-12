@@ -64,6 +64,7 @@ def mostrarOpGestion():
 def mostrarOpPacientes():
     os.system('cls') 
     print("Pacientes")
+
 def mostrarOpTrabajadores():
     os.system('cls') 
     print("Trabajadores")
@@ -73,7 +74,6 @@ def insertarEmergencia(nombrePaciente,edadPaciente,descripcionEmergencia):
     
 def main():
     mostrarOpciones()
-
 
 
 main() 

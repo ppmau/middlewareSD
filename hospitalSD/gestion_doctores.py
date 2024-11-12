@@ -60,18 +60,18 @@ def mostrarOpEditarDoctor():
         if existeId == 1:
             print("1.Modificar nombre")
             print("2.Modificar curp")
-            print("3.Modificar nombre y curp")
-            datoActualizar = input("Ingrese la opcion deseada: ")
-            editarDoctorBD(idDoctor, datoActualizar)
+            campo = int(input("Ingrese la opcion deseada: "))
+            valor = input("Escriba el valor actualizado:")
+            if campo == 1:
+                comunicacion_base.actualizar_tabla(idDoctor,"v_nombre","tbl_doctores",valor)
+            elif campo == 2:
+                comunicacion_base.actualizar_tabla(idDoctor,"v_curp","tbl_doctores", valor)
         else:
             input("ID incorrecto, seleccione uno valido. Enter para continuar...")
             mostrarOpEditarDoctor()
     except:
         input("Ingrese un número válido. Enter para continuar...")
         mostrarOpEditarDoctor()
-
-def editarDoctorBD(idDoctor, campo):
-    print("Update en base del doctor. Exitoso") ##Trabajo en BASES 
 
 def mostrarOpAgregarDoctor():
     nombreDoctor = input("Nombre doctor: ")
