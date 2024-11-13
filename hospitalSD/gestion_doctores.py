@@ -8,7 +8,7 @@ def mostrarOpDoctores():
             os.system('cls') 
             print("         Gestión de Doctores         \n")
             print("1.Lista de doctores disponibles ")
-            print("2.Actualizar datos de un doctor ")
+            print("2.Actualizar o añadir doctor ")
             print("3.Salir")
             opcionMenu = int(input("Seleccione una opción: "))
             if opcionMenu > 3:
@@ -18,7 +18,7 @@ def mostrarOpDoctores():
             if int(opcionMenu) == 2:
                 actualizarDoctores()
     except:
-        input("Ingrese un numero correcto. Enter para continuarrrrrrrr...")
+        input("Ingrese un numero correcto. Enter para continuar...")
         mostrarOpDoctores()
 
 def listarDoctores():
@@ -44,9 +44,9 @@ def actualizarDoctores():
             if int(opcionActualizar) == 1:
                 mostrarOpEditarDoctor()
             if int(opcionActualizar) == 2:
-                mostrarOpAgregarDoctor()
+                insertarDoctor()
             if int(opcionActualizar) == 3:
-                mostrarOpBajaDoctor()
+                bajaDoctorBD()
     except:
         input("Ingrese un numero correcto. Enter para continuar...")
         actualizarDoctores()
@@ -73,29 +73,26 @@ def mostrarOpEditarDoctor():
         input("Ingrese un número válido. Enter para continuar...")
         mostrarOpEditarDoctor()
 
-def mostrarOpAgregarDoctor():
+def insertarDoctor():
+    print("Escriba los datos del Doctor")
     nombreDoctor = input("Nombre doctor: ")
     curpDoctror = input("CURP: ")
-    insertarDoctorBD(nombreDoctor,curpDoctror)
+    valores = [nombreDoctor,curpDoctror]
+    comunicacion_base.insertar_en_tabla(valores,"tbl_doctores")
 
-def insertarDoctorBD(nombreDoctor,curpDoctor):
-    input("Insertando doctor. Enter para continuar...") ##Trabajo en BASES
-
-def mostrarOpBajaDoctor():
-    print("     Baja de datos Doctor")
+def bajaDoctorBD():
+    print("Lista de doctores para baja")
     listarDoctores()
     try:
-        idDoctor = int(input("Ingrese el id del doctor a dar de baja: "))
-        print("Validación de que id es existente") ######Trabajo en BASES
-        existeId = True
-        if existeId == True:
-            bajaDoctorBD(idDoctor)
+        idDoctor = int(input("Ingrese el id del doctor a dar de bajaaa: "))
+        existeId = comunicacion_base.existe_id(idDoctor, "tbl_doctores")
+        if existeId == 1:
+            comunicacion_base.eliminar_en_tabla(idDoctor,"tbl_doctores")
         else:
-            input("Numero de id invalido. Enter para continuar...")
-            os.system('cls')
+            input("ID incorrecto, seleccione uno valido. Enter para continuar...")
+            mostrarOpEditarDoctor()
     except:
         input("Ingrese un número válido. Enter para continuar...")
-        mostrarOpBajaDoctor()
+        mostrarOpEditarDoctor()
 
-def bajaDoctorBD(idDoctor):
-    input("Dando de baja Doctor. Enter para continuar...") ##Trabajo en BASES
+    

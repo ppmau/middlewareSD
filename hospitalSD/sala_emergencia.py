@@ -75,5 +75,4 @@ def insertarEmergencia(nombrePaciente,edadPaciente,descripcionEmergencia):
 def main():
     mostrarOpciones()
 
-
 main() 

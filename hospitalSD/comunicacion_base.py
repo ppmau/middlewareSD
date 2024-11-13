@@ -15,7 +15,6 @@ def conectar_base():
 
     return conexion.cursor(), conexion
 
-
 def lista_tabla(tabla):
     cursor, conexion= conectar_base()
     if tabla == "tbl_doctores":
@@ -29,11 +28,9 @@ def lista_tabla(tabla):
     conexion.close()
 
 def actualizar_tabla(id,campo,tabla,valor):
-    cursor, conexion= conectar_base()
     if tabla == "tbl_doctores":
-        print(id,campo,tabla,valor)
-        input("Editando tbl_doctores")
         try:
+            cursor, conexion= conectar_base()
             consulta = f"UPDATE {tabla} SET {campo} = %s WHERE i_id_doctor = %s"
             cursor.execute(consulta, (valor, id))
             conexion.commit()
@@ -44,6 +41,44 @@ def actualizar_tabla(id,campo,tabla,valor):
             
         except Exception as e:
             print(f"Ocurrió un error: {e}")
+        finally:
+            cursor.close()
+            conexion.close()
+
+def insertar_en_tabla(valores,tabla):
+    if tabla == "tbl_doctores":
+        try:
+            cursor, conexion= conectar_base()
+            nombre = valores[0]
+            curp = valores[1]
+            consulta = f"INSERT INTO {tabla} (v_nombre, v_curp) VALUES (%s, %s)"
+            cursor.execute(consulta, (nombre,curp,))
+            conexion.commit()
+            if cursor.rowcount > 0:
+                input("Registro actualizado correctamente. Enter para continuar...")
+            else:
+                input("No se encontró el registro para actualizar. Enter para continuar...")
+            
+        except Exception as e:
+            input(f"Ocurrió un error: {e}")
+        finally:
+            cursor.close()
+            conexion.close()
+
+def eliminar_en_tabla(id, tabla):
+    if tabla == "tbl_doctores":
+        try:
+            cursor, conexion= conectar_base()
+            consulta = f"DELETE FROM {tabla} WHERE i_id_doctor = %s"
+            cursor.execute(consulta, (id,))
+            conexion.commit()
+            if cursor.rowcount > 0:
+                input("Registro actualizado correctamente. Enter para continuar...")
+            else:
+                input("No se encontró el registro para eliminar. Enter para continuar...")
+            
+        except Exception as e:
+            input(f"Ocurrió un error: {e}")
         finally:
             cursor.close()
             conexion.close()
@@ -64,4 +99,5 @@ def existe_id(id,tabla):
         return 1
     else:
         return 0
+
 
