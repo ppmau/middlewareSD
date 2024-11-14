@@ -1,5 +1,7 @@
 import os
 import gestion_doctores
+import gestion_pacientes
+import gestion_trabajadores
 
 
 def mostrarOpciones():
@@ -29,8 +31,7 @@ def mostrarOpRegistro():
         nombrePaciente = input("Nombre del paciente: ")
         edadPaciente = int(input("Edad paciente: "))
         descripcionEmergencia = input("Descripción de la emergencia: ")
-        insertarEmergencia(nombrePaciente,edadPaciente,descripcionEmergencia)
-        mensaje = "Registro finalizado."
+        gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
     except ValueError:
         mensaje = "Datos erroneos, repita el registro y digite la edad correctamente."
     finally:
@@ -54,11 +55,11 @@ def mostrarOpGestion():
             if int(opcionMenu) == 1:
                 gestion_doctores.mostrarOpDoctores()
             if int(opcionMenu) == 2:
-                mostrarOpPacientes()
+                gestion_pacientes.mostrarOpPacientes()
             if int(opcionMenu) == 3:
-                mostrarOpTrabajadores()
+                gestion_trabajadores.mostrarOpTrabajadores()
     except:
-        input("Ingrese un numero correcto. Enter para continuar...")
+        input("Ingrese un numero correcto3. Enter para continuar...")
         mostrarOpGestion()
 
 def mostrarOpPacientes():
@@ -68,9 +69,6 @@ def mostrarOpPacientes():
 def mostrarOpTrabajadores():
     os.system('cls') 
     print("Trabajadores")
-
-def insertarEmergencia(nombrePaciente,edadPaciente,descripcionEmergencia):
-    print("Insertando emergencia")
     
 def main():
     mostrarOpciones()

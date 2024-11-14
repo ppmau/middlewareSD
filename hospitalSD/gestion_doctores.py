@@ -8,7 +8,7 @@ def mostrarOpDoctores():
             os.system('cls') 
             print("         Gestión de Doctores         \n")
             print("1.Lista de doctores disponibles ")
-            print("2.Actualizar o añadir doctor ")
+            print("2.Alta/Actualización/Baja de doctor ")
             print("3.Salir")
             opcionMenu = int(input("Seleccione una opción: "))
             if opcionMenu > 3:
