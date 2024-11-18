@@ -105,7 +105,11 @@ def insertar_en_tabla(valores,tabla):
                 input("Registro exitoso. Enter para continuar...")
             else:
                 input("Hubo un problema al registrar al paciente. Enter para continuar...")
-            
+        if tabla == "tbl_visitas":
+            consulta = f"INSERT INTO {tabla} (i_id_paciente, i_id_doctor, i_id_sala, i_id_cama, v_folio_visita, b_estatus_visita, fecha_visita) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+            cursor.execute(consulta, (valores[0],valores[1],valores[2],valores[3],valores[4],valores[5],valores[6]))
+            input("visitas")
+            conexion.commit()
     except Exception as e:
             input(f"Ocurrió un error: {e}")
     finally:
@@ -181,4 +185,125 @@ def existe_id(id,tabla):
         cursor.close()
         conexion.close()
 
+def obtenIdUltimoPaciente():
+    try:
+        cursor, conexion = conectar_base()
+        consulta = "SELECT i_id_paciente FROM tbl_pacientes ORDER BY i_id_paciente DESC LIMIT 1"
+        cursor.execute(consulta)
+        id_doctor = cursor.fetchone()[0]
+    except Exception as e:
+        input(f"Ocurrió un error{e}. Enter para continuar...")
+    finally:
+        cursor.close()
+        conexion.close()
+    
+    return id_doctor
+
+def obtenIdUltimaVisita():
+    try:
+        cursor, conexion = conectar_base()
+        consulta = "SELECT i_id_visita FROM tbl_visitas ORDER BY i_id_visita DESC LIMIT 1"
+        cursor.execute(consulta)
+        id_doctor = cursor.fetchone()[0]
+    except Exception as e:
+        input(f"Ocurrió un error{e}. Enter para continuar...")
+    finally:
+        cursor.close()
+        conexion.close()
+    
+    return id_doctor
+
+def obtenSalaDisponible():
+    try:
+        cursor, conexion = conectar_base()
+        consulta= """
+                    SELECT i_id_sala_emergencia, i_id_cama, COUNT(*) AS num_camas_desocupadas
+                    FROM tbl_camas
+                    WHERE b_disponibilidad = 1
+                    GROUP BY i_id_sala_emergencia
+                    ORDER BY COUNT(*) DESC
+                    LIMIT 1;
+
+                    """
+        cursor.execute(consulta)
+        id_sala = cursor.fetchall()
+        consulta2 =f"""
+                    UPDATE tbl_camas
+                    SET b_disponibilidad = 0
+                    WHERE i_id_sala_emergencia = %s AND i_id_cama = %s
+                    """
+        cursor.execute(consulta2,(int(id_sala[0][0]),int(id_sala[0][1]),))
+        conexion.commit()
+        return id_sala[0]
+    except Exception as e:
+        input(f"Ocurrió un error{e}. Enter para continuar...")
+    finally:
+        cursor.close()
+        conexion.close()
+
+def obtenDoctorDisponible():
+    try:
+        cursor, conexion = conectar_base()
+        consulta = """
+                    SELECT i_id_doctor
+                    FROM tbl_doctores
+                    WHERE i_consultas_realizadas = (SELECT MIN(i_consultas_realizadas) FROM tbl_doctores WHERE b_estatus_disponibilidad = 1);
+                    """
+        cursor.execute(consulta)
+        id_doctor = cursor.fetchall()
+        consulta2 =f"""
+                    UPDATE tbl_doctores
+                    SET b_estatus_disponibilidad = 0
+                    WHERE i_id_doctor = %s
+                    """
+        cursor.execute(consulta2,(int(id_doctor[0][0]),))
+        conexion.commit()
+        return id_doctor[0][0]
+    except Exception as e:
+        input(f"Ocurrió un error{e}. Enter para continuar...")
+    finally:
+        cursor.close()
+        conexion.close()
+
+def verificaDisponiblidadDoctor():
+    try:
+        cursor, conexion = conectar_base()
+        consulta = """
+                    SELECT i_id_doctor
+                    FROM tbl_doctores
+                    WHERE b_estatus_disponibilidad = 1
+                    """
+        cursor.execute(consulta)
+        id_doctor = cursor.fetchall()
+        if not id_doctor:
+            print("No hay doctores disponibles...")
+            return 0
+        else:
+            return 1
+    except Exception as e:
+        input(f"Ocurrió un error{e}. Enter para continuar...")
+    finally:
+        cursor.close()
+        conexion.close()
+
+def verificaDisponibilidadCama():
+    try:
+        cursor, conexion = conectar_base()
+        consulta = """
+                    SELECT i_id_cama
+                    FROM tbl_camas
+                    WHERE b_disponibilidad = 1
+                    """
+        cursor.execute(consulta)
+        id_camas = cursor.fetchall()
+        if not id_camas:
+            print("No hay camas disponibles...")
+            return 0
+        else:
+            return 1
+    except Exception as e:
+        input(f"Ocurrió un error{e}. Enter para continuar...")
+    finally:
+        cursor.close()
+        conexion.close()
 

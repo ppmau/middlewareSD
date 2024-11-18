@@ -1,5 +1,6 @@
 import os
 import comunicacion_base
+from datetime import datetime
 
 def mostrarOpPacientes():
     opcionMenu = 0
@@ -76,6 +77,14 @@ def mostrarOpEditarPaciente():
 def insertaPacienteBD(nombrePaciente,edadPaciente,emergencia):
     valores = [nombrePaciente,edadPaciente,emergencia]
     comunicacion_base.insertar_en_tabla(valores,"tbl_pacientes")
+    id_doctor = comunicacion_base.obtenDoctorDisponible()
+    id_paciente =comunicacion_base.obtenIdUltimoPaciente()
+    id_sala = comunicacion_base.obtenSalaDisponible()
+    id_visita = int(comunicacion_base.obtenIdUltimaVisita()) + 1
+    folio_visita = "P" + str(id_paciente) + "D" + str(id_doctor) + "S" + str(id_sala[0]) + "C" + str(id_sala[1]) + "V" + str(id_visita)
+    input(folio_visita)
+    valores = [id_paciente,id_doctor,id_sala[0],id_sala[1],folio_visita,1,datetime.now().strftime("%Y-%m-%d")]
+    comunicacion_base.insertar_en_tabla(valores,"tbl_visitas")
 
 def bajaPacienteBD():
     print("Lista de pacientes para baja")
@@ -91,5 +100,6 @@ def bajaPacienteBD():
     except:
         input("Ingrese un número válido. Enter para continuar...")
         mostrarOpEditarPaciente()
+
 
     

@@ -94,5 +94,3 @@ def bajaDoctorBD():
     except:
         input("Ingrese un número válido. Enter para continuar...")
         mostrarOpEditarDoctor()
-
-    

@@ -2,6 +2,7 @@ import os
 import gestion_doctores
 import gestion_pacientes
 import gestion_trabajadores
+import comunicacion_base
 
 
 def mostrarOpciones():
@@ -21,21 +22,22 @@ def mostrarOpciones():
                 mostrarOpRegistro()
             if int(opcionMenu) == 2:
                 mostrarOpGestion()
-    except:
-        input("Ingrese un numero correcto. Enter para continuar...")
+    except Exception as e:
+        input(f"Ingrese un numero correcto. Enter para continuar...{e}")
         mostrarOpciones()
 
 def mostrarOpRegistro():
     opcionMenu = 0
     try:
-        nombrePaciente = input("Nombre del paciente: ")
-        edadPaciente = int(input("Edad paciente: "))
-        descripcionEmergencia = input("Descripción de la emergencia: ")
-        gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
-    except ValueError:
-        mensaje = "Datos erroneos, repita el registro y digite la edad correctamente."
-    finally:
-        input(f"{mensaje} Enter para continuar...")
+        if comunicacion_base.verificaDisponibilidadCama() == 1 and comunicacion_base.verificaDisponiblidadDoctor() == 1:
+            nombrePaciente = input("Nombre del paciente: ")
+            edadPaciente = int(input("Edad paciente: "))
+            descripcionEmergencia = input("Descripción de la emergencia: ")
+            gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
+        else:
+            input("Enter para continuar... 1")
+    except Exception as e:
+        input(f"Datos erroneos, repita el registro y digite la edad correctamente. {e}")
     os.system('cls')
 
 def mostrarOpGestion():
@@ -62,15 +64,7 @@ def mostrarOpGestion():
         input("Ingrese un numero correcto3. Enter para continuar...")
         mostrarOpGestion()
 
-def mostrarOpPacientes():
-    os.system('cls') 
-    print("Pacientes")
-
-def mostrarOpTrabajadores():
-    os.system('cls') 
-    print("Trabajadores")
-    
 def main():
     mostrarOpciones()
 
-main() 
+main()
