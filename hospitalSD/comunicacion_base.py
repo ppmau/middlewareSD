@@ -307,3 +307,38 @@ def verificaDisponibilidadCama():
         cursor.close()
         conexion.close()
 
+def obtenVisitasDoctor(id_doctor):
+    try:
+        cursor, conexion = conectar_base()
+        consulta = f"""SELECT v.v_folio_visita, p.v_nombre, p.v_edad, p.v_emergencia, v.i_id_sala, v.i_id_cama FROM tbl_visitas v
+                    INNER JOIN tbl_pacientes p ON v.i_id_paciente = p.i_id_paciente
+                    WHERE v.i_id_doctor = %s AND b_estatus_visita = 1"""
+        cursor.execute(consulta,(id_doctor,))
+        visita = cursor.fetchall()
+        if not visita:
+            return 0
+        else:
+            print(f"                        Visita activa\n")
+            print(f"Folio:{visita[0][0]} Nombre:{visita[0][1]} Edad:{visita[0][2]} Emergencia:{visita[0][3]} Cama:{visita[0][4]} Sala:{visita[0][5]}\n")
+            return visita[0][0]
+    except Exception as e:
+        input(f"Ocurrió un error{e}. Enter para continuar...")
+    finally:
+        cursor.close()
+        conexion.close()
+
+
+def cerrarVisitasDoctor(folio):
+    try:
+        cursor, conexion = conectar_base()
+        consulta = f"""UPDATE tbl_visitas
+                        SET b_estatus_visita = 0
+                        WHERE v_folio_visita = %s"""
+        cursor.execute(consulta,(folio,))
+        input("Visita Cerrada. Enter para continuar...")
+        conexion.commit()
+    except Exception as e:
+        input(f"Ocurrió un error{e}. Enter para continuar...")
+    finally:
+        cursor.close()
+        conexion.close()

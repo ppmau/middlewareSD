@@ -8,20 +8,24 @@ import comunicacion_base
 def mostrarOpciones():
     opcionMenu = 0
     try:
-        while opcionMenu != 3:
+        while opcionMenu != 4:
             os.system('cls') 
-            if opcionMenu > 3:
+            if opcionMenu > 4:
                 input("Seleccione una opción válida. Enter para continuar...")
                 os.system('cls')  
             print("         Sala de emergencias 1          \n")
             print("1.Registro visita")
-            print("2.Gestionar salas de emergencia")
-            print("3.Salir")
+            print("2.Cerrar visita [Doctores]")
+            print("3.Gestionar salas de emergencia")
+            print("4.Salir")
             opcionMenu = int(input("Seleccione una opción: "))
             if int(opcionMenu) == 1:
                 mostrarOpRegistro()
             if int(opcionMenu) == 2:
+                mostrarOpCerrarVisita()
+            if int(opcionMenu) == 3:
                 mostrarOpGestion()
+
     except Exception as e:
         input(f"Ingrese un numero correcto. Enter para continuar...{e}")
         mostrarOpciones()
@@ -64,6 +68,31 @@ def mostrarOpGestion():
         input("Ingrese un numero correcto3. Enter para continuar...")
         mostrarOpGestion()
 
+def mostrarOpCerrarVisita():
+    os.system('cls') 
+    print("         Cerrar visita activa [Doctores]")
+    try:
+        id_doctor = int(input("Proporcione su ID: "))
+        if comunicacion_base.existe_id(id_doctor,"tbl_doctores") == 1:
+            folio =comunicacion_base.obtenVisitasDoctor(id_doctor)
+            if folio != 0:
+                print("Desea cerrar su visita?\n1.Si\n2.No")
+                opcion = int(input("Seleccione una opcion: "))
+                if opcion == 1:
+                    comunicacion_base.cerrarVisitasDoctor(folio)
+                elif opcion == 2:
+                    mostrarOpciones()
+                else:
+                    input("Opcion incorrecta. Se regresara al menu principal. Enter para continuar...")
+                    mostrarOpciones()
+            else:
+                input("El doctor no tiene visitas asigndas. Se regresara al menu principal. Enter para continuar...")
+        else:
+            input("ID de Doctor inexistente. Enter para continuar...")
+    except Exception as e:
+        input("Digite un numero valido. Enter para continuar...")
+        mostrarOpCerrarVisita()
+        
 def main():
     mostrarOpciones()
 
