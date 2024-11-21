@@ -108,7 +108,8 @@ def asigna_nodo_maestro():
             print (portNode)
             if verificar_conexion(int(portNode[2]),portNode[1]):
                 return portNode[1]
-        
+            else:
+                print("No se pudo conectar con ningun nodo")
 
 inicializarMiddleware()
 server_thread = threading.Thread(target=verificar_conexion)
