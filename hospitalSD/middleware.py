@@ -105,8 +105,9 @@ def asigna_nodo_maestro():
     with open("prioridadNodos.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(',')
-            print (ports)
-            if verificar_conexion(int(portNode[2]),portNode[1]):
+            server_thread = threading.Thread(target=verificar_conexion, args = (int(portNode[2]),portNode[1])
+            conexion = server_thread.start()
+            if conexion:
                 return portNode[1]
 
 inicializarMiddleware()
