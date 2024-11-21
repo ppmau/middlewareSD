@@ -33,8 +33,11 @@ def server(salaEmergencia):
             print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
             if salaEmergencia == nodoMaestro[0]:
                 print("Estas en el nodo maestro")
+                replicarInformacion(data,ipNode)
             else:
                 print("No estas en el nodo maestro")
+                #enviarInformacion(data,ipNode)
+
     except Exception as e:
         print(f"Error en el servidor: {e}")
     finally:
@@ -68,19 +71,23 @@ def mandarMensajeNodo(mensaje):
 
 
 def replicarInformacion(data):
-    print(f"Replicando el mensaje: {data}")
-    instruccion, tabla, datos = data.split("|")
-    if instruccion == "INSERT":
-        comunicacion_base.insertar_en_tabla(tabla,datos)
-    if instruccion == "UPDATE":
-        datos = datos.split(',')
-        id = datos[0]
-        campo = datos[1]
-        valor = datos[2]
-        print(f"ID: {id} CAMPO: {campo} tabla {tabla} valor: {valor}")
-        comunicacion_base.actualizar_tabla(id,campo,tabla,valor)
-    if instruccion == "DELETE":
-        comunicacion_base.eliminar_en_tabla(datos,tabla)
+    with open("prioridadNodos.txt", "r") as listaNodos:
+        for nodos in listaNodos:
+            print(f"Replicando el mensaje: {data}")
+            nodo = nodos.strip().split(',')
+            print(nodo)
+    # instruccion, tabla, datos = data.split("|")
+    # if instruccion == "INSERT":
+    #     comunicacion_base.insertar_en_tabla(tabla,datos)
+    # if instruccion == "UPDATE":
+    #     datos = datos.split(',')
+    #     id = datos[0]
+    #     campo = datos[1]
+    #     valor = datos[2]
+    #     print(f"ID: {id} CAMPO: {campo} tabla {tabla} valor: {valor}")
+    #     comunicacion_base.actualizar_tabla(id,campo,tabla,valor)
+    # if instruccion == "DELETE":
+    #     comunicacion_base.eliminar_en_tabla(datos,tabla)
 
 
 def verificar_conexion(puerto, ipDestino):
