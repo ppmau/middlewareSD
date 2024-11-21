@@ -105,7 +105,7 @@ def asigna_nodo_maestro(ipNodoActual):
     with open("prioridadNodos.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(',')
-            print(ipNodo)
+            print(portNode[1])
             print(ipNodoActual)
             if portNode[1] == ipNodoActual:
                 print(f"Estas en el nodo maestro: {portNode[1]}")
@@ -113,7 +113,7 @@ def asigna_nodo_maestro(ipNodoActual):
                 return portNode[1]
 
 inicializarMiddleware()
-ipNodo, PORT  = asignar_info_nodo()
+PORT, ipNodo  = asignar_info_nodo()
 print(asigna_nodo_maestro(ipNodo))
 #mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
 
