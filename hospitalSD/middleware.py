@@ -108,10 +108,13 @@ def asigna_nodo_maestro(ipNodoActual):
             portNode = ports.strip().split(',')
             print(portNode[1], ipNodoActual)
             if verificar_conexion(int(portNode[2]),portNode[1]):
+                print("Maestro")
                 return [portNode[0], portNode[1]]
             else:
-                print("No se pudo establecer conexion")
-                return [0,0]
+                if portNode[1] == ipNodoActual:
+                    return [portNode[0], portNode[1]] 
+                else:
+                    return [0,0]
 
 inicializarMiddleware('1')
 #mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF|")
