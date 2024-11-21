@@ -327,7 +327,6 @@ def obtenVisitasDoctor(id_doctor):
         cursor.close()
         conexion.close()
 
-
 def cerrarVisitasDoctor(folio):
     try:
         cursor, conexion = conectar_base()

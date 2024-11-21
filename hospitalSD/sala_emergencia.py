@@ -3,6 +3,12 @@ import gestion_doctores
 import gestion_pacientes
 import gestion_trabajadores
 import comunicacion_base
+import middleware
+import socket
+import threading
+import os
+import subprocess
+from datetime import datetime
 
 
 def mostrarOpciones():
@@ -94,6 +100,11 @@ def mostrarOpCerrarVisita():
         mostrarOpCerrarVisita()
         
 def main():
-    mostrarOpciones()
+    middleware.inicializarMiddleware()
+    #middleware.mandarMensajeNodoMaestro("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
+    #middleware.mandarMensajeNodoMaestro("UPDATE|tbl_doctores|1,v_nombre,Dr. Mauricio")
+    #middleware.mandarMensajeNodoMaestro("DELETE|tbl_doctores|5,tbl_doctores")
+    #mostrarOpciones()
+
 
 main()
