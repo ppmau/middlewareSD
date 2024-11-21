@@ -107,7 +107,7 @@ def asigna_nodo_maestro(ipNodoActual):
             portNode = ports.strip().split(',')
             if portNode[1] == ipNodoActual:
                 print(f"Estas en el nodo maestro: {portNode[1]}")
-            elif verificar_conexion(portNode[2,portNode[1]]):
+            elif verificar_conexion(int(portNode[2]),portNode[1]):
                 return portNode[1]
 
 inicializarMiddleware()
