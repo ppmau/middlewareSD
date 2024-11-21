@@ -23,12 +23,6 @@ def server(salaEmergencia):
     PORT, ipNode= asignar_info_nodo()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     nodoMaestro = asigna_nodo_maestro(ipNode)
-    print(nodoMaestro)
-    print(salaEmergencia)
-    if salaEmergencia == nodoMaestro[0]:
-        print("Estas en el nodo maestro")
-    else:
-        print("No estas en el nodo maestro")
     try:
         server_socket.bind((ipNode, PORT ))
         server_socket.listen(5)
@@ -37,7 +31,14 @@ def server(salaEmergencia):
             data = client_socket.recv(1024).decode()
             client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
             print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
-            replicarInformacion(data)
+            if salaEmergencia == nodoMaestro[0]:
+                print("Estas en el nodo maestro")
+                with open("prioridadNodos.txt", "r") as listaNodos:
+                    for nodos in listaNodos:
+                        nodo = nodos.strip().split(',')
+                        print(f"Replicando en nodo {nodo[1]} por el puerto {nodo[2]} la instruccion {data}")
+            else:
+                print("No estas en el nodo maestro")
     except Exception as e:
         print(f"Error en el servidor: {e}")
     finally:
