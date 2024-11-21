@@ -105,11 +105,14 @@ def asigna_nodo_maestro():
     with open("prioridadNodos.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(',')
+            print (portNode)
             if verificar_conexion(int(portNode[2]),portNode[1]):
                 return portNode[1]
         
 
 inicializarMiddleware()
+server_thread = threading.Thread(target=verificar_conexion)
+server_thread.start()
 print(asignar_info_nodo())
 print(asigna_nodo_maestro())
 #mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
