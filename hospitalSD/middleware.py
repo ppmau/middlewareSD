@@ -105,7 +105,7 @@ def asigna_nodo_maestro():
     with open("prioridadNodos.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(',')
-            if verificar_conexion(portNode[2],portNode[1]):
+            if verificar_conexion(int(portNode[2]),portNode[1]):
                 return portNode[1]
         
 
