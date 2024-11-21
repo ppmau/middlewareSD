@@ -105,6 +105,8 @@ def asigna_nodo_maestro(ipNodoActual):
     with open("prioridadNodos.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(',')
+            print(ipNodo)
+            print(ipNodoActual)
             if portNode[1] == ipNodoActual:
                 print(f"Estas en el nodo maestro: {portNode[1]}")
             elif verificar_conexion(int(portNode[2]),portNode[1]):
