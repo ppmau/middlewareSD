@@ -8,7 +8,6 @@ from datetime import datetime
 def asignar_info_nodo():
     osComand = "ip -4 addr show ens33 | awk '/inet / {print $2}' | cut -d/ -f1"
     ipNode = subprocess.check_output(osComand, shell=True, text=True).strip()
-    nodoMaestro = 0
     
     with open("prioridadNodos.txt", "r") as nodeRelation:
         for ports in nodeRelation:
@@ -20,11 +19,14 @@ def asignar_info_nodo():
     return PORT, ipNode
 
 
-def server():
+def server(salaEmergencia):
     PORT, ipNode= asignar_info_nodo()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     nodoMaestro = asigna_nodo_maestro(ipNode)
-    print(nodoMaestro)
+    if salaEmergencia == nodoMaestro[0]:
+        print("Estas en el nodo maestro")
+    else:
+        print("No estas en el nodo maestro")
     try:
         server_socket.bind((ipNode, PORT ))
         server_socket.listen(5)
@@ -53,9 +55,9 @@ def cliente(mensaje,puerto,ipDestino):
     finally:
         client_socket.close()
 
-def inicializarMiddleware():
+def inicializarMiddleware(salaEmergencia):
     # Crear el hilo para el servidor
-    server_thread = threading.Thread(target=server)
+    server_thread = threading.Thread(target=server, args=(salaEmergencia))
     server_thread.start()
     
 
