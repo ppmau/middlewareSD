@@ -68,6 +68,7 @@ def mostrar_opciones():
             print("\n           Menú\n")
             print("1. Enviar mensaje a un nodo\n")
             print("2. Mostrar mensajes del nodo\n")
+            print("3. Salir")
             try:
                 opcionAccion = int(input("Selecciona una opción: "))
                 if opcionAccion == 1:
@@ -140,5 +141,4 @@ if __name__ == "__main__":
     server_thread = threading.Thread(target=server)
     server_thread.start()
     mostrar_opciones()
-
-
+    #cambio
