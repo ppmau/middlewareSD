@@ -92,7 +92,7 @@ def verificar_conexion(puerto, ipDestino):
         client_socket.connect((ipDestino, puerto))
         print(f"Conexión exitosa con el nodo en {ipDestino}:{puerto}.")
         return True
-    except (ConnectionRefusedError, socket.timeout) as e:
+    except (ConnectionRefusedError, OSError , socket.timeout) as e:
         # Conexión fallida
         print(f"No se pudo conectar con el nodo en {ipDestino}:{puerto}. Error: {e}")
         return False
