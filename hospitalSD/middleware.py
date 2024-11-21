@@ -23,6 +23,8 @@ def server(salaEmergencia):
     PORT, ipNode= asignar_info_nodo()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     nodoMaestro = asigna_nodo_maestro(ipNode)
+    print(nodoMaestro)
+    print(salaEmergencia)
     if salaEmergencia == str(nodoMaestro[0]):
         print("Estas en el nodo maestro")
     else:
