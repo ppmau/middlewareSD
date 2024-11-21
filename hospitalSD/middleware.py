@@ -24,6 +24,7 @@ def server():
     PORT, ipNode= asignar_info_nodo()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     nodoMaestro = asigna_nodo_maestro(ipNode)
+    print(nodoMaestro)
     try:
         server_socket.bind((ipNode, PORT ))
         server_socket.listen(5)
