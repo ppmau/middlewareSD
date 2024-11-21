@@ -8,12 +8,11 @@ from datetime import datetime
 def asignar_info_nodo():
     osComand = "ip -4 addr show ens33 | awk '/inet / {print $2}' | cut -d/ -f1"
     ipNode = subprocess.check_output(osComand, shell=True, text=True).strip()
+    nodoMaestro = 0
     
     with open("prioridadNodos.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(',')
-            print(portNode)
-            print(ipNode)
             if portNode[1] == ipNode:
                 PORT = int(portNode[2])
     print(f"puerto asignado PORT:{PORT}")
@@ -81,10 +80,38 @@ def replicarInformacion(data):
         comunicacion_base.actualizar_tabla(id,campo,tabla,valor)
     if instruccion == "DELETE":
         comunicacion_base.eliminar_en_tabla(datos,tabla)
+
+
+def verificar_conexion(puerto, ipDestino):
+    try:
+        # Crear socket para el cliente
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.settimeout(5)  # Tiempo de espera para evitar bloqueos
+
+        # Intentar conectar al nodo
+        client_socket.connect((ipDestino, puerto))
+        print(f"Conexión exitosa con el nodo en {ipDestino}:{puerto}.")
+        return True
+    except (ConnectionRefusedError, socket.timeout) as e:
+        # Conexión fallida
+        print(f"No se pudo conectar con el nodo en {ipDestino}:{puerto}. Error: {e}")
+        return False
+    finally:
+        # Asegurarse de cerrar el socket
+        client_socket.close()
+
+def asigna_nodo_maestro():
+    nodoMaestro = 0
+    with open("prioridadNodos.txt", "r") as nodeRelation:
+        for ports in nodeRelation:
+            portNode = ports.strip().split(',')
+            if verificar_conexion(portNode[2],portNode[1]):
+                return portNode[1]
         
 
 inicializarMiddleware()
 print(asignar_info_nodo())
+print(asigna_nodo_maestro())
 #mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
 
 
