@@ -113,7 +113,7 @@ def asigna_nodo_maestro(ipNodoActual):
                 print("No se pudo establecer conexion")
                 return 0
 
-inicializarMiddleware()
+inicializarMiddleware('1')
 #mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF|")
 
 
