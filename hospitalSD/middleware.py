@@ -25,7 +25,7 @@ def server(salaEmergencia):
     nodoMaestro = asigna_nodo_maestro(ipNode)
     print(nodoMaestro)
     print(salaEmergencia)
-    if salaEmergencia == str(nodoMaestro[0]):
+    if salaEmergencia == nodoMaestro[0]:
         print("Estas en el nodo maestro")
     else:
         print("No estas en el nodo maestro")
@@ -103,17 +103,18 @@ def verificar_conexion(puerto, ipDestino):
         client_socket.close()
 
 def asigna_nodo_maestro(ipNodoActual):
-    nodoMaestro = 0
     with open("prioridadNodos.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(',')
+            print(portNode[1], ipNodoActual)
             if portNode[1] == ipNodoActual:
+                print("Maestro")
                 return [portNode[0], portNode[1]]
             elif verificar_conexion(int(portNode[2]),portNode[1]):
                 return [portNode[0], portNode[1]]
             else:
                 print("No se pudo establecer conexion")
-                return 0
+                return [0,0]
 
 inicializarMiddleware('1')
 #mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF|")
