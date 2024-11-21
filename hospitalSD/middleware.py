@@ -100,21 +100,19 @@ def verificar_conexion(puerto, ipDestino):
         # Asegurarse de cerrar el socket
         client_socket.close()
 
-def asigna_nodo_maestro():
+def asigna_nodo_maestro(ipNodoActual):
     nodoMaestro = 0
     with open("prioridadNodos.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(',')
-            server_thread = threading.Thread(target=verificar_conexion(int(portNode[2]),portNode[1]))
-            conexion = server_thread.start()
-            if conexion:
+            if portNode[1] == ipNodoActual:
+                print(f"Estas en el nodo maestro: {portNode[1]}")
+            elif verificar_conexion(portNode[2,portNode[1]]):
                 return portNode[1]
 
 inicializarMiddleware()
-server_thread = threading.Thread(target=verificar_conexion)
-server_thread.start()
-print(asignar_info_nodo())
-print(asigna_nodo_maestro())
+ipNodo, PORT  = asignar_info_nodo()
+print(asigna_nodo_maestro(ipNodo))
 #mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
 
 
