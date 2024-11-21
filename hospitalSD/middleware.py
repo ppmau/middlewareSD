@@ -12,6 +12,8 @@ def asignar_info_nodo():
     with open("prioridadNodos.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(',')
+            print(portNode)
+            print(ipNode)
             if portNode[1] == ipNode:
                 PORT = int(portNode[2])
     print(f"puerto asignado PORT:{PORT}")
