@@ -21,12 +21,11 @@ def asignar_info_nodo():
 
 
 def server():
-    PORT = 5000
-    ipNode = "127.0.0.1"
     PORT, ipNode= asignar_info_nodo()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    nodoMaestro = asigna_nodo_maestro(ipNode)
     try:
-        server_socket.bind(('127.0.0.1', PORT ))
+        server_socket.bind((ipNode, PORT ))
         server_socket.listen(5)
         while True:
             client_socket, client_address = server_socket.accept()
@@ -90,11 +89,9 @@ def verificar_conexion(puerto, ipDestino):
 
         # Intentar conectar al nodo
         client_socket.connect((ipDestino, puerto))
-        print(f"Conexión exitosa con el nodo en {ipDestino}:{puerto}.")
         return True
     except (ConnectionRefusedError, OSError , socket.timeout) as e:
         # Conexión fallida
-        print(f"No se pudo conectar con el nodo en {ipDestino}:{puerto}. Error: {e}")
         return False
     finally:
         # Asegurarse de cerrar el socket
@@ -106,15 +103,15 @@ def asigna_nodo_maestro(ipNodoActual):
         for ports in nodeRelation:
             portNode = ports.strip().split(',')
             if portNode[1] == ipNodoActual:
-                print(f"Estas en el nodo maestro: {portNode[1]}")
-                return ipNodoActual
+                return [portNode[0], portNode[1]]
             elif verificar_conexion(int(portNode[2]),portNode[1]):
-                return portNode[1]
+                return [portNode[0], portNode[1]]
+            else:
+                print("No se pudo establecer conexion")
+                return 0
 
 inicializarMiddleware()
-PORT, ipNodo  = asignar_info_nodo()
-print(asigna_nodo_maestro(ipNodo))
-#mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
+#mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF|")
 
 
 
