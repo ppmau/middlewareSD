@@ -112,9 +112,7 @@ def asigna_nodo_maestro(ipNodoActual):
                 return [portNode[0], portNode[1]]
             else:
                 if portNode[1] == ipNodoActual:
-                    return [portNode[0], portNode[1]] 
-                else:
-                    return [0,0]
+                    return [portNode[0], portNode[1]]
 
 inicializarMiddleware('1')
 #mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF|")
