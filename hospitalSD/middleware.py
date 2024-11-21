@@ -33,6 +33,10 @@ def server(salaEmergencia):
             print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
             if salaEmergencia == nodoMaestro[0]:
                 print("Estas en el nodo maestro")
+                with open("prioridadNodos.txt", "r") as listaNodos:
+                    for nodos in listaNodos:
+                        nodo = nodos.strip().split(',')
+                        print(nodo)
             else:
                 print("No estas en el nodo maestro")
     except Exception as e:
