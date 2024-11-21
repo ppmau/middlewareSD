@@ -22,7 +22,7 @@ def asignar_info_nodo():
 def server():
     PORT = 5000
     ipNode = "127.0.0.1"
-    PORT, ipNode, nodoMaestro = asignar_info_nodo()
+    PORT, ipNode= asignar_info_nodo()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         server_socket.bind(('127.0.0.1', PORT ))
