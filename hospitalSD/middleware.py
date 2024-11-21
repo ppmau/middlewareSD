@@ -107,10 +107,7 @@ def asigna_nodo_maestro(ipNodoActual):
         for ports in nodeRelation:
             portNode = ports.strip().split(',')
             print(portNode[1], ipNodoActual)
-            if portNode[1] == ipNodoActual:
-                print("Maestro")
-                return [portNode[0], portNode[1]]
-            elif verificar_conexion(int(portNode[2]),portNode[1]):
+            if verificar_conexion(int(portNode[2]),portNode[1]):
                 return [portNode[0], portNode[1]]
             else:
                 print("No se pudo establecer conexion")
