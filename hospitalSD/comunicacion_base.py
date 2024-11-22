@@ -6,7 +6,7 @@ def conectar_base():
     host="localhost",
     user="root",
     password="root",
-    database="sala_emergencia",
+    database="sala_emergencias",
     charset="utf8mb4",
     collation="utf8mb4_general_ci",
     auth_plugin="mysql_native_password",  # Especifica el método de autenticación
