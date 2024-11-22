@@ -83,7 +83,7 @@ def replicarInformacion(data, nodoMaestro):
                 instruccion, tabla, datos = data.split("|")
                 if instruccion == "INSERT":
                     print("Entrando en bases")
-                    comunicacion_base.insertar_en_tabla(tabla,datos)
+                    comunicacion_base.insertar_en_tabla(datos,tabla)
                     print(f"Entrando a tabla {tabla}")
                 if instruccion == "UPDATE":
                     datos = datos.split(',')
