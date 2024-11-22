@@ -35,7 +35,7 @@ def server(salaEmergencia):
             if salaEmergencia == nodoMaestro[0]: #Instruccion recibida al nodo maestro
                 print("Estas en el nodo maestro")
                 replicarInformacion(data)
-                distribuirInformacion(nodoMaestro)
+                distribuirInformacion(data,nodoMaestro)
             else:
                 print("No estas en el nodo maestro")
                 #enviarInformacion(data,ipNode)
