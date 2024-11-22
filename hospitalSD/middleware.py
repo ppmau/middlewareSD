@@ -65,7 +65,7 @@ def cliente(mensaje,puerto,ipDestino):
     finally:
         client_socket.close()
 
-def inicializarMiddleware(salaEmergencia):
+def inicializarMiddleware():
     # Crear el hilo para el servidor
     server_thread = threading.Thread(target=server, args=(salaEmergencia))
     server_thread.start()
