@@ -83,13 +83,11 @@ def actualizar_tabla(id,campo,tabla,valor):
 
 def insertar_en_tabla(valores,tabla):
     try:
-        print("Se entro en bases")
         cursor, conexion= conectar_base()
-        print(tabla)
         if tabla == "tbl_doctores":
             nombre = valores[0]
             curp = valores[1]
-            print(f"entro a tbl_doctores {valores}")
+            print(f"entro a tbl_doctores: {valores}")
             consulta = f"INSERT INTO {tabla} (v_nombre, v_curp) VALUES (%s, %s)"
             cursor.execute(consulta, (nombre,curp,))
             conexion.commit()
