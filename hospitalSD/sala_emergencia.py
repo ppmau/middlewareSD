@@ -8,6 +8,7 @@ import socket
 import threading
 import os
 import subprocess
+import middleware
 from datetime import datetime
 
 
@@ -43,7 +44,10 @@ def mostrarOpRegistro():
             nombrePaciente = input("Nombre del paciente: ")
             edadPaciente = int(input("Edad paciente: "))
             descripcionEmergencia = input("Descripción de la emergencia: ")
-            gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
+            ip, puerto = middleware.asigna_nodo_maestro()
+            mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
+            middleware.enviaInstruccion() 
+            #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
         else:
             input("Enter para continuar... 1")
     except Exception as e:
@@ -100,11 +104,12 @@ def mostrarOpCerrarVisita():
         mostrarOpCerrarVisita()
         
 def main():
+    salaEmergencia = 1
     middleware.inicializarMiddleware()
     #middleware.mandarMensajeNodoMaestro("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
     #middleware.mandarMensajeNodoMaestro("UPDATE|tbl_doctores|1,v_nombre,Dr. Mauricio")
-    #middleware.mandarMensajeNodoMaestro("DELETE|tbl_doctores|5,tbl_doctores")
-    #mostrarOpciones()
+    #middleware.mandarMensajeNodoMaestro("DELETE|tbl_doctores|5")
+    mostrarOpciones()
 
 
 main()

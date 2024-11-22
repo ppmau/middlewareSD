@@ -19,11 +19,12 @@ def asignar_info_nodo():
     return PORT, ipNode
 
 
-def server(salaEmergencia):
+def server():
     PORT, ipNode= asignar_info_nodo()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
     nodoMaestro = asigna_nodo_maestro(ipNode)
+    print(f"Servidor escuchando {ipNode}")
     try:
         server_socket.bind((ipNode,PORT))
         server_socket.listen(5)
@@ -32,7 +33,7 @@ def server(salaEmergencia):
             data = client_socket.recv(1024).decode()
             client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
             print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
-            if salaEmergencia == nodoMaestro[0]: #Instruccion recibida al nodo maestro
+            if ipNode == nodoMaestro[1]: #Instruccion recibida al nodo maestro
                 print("Estas en el nodo maestro")
                 replicarInformacion(data)
                 distribuirInformacion(data,nodoMaestro)
@@ -68,7 +69,10 @@ def inicializarMiddleware(salaEmergencia):
     # Crear el hilo para el servidor
     server_thread = threading.Thread(target=server, args=(salaEmergencia))
     server_thread.start()
-    
+
+def enviaInstruccion(mensaje,puerto,ipDestino): #Función para crear el hilo que enviará el mensaje
+    client_thread = threading.Thread(target=cliente, args=(mensaje,puerto,ipDestino))
+    client_thread.start()
 
 def mandarMensajeNodo(mensaje):
     print(mensaje)
@@ -78,7 +82,6 @@ def mandarMensajeNodo(mensaje):
 
 
 def replicarInformacion(data):
-    data = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
     instruccion, tabla, datos = data.split("|")
     if instruccion == "INSERT":
         comunicacion_base.insertar_en_tabla(datos.split(','),tabla)
@@ -93,7 +96,6 @@ def replicarInformacion(data):
         comunicacion_base.eliminar_en_tabla(datos,tabla)
 
 def distribuirInformacion(data,nodoMaestro):
-    data = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
     with open("prioridadNodos.txt", "r") as listaNodos:
         for nodo in listaNodos:
             infoNodo = nodo.strip().split(',')
@@ -129,7 +131,7 @@ def asigna_nodo_maestro(ipNodoActual):
                 if portNode[1] == ipNodoActual:
                     return [portNode[0], portNode[1], portNode[2]]
 
-inicializarMiddleware('1')
+#inicializarMiddleware('1')
 #mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF|")
 
 
