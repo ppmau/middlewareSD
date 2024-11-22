@@ -22,6 +22,7 @@ def asignar_info_nodo():
 def server(salaEmergencia):
     PORT, ipNode= asignar_info_nodo()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
     nodoMaestro = asigna_nodo_maestro(ipNode)
     try:
         server_socket.bind((ipNode, PORT ))
@@ -33,7 +34,7 @@ def server(salaEmergencia):
             print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
             if salaEmergencia == nodoMaestro[0]:
                 print("Estas en el nodo maestro")
-                #replicarInformacion(data,ipNode)
+                replicarInformacion(data,ipNode)
             else:
                 print("No estas en el nodo maestro")
                 #enviarInformacion(data,ipNode)
