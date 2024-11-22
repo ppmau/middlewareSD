@@ -35,6 +35,7 @@ def server(salaEmergencia):
             if salaEmergencia == nodoMaestro[0]: #Instruccion recibida al nodo maestro
                 print("Estas en el nodo maestro")
                 replicarInformacion(data)
+                distribuirInformacion(nodoMaestro)
             else:
                 print("No estas en el nodo maestro")
                 #enviarInformacion(data,ipNode)
@@ -92,6 +93,11 @@ def replicarInformacion(data):
 
 def distribuirInformacion(data,nodoMaestro):
     data = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
+    with open("prioridadNodos.txt", "r") as listaNodos:
+        for nodo in listaNodos:
+            infoNodo = nodo.strip().split(',')
+            if infoNodo[1] != nodoMaestro[1]:
+                cliente(data,nodoMaestro[1],nodoMaestro[2])
 
 def verificar_conexion(puerto, ipDestino):
     try:
@@ -116,10 +122,10 @@ def asigna_nodo_maestro(ipNodoActual):
             print(portNode[1], ipNodoActual)
             if verificar_conexion(int(portNode[2]),portNode[1]):
                 print("Maestro")
-                return [portNode[0], portNode[1]]
+                return [portNode[0], portNode[1], portNode[2]]
             else:
                 if portNode[1] == ipNodoActual:
-                    return [portNode[0], portNode[1]]
+                    return [portNode[0], portNode[1], portNode[2]]
 
 inicializarMiddleware('1')
 #mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF|")
