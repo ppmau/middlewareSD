@@ -52,6 +52,7 @@ def cliente(mensaje,puerto,ipDestino):
         print(puerto)
         print(ipDestino)
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
         client_socket.connect((ipDestino, puerto))
         client_socket.send(mensaje.encode())
         response = client_socket.recv(1024).decode()
