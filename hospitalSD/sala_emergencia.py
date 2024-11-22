@@ -108,6 +108,7 @@ def mostrarOpCerrarVisita():
 def main():
     salaEmergencia = 1
     middleware.inicializarMiddleware()
+    input()
     client_thread = threading.Thread(target=middleware.cliente, args=("mensaje",12345,'192.168.252.134'))
     client_thread.start()
     #middleware.mandarMensajeNodoMaestro("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
