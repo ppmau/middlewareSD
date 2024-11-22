@@ -73,11 +73,11 @@ def mandarMensajeNodo(mensaje):
 
 def replicarInformacion(data, ipNode):
     print(f"Replicando informacion {data} desde nodo maestro {ipNode}")
-    # with open("prioridadNodos.txt", "r") as listaNodos:
-    #     for nodos in listaNodos:
-    #         print(f"Replicando el mensaje: {data}")
-    #         nodo = nodos.strip().split(',')
-    #         print(nodo)
+    with open("prioridadNodos.txt", "r") as listaNodos:
+        for nodos in listaNodos:
+            print(f"Replicando el mensaje: {data}")
+            nodo = nodos.strip().split(',')
+            print(nodo)
     # instruccion, tabla, datos = data.split("|")
     # if instruccion == "INSERT":
     #     comunicacion_base.insertar_en_tabla(tabla,datos)
