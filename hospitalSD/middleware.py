@@ -47,6 +47,7 @@ def server(salaEmergencia):
 
 def cliente(mensaje,puerto,ipDestino):
     try:
+        print("Entrando a cliente")
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect((ipDestino, puerto))
         client_socket.send(mensaje.encode())
@@ -93,6 +94,7 @@ def distribuirInformacion(data,nodoMaestro):
         for nodo in listaNodos:
             infoNodo = nodo.strip().split(',')
             if infoNodo[1] != nodoMaestro[1]:
+                print("Recorriendo nodos")
                 cliente(data,int(nodoMaestro[2]),nodoMaestro[1])
 
 def verificar_conexion(puerto, ipDestino):
