@@ -32,9 +32,9 @@ def server(salaEmergencia):
             data = client_socket.recv(1024).decode()
             client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
             print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
-            if salaEmergencia == nodoMaestro[0]:
+            if salaEmergencia == nodoMaestro[0]: #Instruccion recibida al nodo maestro
                 print("Estas en el nodo maestro")
-                replicarInformacion(data,nodoMaestro[1])
+                replicarInformacion(data)
             else:
                 print("No estas en el nodo maestro")
                 #enviarInformacion(data,ipNode)
