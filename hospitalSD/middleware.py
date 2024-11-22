@@ -47,7 +47,10 @@ def server(salaEmergencia):
 
 def cliente(mensaje,puerto,ipDestino):
     try:
-        print("Entrando a cliente")
+        print("Mandando mensaje")
+        print(mensaje)
+        print(puerto)
+        print(ipDestino)
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect((ipDestino, puerto))
         client_socket.send(mensaje.encode())
