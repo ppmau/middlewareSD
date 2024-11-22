@@ -71,6 +71,7 @@ def inicializarMiddleware():
     server_thread.start()
 
 def enviaInstruccion(mensaje,puerto,ipDestino): #Función para crear el hilo que enviará el mensaje
+    print(f"mandando mensaje en envia instruccion {mensaje}")
     client_thread = threading.Thread(target=cliente, args=(mensaje,puerto,ipDestino))
     client_thread.start()
 
