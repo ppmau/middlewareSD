@@ -84,6 +84,7 @@ def replicarInformacion(data, nodoMaestro):
                 if instruccion == "INSERT":
                     print("Entrando en bases")
                     comunicacion_base.insertar_en_tabla(tabla,datos)
+                    print(f"Entrando a tabla {tabla}")
                 if instruccion == "UPDATE":
                     datos = datos.split(',')
                     id = datos[0]
