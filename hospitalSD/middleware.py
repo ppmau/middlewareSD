@@ -72,7 +72,7 @@ def mandarMensajeNodo(mensaje):
 
 
 def replicarInformacion(data, nodoMaestro):
-    data = "INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF|"
+    data = "INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF"
     print(f"Replicando informacion {data} desde nodo maestro {nodoMaestro}")
     with open("prioridadNodos.txt", "r") as listaNodos:
         for nodos in listaNodos:
