@@ -25,7 +25,7 @@ def server(salaEmergencia):
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
     nodoMaestro = asigna_nodo_maestro(ipNode)
     try:
-        server_socket.bind((ipNode, PORT ))
+        server_socket.bind((ipNode,PORT))
         server_socket.listen(5)
         while True:
             client_socket, client_address = server_socket.accept()
@@ -73,7 +73,7 @@ def mandarMensajeNodo(mensaje):
 
 def replicarInformacion(data, nodoMaestro):
     data = "INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF|"
-    print(f"Replicando informacion {data} desde nodo maestro {ipNode}")
+    print(f"Replicando informacion {data} desde nodo maestro {nodoMaestro}")
     with open("prioridadNodos.txt", "r") as listaNodos:
         for nodos in listaNodos:
             print(f"Replicando el mensaje: {data}")
