@@ -74,22 +74,18 @@ def mandarMensajeNodo(mensaje):
 
 def replicarInformacion(data):
     data = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
-    with open("prioridadNodos.txt", "r") as listaNodos:
-        for nodos in listaNodos:
-            nodo = nodos.strip().split(',')
-            print(nodo)
-            instruccion, tabla, datos = data.split("|")
-            if instruccion == "INSERT":
-                comunicacion_base.insertar_en_tabla(datos.split(','),tabla)
-            if instruccion == "UPDATE":
-                datos = datos.split(',')
-                id = datos[0]
-                campo = datos[1]
-                valor = datos[2]
-                print(f"ID: {id} CAMPO: {campo} tabla {tabla} valor: {valor}")
-                comunicacion_base.actualizar_tabla(id,campo,tabla,valor)
-            if instruccion == "DELETE":
-                comunicacion_base.eliminar_en_tabla(datos,tabla)
+    instruccion, tabla, datos = data.split("|")
+    if instruccion == "INSERT":
+        comunicacion_base.insertar_en_tabla(datos.split(','),tabla)
+    if instruccion == "UPDATE":
+        datos = datos.split(',')
+        id = datos[0]
+        campo = datos[1]
+        valor = datos[2]
+        print(f"ID: {id} CAMPO: {campo} tabla {tabla} valor: {valor}")
+        comunicacion_base.actualizar_tabla(id,campo,tabla,valor)
+    if instruccion == "DELETE":
+        comunicacion_base.eliminar_en_tabla(datos,tabla)
 
 def distribuirInformacion(data,nodoMaestro):
     data = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
