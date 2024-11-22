@@ -83,7 +83,7 @@ def mandarMensajeNodo(mensaje):
 
 
 def replicarInformacion(data):
-    print("Estas en replicar informacion")
+    print(f"Estas en replicar informacion {data}")
     instruccion, tabla, datos = data.split("|")
     if instruccion == "INSERT":
         comunicacion_base.insertar_en_tabla(datos.split(','),tabla)
