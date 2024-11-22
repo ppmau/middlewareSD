@@ -33,7 +33,7 @@ def server(salaEmergencia):
             print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
             if salaEmergencia == nodoMaestro[0]:
                 print("Estas en el nodo maestro")
-                replicarInformacion(data,ipNode)
+                #replicarInformacion(data,ipNode)
             else:
                 print("No estas en el nodo maestro")
                 #enviarInformacion(data,ipNode)
