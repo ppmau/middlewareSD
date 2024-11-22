@@ -44,11 +44,11 @@ def mostrarOpRegistro():
             nombrePaciente = input("Nombre del paciente: ")
             edadPaciente = int(input("Edad paciente: "))
             descripcionEmergencia = input("Descripción de la emergencia: ")
-            ipNodo= middleware.asignar_info_nodo()[1]
+            puertoNodo, ipNodo= middleware.asignar_info_nodo()
             ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)  
             mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
             middleware.enviaInstruccion(mensaje,puertoMaestro,ipMaestro) #Envia informacion directamente al server en nodo maestro 
-            
+
             #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
         else:
             input("Enter para continuar... 1")
