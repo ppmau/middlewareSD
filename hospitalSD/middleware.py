@@ -67,7 +67,7 @@ def cliente(mensaje,puerto,ipDestino):
 
 def inicializarMiddleware():
     # Crear el hilo para el servidor
-    server_thread = threading.Thread(target=server, args=(salaEmergencia))
+    server_thread = threading.Thread(target=server)
     server_thread.start()
 
 def enviaInstruccion(mensaje,puerto,ipDestino): #Función para crear el hilo que enviará el mensaje
