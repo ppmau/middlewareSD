@@ -93,7 +93,7 @@ def distribuirInformacion(data,nodoMaestro):
         for nodo in listaNodos:
             infoNodo = nodo.strip().split(',')
             if infoNodo[1] != nodoMaestro[1]:
-                cliente(data,nodoMaestro[1],int(nodoMaestro[2]))
+                cliente(data,nodoMaestro[2],nodoMaestro[1])
 
 def verificar_conexion(puerto, ipDestino):
     try:
