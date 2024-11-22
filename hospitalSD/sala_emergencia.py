@@ -47,7 +47,8 @@ def mostrarOpRegistro():
             puertoNodo, ipNodo= middleware.asignar_info_nodo()
             ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)  
             mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
-            middleware.enviaInstruccion(mensaje,puertoMaestro,ipMaestro) #Envia informacion directamente al server en nodo maestro 
+            client_thread = threading.Thread(target=middleware.cliente, args=("mensaje",12345,'192.168.252.134'))
+            client_thread.start() #Envia informacion directamente al server en nodo maestro 
 
             #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
         else:
@@ -108,13 +109,10 @@ def mostrarOpCerrarVisita():
 def main():
     salaEmergencia = 1
     middleware.inicializarMiddleware()
-    input()
-    client_thread = threading.Thread(target=middleware.cliente, args=("mensaje",12345,'192.168.252.134'))
-    client_thread.start()
     #middleware.mandarMensajeNodoMaestro("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
     #middleware.mandarMensajeNodoMaestro("UPDATE|tbl_doctores|1,v_nombre,Dr. Mauricio")
     #middleware.mandarMensajeNodoMaestro("DELETE|tbl_doctores|5")
-    #mostrarOpciones()
+    mostrarOpciones()
 
 
 main()
