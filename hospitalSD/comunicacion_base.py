@@ -85,6 +85,7 @@ def insertar_en_tabla(valores,tabla):
     try:
         print("Se entro en bases")
         cursor, conexion= conectar_base()
+        print(tabla)
         if tabla == "tbl_doctores":
             nombre = valores[0]
             curp = valores[1]
