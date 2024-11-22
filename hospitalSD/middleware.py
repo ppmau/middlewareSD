@@ -71,8 +71,8 @@ def mandarMensajeNodo(mensaje):
     client_thread.start()
 
 
-def replicarInformacion(data):
-    print("Replicando informacion")
+def replicarInformacion(data, ipNode):
+    print(f"Replicando informacion {data} desde nodo maestro {ipNode}")
     # with open("prioridadNodos.txt", "r") as listaNodos:
     #     for nodos in listaNodos:
     #         print(f"Replicando el mensaje: {data}")
