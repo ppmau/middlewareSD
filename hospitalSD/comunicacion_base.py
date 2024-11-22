@@ -83,6 +83,7 @@ def actualizar_tabla(id,campo,tabla,valor):
 
 def insertar_en_tabla(valores,tabla):
     try:
+        print("Se entro en bases")
         cursor, conexion= conectar_base()
         if tabla == "tbl_doctores":
             nombre = valores[0]
