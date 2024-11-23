@@ -73,9 +73,9 @@ def inicializarMiddleware():
     server_ready = threading.Event()
     server_thread = threading.Thread(target=server, args=(server_ready,))
     server_thread.start()
-    client_thread = threading.Thread(target=cliente, args=('hola',12345,'192.168.252.134',server_ready))
-    client_thread.start()
-    #sala_emergencia.mostrarOpciones(server_ready)
+    # client_thread = threading.Thread(target=cliente, args=('hola',12345,'192.168.252.134',server_ready))
+    # client_thread.start()
+    sala_emergencia.mostrarOpciones(server_ready)
 
 def enviaInstruccion(mensaje,puerto,ipDestino): #Función para crear el hilo que enviará el mensaje
     print(f"mandando mensaje en envia instruccion {mensaje}")
