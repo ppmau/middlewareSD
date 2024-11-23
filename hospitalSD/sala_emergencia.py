@@ -16,7 +16,7 @@ server_ready = None
 
 
 def mostrarOpciones(serverReady):
-    #serverReady.wait()
+    serverReady.wait()
     opcionMenu = 0
     try:
         while opcionMenu != 4:
@@ -42,7 +42,7 @@ def mostrarOpciones(serverReady):
         mostrarOpciones()
 
 def mostrarOpRegistro(serverReady):
-    serverReady.wait()
+    #serverReady.wait()
     opcionMenu = 0
     try:
         if comunicacion_base.verificaDisponibilidadCama() == 1 and comunicacion_base.verificaDisponiblidadDoctor() == 1:
@@ -115,9 +115,7 @@ def mostrarOpCerrarVisita():
 def main():
     global server_ready
     salaEmergencia = 1
-    server_ready = threading.Event()
-    server_thread = threading.Thread(target=middleware.server, args=(server_ready,))
-    server_thread.start()
+    server_ready = middleware.inicializarMiddleware
     #middleware.mandarMensajeNodoMaestro("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
     #middleware.mandarMensajeNodoMaestro("UPDATE|tbl_doctores|1,v_nombre,Dr. Mauricio")
     #middleware.mandarMensajeNodoMaestro("DELETE|tbl_doctores|5")
