@@ -11,6 +11,8 @@ import subprocess
 import middleware
 from datetime import datetime
 
+server_ready = threading.Event() #Variable global para controlar inicializacion del servidor y sincronizar con los clientes
+
 
 def mostrarOpciones():
     opcionMenu = 0
@@ -47,7 +49,7 @@ def mostrarOpRegistro():
             puertoNodo, ipNodo= middleware.asignar_info_nodo()
             ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)  
             mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
-            client_thread = threading.Thread(target=middleware.cliente, args=("mensaje",12345,'192.168.252.134'))
+            client_thread = threading.Thread(target=middleware.cliente, args=("mensaje",12345,'192.168.252.134',server_ready))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
 
             #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
@@ -108,12 +110,9 @@ def mostrarOpCerrarVisita():
         
 def main():
     salaEmergencia = 1
-    #server_thread = threading.Thread(target=middleware.server)
-    #server_thread.start()
-    server_ready = middleware.inicializarMiddleware()
-    mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
-    client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134',server_ready))
-    client_thread.start()
+    server_thread = threading.Thread(target=middleware.server, args=(server_ready,))
+    server_thread.start()
+    mostrarOpciones()
     #middleware.mandarMensajeNodoMaestro("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
     #middleware.mandarMensajeNodoMaestro("UPDATE|tbl_doctores|1,v_nombre,Dr. Mauricio")
     #middleware.mandarMensajeNodoMaestro("DELETE|tbl_doctores|5")
