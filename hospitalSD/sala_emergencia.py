@@ -31,7 +31,7 @@ def mostrarOpciones(serverReady):
             print("4.Salir")
             opcionMenu = int(input("Seleccione una opción: "))
             if int(opcionMenu) == 1:
-                mostrarOpRegistro()
+                mostrarOpRegistro(serverReady)
             if int(opcionMenu) == 2:
                 mostrarOpCerrarVisita()
             if int(opcionMenu) == 3:
