@@ -16,7 +16,7 @@ server_ready = None
 
 
 def mostrarOpciones(serverReady):
-    serverReady.wait()
+    #serverReady.wait()
     opcionMenu = 0
     try:
         while opcionMenu != 4:
