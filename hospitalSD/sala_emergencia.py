@@ -114,6 +114,7 @@ def main():
     salaEmergencia = 1
     server_ready = threading.Event()
     server_thread = threading.Thread(target=middleware.inicializarMiddleware, args=(server_ready,))
+    server_thread.start()
     mostrarOpciones()
     #middleware.mandarMensajeNodoMaestro("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
     #middleware.mandarMensajeNodoMaestro("UPDATE|tbl_doctores|1,v_nombre,Dr. Mauricio")
