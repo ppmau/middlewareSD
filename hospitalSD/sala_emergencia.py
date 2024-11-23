@@ -11,7 +11,7 @@ import subprocess
 import middleware
 from datetime import datetime
 
-server_ready = None
+#server_ready = None
 semaforo = threading.Semaphore(0)
 #server_ready = threading.Event() #Variable global para controlar inicializacion del servidor y sincronizar con los clientes
 
@@ -60,9 +60,9 @@ def mostrarOpRegistro(servidor_list):
             ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)
             #mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
             semaforo.acquire()
-            servidor_list.wait()
+            #servidor_list.wait()
             #middleware.cliente(mensaje,12345,'192.168.252.134',servidor_list)
-            client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134',servidor_list))
+            client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
 
             #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
@@ -121,15 +121,15 @@ def mostrarOpCerrarVisita():
         input("Digite un numero valido. Enter para continuar...")
         mostrarOpCerrarVisita()
         
-def main():
-    global server_ready
-    salaEmergencia = 1
-    server_ready = middleware.inicializarMiddleware()
-    #middleware.mandarMensajeNodoMaestro("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
-    #middleware.mandarMensajeNodoMaestro("UPDATE|tbl_doctores|1,v_nombre,Dr. Mauricio")
-    #middleware.mandarMensajeNodoMaestro("DELETE|tbl_doctores|5")
-    main_thread = threading.Thread(target=mostrarOpciones,args=(server_ready,))
-    main_thread.start()
+# def main():
+#     global server_ready
+#     salaEmergencia = 1
+#     server_ready = middleware.inicializarMiddleware()
+#     middleware.mandarMensajeNodoMaestro("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
+#     middleware.mandarMensajeNodoMaestro("UPDATE|tbl_doctores|1,v_nombre,Dr. Mauricio")
+#     middleware.mandarMensajeNodoMaestro("DELETE|tbl_doctores|5")
+#     main_thread = threading.Thread(target=mostrarOpciones,args=(server_ready,))
+#     main_thread.start()
 
 
-main()
+#main()

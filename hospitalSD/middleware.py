@@ -3,6 +3,7 @@ import threading
 import comunicacion_base
 import os
 import subprocess
+import sala_emergencia
 from datetime import datetime
 
 def asignar_info_nodo():
@@ -61,8 +62,8 @@ def cliente(mensaje,puerto,ipDestino):
         response = client_socket.recv(1024).decode()
         print(f"{response}")
         input("\nEnter para continuar... ")
-    except ConnectionRefusedError as e:
-        print(f"No se pudo conectar con el nodo en {ipDestino}:{puerto}. Conexión rechazada.")
+    except Exception as e:
+        print(f"No se pudo conectar con el nodo en {ipDestino}:{puerto}. Conexión rechazada.{e}")
         input("Presione enter para continuar...")
     finally:
         client_socket.close()
@@ -72,7 +73,7 @@ def inicializarMiddleware():
     server_ready = threading.Event()
     server_thread = threading.Thread(target=server, args=(server_ready,))
     server_thread.start()
-    return server_ready
+    sala_emergencia.mostrarOpciones(server_ready)
 
 def enviaInstruccion(mensaje,puerto,ipDestino): #Función para crear el hilo que enviará el mensaje
     print(f"mandando mensaje en envia instruccion {mensaje}")
