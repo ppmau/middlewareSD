@@ -3,12 +3,10 @@ import gestion_doctores
 import gestion_pacientes
 import gestion_trabajadores
 import comunicacion_base
-import middleware
 import socket
 import threading
 import os
 import subprocess
-import middleware
 from datetime import datetime
 
 #server_ready = None
@@ -16,7 +14,31 @@ from datetime import datetime
 #server_ready = threading.Event() #Variable global para controlar inicializacion del servidor y sincronizar con los clientes
 
 
+# def mostrarOpciones(servidor_listo):
+#     servidor_listo.wait()
+#     opcionMenu = 0
+#     try:
+#         while opcionMenu != 4:
+#             os.system('cls') 
+#             if opcionMenu > 4:
+#                 input("Seleccione una opción válida. Enter para continuar...")
+#                 os.system('cls')  
+#             print("         Sala de emergencias 1          \n")
+#             print("1.Registro visita")
+#             print("2.Cerrar visita [Doctores]")
+#             print("3.Gestionar salas de emergencia")
+#             print("4.Salir")
+#             opcionMenu = int(input("Seleccione una opción: "))
+#             if int(opcionMenu) == 1:
+#                 mostrarOpRegistro(servidor_listo)
+#             if int(opcionMenu) == 2:
+#                 mostrarOpCerrarVisita()
+#             if int(opcionMenu) == 3:
+#                 mostrarOpGestion()
 
+#     except Exception as e:
+#         input(f"Ingrese un numero correcto. Enter para continuar...{e}")
+#         mostrarOpciones()
 
 def mostrarOpRegistro(servidor_list):
     #serverReady.wait()
@@ -28,8 +50,8 @@ def mostrarOpRegistro(servidor_list):
             edadPaciente = int(input("Edad paciente: "))
             descripcionEmergencia = input("Descripción de la emergencia: ")
             mensaje = nombrePaciente + '|' + str(edadPaciente) + '|' + descripcionEmergencia
-            puertoNodo, ipNodo= middleware.asignar_info_nodo()
-            ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)
+            puertoNodo, ipNodo= asignar_info_nodo()
+            ipMaestro, puertoMaestro = asigna_nodo_maestro(ipNodo)
             #mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
             #servidor_list.wait()
             #middleware.cliente(mensaje,12345,'192.168.252.134',servidor_list)
@@ -80,7 +102,7 @@ def mostrarOpCerrarVisita():
                 if opcion == 1:
                     comunicacion_base.cerrarVisitasDoctor(folio)
                 elif opcion == 2:
-                    print("mostrando opcones")
+                    input("op2")
                     #mostrarOpciones()
                 else:
                     input("Opcion incorrecta. Se regresara al menu principal. Enter para continuar...")
