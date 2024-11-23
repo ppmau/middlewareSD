@@ -251,3 +251,5 @@ def inicializarMiddleware():
 
 
 #main()
+
+inicializarMiddleware()
