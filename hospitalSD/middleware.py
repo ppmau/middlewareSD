@@ -25,12 +25,12 @@ def server(server_ready):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
     nodoMaestro = asigna_nodo_maestro(ipNode)
-    server_ready.set()
     print(f"Servidor escuchando {ipNode}")
     try:
         server_socket.bind((ipNode,PORT))
         server_socket.listen(5)
         while True:
+            server_ready.set()
             client_socket, client_address = server_socket.accept()
             data = client_socket.recv(1024).decode()
             client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
