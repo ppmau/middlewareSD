@@ -40,7 +40,7 @@ def mostrarOpciones():
         input(f"Ingrese un numero correcto. Enter para continuar...{e}")
         mostrarOpciones()
 
-def mostrarOpRegistro(servidor_list):
+def mostrarOpRegistro():
     #serverReady.wait()
     opcionMenu = 0
     try:
