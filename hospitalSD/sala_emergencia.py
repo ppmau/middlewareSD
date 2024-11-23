@@ -51,8 +51,9 @@ def mostrarOpRegistro(servidor_list):
             nombrePaciente = input("Nombre del paciente: ")
             edadPaciente = int(input("Edad paciente: "))
             descripcionEmergencia = input("Descripción de la emergencia: ")
-            mensaje = nombrePaciente + '|' + edadPaciente + '|' + descripcionEmergencia
+            mensaje = nombrePaciente + '|' + str(edadPaciente) + '|' + descripcionEmergencia
             if mensaje != '':
+                print("liberando semaforo")
                 semaforo.release()
             puertoNodo, ipNodo= middleware.asignar_info_nodo()
             semaforo.acquire()
