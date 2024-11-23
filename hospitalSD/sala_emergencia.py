@@ -8,6 +8,7 @@ import socket
 import threading
 import os
 import subprocess
+import middleware
 from datetime import datetime
 
 #server_ready = None
@@ -201,7 +202,6 @@ def asignar_info_nodo():
             if portNode[1] == ipNode:
                 PORT = int(portNode[2])
     print(f"puerto asignado PORT:{PORT}")
-    return PORT, ipNode
 
 def asigna_nodo_maestro(ipNodoActual):
     with open("prioridadNodos.txt", "r") as nodeRelation:
@@ -238,7 +238,6 @@ def inicializarMiddleware():
     server_thread.start()
     client_thread = threading.Thread(target=cliente, args=('hola',12345,'192.168.252.134',server_ready))
     client_thread.start()
-    #sala_emergencia.mostrarOpciones(server_ready)
 # def main():
 #     global server_ready
 #     salaEmergencia = 1
