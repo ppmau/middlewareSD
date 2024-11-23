@@ -108,7 +108,9 @@ def mostrarOpCerrarVisita():
         
 def main():
     salaEmergencia = 1
-    middleware.inicializarMiddleware()
+    #middleware.inicializarMiddleware()
+    server_thread = threading.Thread(target=middleware.server)
+    server_thread.start()
     mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
     client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134'))
     client_thread.start()
