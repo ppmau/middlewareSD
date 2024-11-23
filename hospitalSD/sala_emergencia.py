@@ -49,10 +49,10 @@ def mostrarOpRegistro():
             nombrePaciente = input("Nombre del paciente: ")
             edadPaciente = int(input("Edad paciente: "))
             descripcionEmergencia = input("Descripción de la emergencia: ")
-            mensaje = 'INSERT' + '|' + 'tbl_pacientes' + '|' + nombrePaciente + str(edadPaciente) + ',' + descripcionEmergencia
+            mensaje = nombrePaciente + '|' + str(edadPaciente) + '|' + descripcionEmergencia
             puertoNodo, ipNodo= asignar_info_nodo()
             ipMaestro, puertoMaestro = asigna_nodo_maestro(ipNodo)
-            client_thread = threading.Thread(target=cliente, args=(mensaje,int(puertoMaestro),ipMaestro))
+            client_thread = threading.Thread(target=cliente, args=(mensaje,12345,'192.168.252.134'))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
 
             #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
@@ -200,10 +200,10 @@ def asigna_nodo_maestro(ipNodoActual):
             print(portNode[1], ipNodoActual)
             if verificar_conexion(int(portNode[2]),portNode[1]):
                 print("Maestro")
-                return [portNode[1], portNode[2]]
+                return [portNode[0], portNode[1], portNode[2]]
             else:
                 if portNode[1] == ipNodoActual:
-                    return [portNode[1], portNode[2]]
+                    return [portNode[0], portNode[1], portNode[2]]
                 
 def verificar_conexion(puerto, ipDestino):
     try:
