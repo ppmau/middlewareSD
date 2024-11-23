@@ -12,6 +12,7 @@ import middleware
 from datetime import datetime
 
 server_ready = None
+semaforo = threading.Semaphore(0)
 #server_ready = threading.Event() #Variable global para controlar inicializacion del servidor y sincronizar con los clientes
 
 
@@ -46,13 +47,18 @@ def mostrarOpRegistro(servidor_list):
     opcionMenu = 0
     try:
         if comunicacion_base.verificaDisponibilidadCama() == 1 and comunicacion_base.verificaDisponiblidadDoctor() == 1:
+            mensaje = ''
             nombrePaciente = input("Nombre del paciente: ")
             edadPaciente = int(input("Edad paciente: "))
             descripcionEmergencia = input("Descripción de la emergencia: ")
+            mensaje = nombrePaciente + '|' + edadPaciente + '|' + descripcionEmergencia
+            if mensaje != '':
+                semaforo.release()
             puertoNodo, ipNodo= middleware.asignar_info_nodo()
+            semaforo.acquire()
             ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)
             #mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
-            mensaje = nombrePaciente + '|' + edadPaciente + '|' + descripcionEmergencia
+            semaforo.acquire()
             middleware.cliente(mensaje,12345,'192.168.252.134',servidor_list)
             #client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134',servidor_list))
             #client_thread.start() #Envia informacion directamente al server en nodo maestro 
