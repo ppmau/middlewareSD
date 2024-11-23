@@ -62,7 +62,7 @@ def mostrarOpRegistro(servidor_list):
             semaforo.acquire()
             #servidor_list.wait()
             #middleware.cliente(mensaje,12345,'192.168.252.134',servidor_list)
-            client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134))
+            client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134'))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
 
             #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
