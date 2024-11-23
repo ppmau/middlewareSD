@@ -8,7 +8,6 @@ import socket
 import threading
 import os
 import subprocess
-import middleware
 from datetime import datetime
 
 #server_ready = None
