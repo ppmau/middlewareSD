@@ -70,7 +70,7 @@ def cliente(mensaje,puerto,ipDestino,serverReady):
 def inicializarMiddleware():
     # Crear el hilo para el servidor
     server_ready = threading.Event()
-    server_thread = threading.Thread(target=server, args=(server_ready))
+    server_thread = threading.Thread(target=server, args=(server_ready,))
     server_thread.start()
     return server_ready
 
