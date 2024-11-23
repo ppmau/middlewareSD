@@ -112,13 +112,16 @@ def main():
     server_thread = threading.Thread(target=middleware.server)
     server_thread.start()
     mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
-    client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134'))
-    client_thread.start()
+    cliente(mensaje)
     #middleware.mandarMensajeNodoMaestro("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
     #middleware.mandarMensajeNodoMaestro("UPDATE|tbl_doctores|1,v_nombre,Dr. Mauricio")
     #middleware.mandarMensajeNodoMaestro("DELETE|tbl_doctores|5")
     #main_thread = threading.Thread(target=mostrarOpciones)
     #main_thread.start()
+
+def cliente(mensaje):
+    client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134'))
+    client_thread.start()
 
 
 main()
