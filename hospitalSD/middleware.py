@@ -47,9 +47,9 @@ def server(server_ready):
     finally:
         server_socket.close()
 
-def cliente(mensaje,puerto,ipDestino,serverReady):
+def cliente(mensaje,puerto,ipDestino):
     try:
-        serverReady.wait()
+        #serverReady.wait()
         print("Mandando mensaje")
         print(mensaje)
         print(puerto)

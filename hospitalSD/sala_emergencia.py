@@ -15,8 +15,8 @@ server_ready = None
 #server_ready = threading.Event() #Variable global para controlar inicializacion del servidor y sincronizar con los clientes
 
 
-def mostrarOpciones(serverReady):
-    #serverReady.wait()
+def mostrarOpciones(servidor_listo):
+    servidor_listo.wait()
     opcionMenu = 0
     try:
         while opcionMenu != 4:
@@ -31,7 +31,7 @@ def mostrarOpciones(serverReady):
             print("4.Salir")
             opcionMenu = int(input("Seleccione una opción: "))
             if int(opcionMenu) == 1:
-                mostrarOpRegistro(serverReady)
+                mostrarOpRegistro(servidor_listo)
             if int(opcionMenu) == 2:
                 mostrarOpCerrarVisita()
             if int(opcionMenu) == 3:
@@ -52,9 +52,9 @@ def mostrarOpRegistro(servidor_list):
             puertoNodo, ipNodo= middleware.asignar_info_nodo()
             ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)  
             mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
-            #middleware.cliente(mensaje,12345,'192.168.252.134',servidor_list)
-            client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134',servidor_list))
-            client_thread.start() #Envia informacion directamente al server en nodo maestro 
+            middleware.cliente(mensaje,12345,'192.168.252.134',servidor_list)
+            #client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134',servidor_list))
+            #client_thread.start() #Envia informacion directamente al server en nodo maestro 
 
             #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
         else:
