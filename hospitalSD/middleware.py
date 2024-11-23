@@ -19,11 +19,12 @@ def asignar_info_nodo():
     return PORT, ipNode
 
 
-def server():
+def server(server_ready):
     PORT, ipNode= asignar_info_nodo()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
     nodoMaestro = asigna_nodo_maestro(ipNode)
+    server_ready.set()
     print(f"Servidor escuchando {ipNode}")
     try:
         server_socket.bind((ipNode,PORT))
@@ -46,8 +47,9 @@ def server():
     finally:
         server_socket.close()
 
-def cliente(mensaje,puerto,ipDestino):
+def cliente(mensaje,puerto,ipDestino,serverReady):
     try:
+        serverReady.wait()
         print("Mandando mensaje")
         print(mensaje)
         print(puerto)
@@ -67,8 +69,10 @@ def cliente(mensaje,puerto,ipDestino):
 
 def inicializarMiddleware():
     # Crear el hilo para el servidor
-    server_thread = threading.Thread(target=server)
+    server_ready = threading.Event()
+    server_thread = threading.Thread(target=server, args=(server_ready))
     server_thread.start()
+    return server_ready
 
 def enviaInstruccion(mensaje,puerto,ipDestino): #Función para crear el hilo que enviará el mensaje
     print(f"mandando mensaje en envia instruccion {mensaje}")

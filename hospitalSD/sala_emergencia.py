@@ -108,20 +108,17 @@ def mostrarOpCerrarVisita():
         
 def main():
     salaEmergencia = 1
-    #middleware.inicializarMiddleware()
-    server_thread = threading.Thread(target=middleware.server)
-    server_thread.start()
+    #server_thread = threading.Thread(target=middleware.server)
+    #server_thread.start()
+    server_ready = middleware.inicializarMiddleware()
     mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
-    cliente(mensaje)
+    client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134',server_ready))
+    client_thread.start()
     #middleware.mandarMensajeNodoMaestro("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
     #middleware.mandarMensajeNodoMaestro("UPDATE|tbl_doctores|1,v_nombre,Dr. Mauricio")
     #middleware.mandarMensajeNodoMaestro("DELETE|tbl_doctores|5")
     #main_thread = threading.Thread(target=mostrarOpciones)
     #main_thread.start()
-
-def cliente(mensaje):
-    client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134'))
-    client_thread.start()
 
 
 main()
