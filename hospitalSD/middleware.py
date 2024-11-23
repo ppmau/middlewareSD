@@ -142,5 +142,6 @@ def asigna_nodo_maestro(ipNodoActual):
 #inicializarMiddleware('1')
 #mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF|")
 
+inicializarMiddleware()
 
 
