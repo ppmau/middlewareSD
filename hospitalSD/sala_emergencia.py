@@ -202,6 +202,7 @@ def asignar_info_nodo():
             if portNode[1] == ipNode:
                 PORT = int(portNode[2])
     print(f"puerto asignado PORT:{PORT}")
+    return PORT, ipNode
 
 def asigna_nodo_maestro(ipNodoActual):
     with open("prioridadNodos.txt", "r") as nodeRelation:
