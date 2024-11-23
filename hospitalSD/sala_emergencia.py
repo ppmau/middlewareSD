@@ -124,15 +124,16 @@ def server():
         while True:
             client_socket, client_address = server_socket.accept()
             data = client_socket.recv(1024).decode()
-            client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
-            print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
-            if ipNode == nodoMaestro[1]: #Instruccion recibida al nodo maestro
-                print("Estas en el nodo maestro")
-                replicarInformacion(data)
-                distribuirInformacion(data,nodoMaestro)
-            else:
-                print("No estas en el nodo maestro")
-                #enviarInformacion(data,ipNode)
+            if data:
+                client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
+                print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
+                if ipNode == nodoMaestro[1]: #Instruccion recibida al nodo maestro
+                    print("Estas en el nodo maestro")
+                    replicarInformacion(data)
+                    distribuirInformacion(data,nodoMaestro)
+                else:
+                    print("No estas en el nodo maestro")
+                    #enviarInformacion(data,ipNode)
 
     except Exception as e:
         print(f"Error en el servidor: {e}")
