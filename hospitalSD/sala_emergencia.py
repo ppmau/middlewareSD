@@ -11,7 +11,8 @@ import subprocess
 import middleware
 from datetime import datetime
 
-server_ready = threading.Event() #Variable global para controlar inicializacion del servidor y sincronizar con los clientes
+server_ready = None
+#server_ready = threading.Event() #Variable global para controlar inicializacion del servidor y sincronizar con los clientes
 
 
 def mostrarOpciones():
@@ -109,9 +110,10 @@ def mostrarOpCerrarVisita():
         mostrarOpCerrarVisita()
         
 def main():
+    global server_ready
     salaEmergencia = 1
-    server_thread = threading.Thread(target=middleware.server, args=(server_ready,))
-    server_thread.start()
+    server_ready = threading.Event()
+    server_thread = threading.Thread(target=middleware.inicializarMiddleware, args=(server_ready,))
     mostrarOpciones()
     #middleware.mandarMensajeNodoMaestro("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
     #middleware.mandarMensajeNodoMaestro("UPDATE|tbl_doctores|1,v_nombre,Dr. Mauricio")
