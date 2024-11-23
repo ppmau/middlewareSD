@@ -52,9 +52,6 @@ def mostrarOpRegistro():
             mensaje = nombrePaciente + '|' + str(edadPaciente) + '|' + descripcionEmergencia
             puertoNodo, ipNodo= asignar_info_nodo()
             ipMaestro, puertoMaestro = asigna_nodo_maestro(ipNodo)
-            #mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
-            #servidor_list.wait()
-            #middleware.cliente(mensaje,12345,'192.168.252.134',servidor_list)
             client_thread = threading.Thread(target=cliente, args=(mensaje,12345,'192.168.252.134'))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
 
@@ -228,7 +225,10 @@ def inicializarMiddleware():
     #server_ready = threading.Event()
     server_thread = threading.Thread(target=server)
     server_thread.start()
-    mostrarOpciones()
+    main_thread = threading.Thread(target=mostrarOpciones)
+    main_thread.start()
+#     main_thread.start()
+    #mostrarOpciones()
     # client_thread = threading.Thread(target=cliente, args=('hola',12345,'192.168.252.134',server_ready))
     # client_thread.start()
 # def main():
