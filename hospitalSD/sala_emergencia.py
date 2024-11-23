@@ -52,9 +52,9 @@ def mostrarOpRegistro(servidor_list):
             puertoNodo, ipNodo= middleware.asignar_info_nodo()
             ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)  
             mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
-            middleware.cliente(mensaje,12345,'192.168.252.134',servidor_list)
-            #client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134',server_ready))
-            #client_thread.start() #Envia informacion directamente al server en nodo maestro 
+            #middleware.cliente(mensaje,12345,'192.168.252.134',servidor_list)
+            client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134',servidor_list))
+            client_thread.start() #Envia informacion directamente al server en nodo maestro 
 
             #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
         else:
