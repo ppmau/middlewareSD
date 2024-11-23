@@ -14,8 +14,8 @@ from datetime import datetime
 #server_ready = threading.Event() #Variable global para controlar inicializacion del servidor y sincronizar con los clientes
 
 
-def mostrarOpciones(servidor_listo):
-    servidor_listo.wait()
+def mostrarOpciones():
+    #servidor_listo.wait()
     opcionMenu = 0
     try:
         while opcionMenu != 4:
@@ -30,7 +30,7 @@ def mostrarOpciones(servidor_listo):
             print("4.Salir")
             opcionMenu = int(input("Seleccione una opción: "))
             if int(opcionMenu) == 1:
-                mostrarOpRegistro(servidor_listo)
+                mostrarOpRegistro()
             if int(opcionMenu) == 2:
                 mostrarOpCerrarVisita()
             if int(opcionMenu) == 3:
@@ -55,7 +55,7 @@ def mostrarOpRegistro(servidor_list):
             #mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
             #servidor_list.wait()
             #middleware.cliente(mensaje,12345,'192.168.252.134',servidor_list)
-            client_thread = threading.Thread(target=cliente, args=(mensaje,12345,'192.168.252.134',servidor_list))
+            client_thread = threading.Thread(target=cliente, args=(mensaje,12345,'192.168.252.134'))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
 
             #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
@@ -115,11 +115,11 @@ def mostrarOpCerrarVisita():
         input("Digite un numero valido. Enter para continuar...")
         mostrarOpCerrarVisita()
 
-def server(server_ready):
+def server():
     PORT, ipNode= asignar_info_nodo()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     nodoMaestro = asigna_nodo_maestro(ipNode)
-    server_ready.set()
+    #server_ready.set()
     print(f"Servidor escuchando {ipNode}")
     try:
         server_socket.bind((ipNode,PORT))
@@ -142,9 +142,8 @@ def server(server_ready):
     finally:
         server_socket.close()
 
-def cliente(mensaje,puerto,ipDestino,serverReady):
+def cliente(mensaje,puerto,ipDestino):
     try:
-        serverReady.wait()
         print("Mandando mensaje")
         print(mensaje)
         print(puerto)
@@ -226,10 +225,10 @@ def verificar_conexion(puerto, ipDestino):
 
 def inicializarMiddleware():
     # Crear el hilo para el servidor
-    server_ready = threading.Event()
-    server_thread = threading.Thread(target=server, args=(server_ready,))
+    #server_ready = threading.Event()
+    server_thread = threading.Thread(target=server)
     server_thread.start()
-    mostrarOpciones(server_ready)
+    mostrarOpciones()
     # client_thread = threading.Thread(target=cliente, args=('hola',12345,'192.168.252.134',server_ready))
     # client_thread.start()
 # def main():

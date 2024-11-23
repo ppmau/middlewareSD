@@ -23,6 +23,7 @@ def asignar_info_nodo():
 def server(server_ready):
     PORT, ipNode= asignar_info_nodo()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
     nodoMaestro = asigna_nodo_maestro(ipNode)
     print(f"Servidor escuchando {ipNode}")
     try:
