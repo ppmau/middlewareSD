@@ -118,7 +118,6 @@ def mostrarOpCerrarVisita():
 def server(server_ready):
     PORT, ipNode= asignar_info_nodo()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
     nodoMaestro = asigna_nodo_maestro(ipNode)
     server_ready.set()
     print(f"Servidor escuchando {ipNode}")
@@ -151,7 +150,6 @@ def cliente(mensaje,puerto,ipDestino,serverReady):
         print(puerto)
         print(ipDestino)
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
         client_socket.connect((ipDestino, puerto))
         client_socket.send(mensaje.encode())
         response = client_socket.recv(1024).decode()
