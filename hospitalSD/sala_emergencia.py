@@ -12,35 +12,11 @@ import middleware
 from datetime import datetime
 
 #server_ready = None
-semaforo = threading.Semaphore(0)
+#semaforo = threading.Semaphore(0)
 #server_ready = threading.Event() #Variable global para controlar inicializacion del servidor y sincronizar con los clientes
 
 
-def mostrarOpciones(servidor_listo):
-    #servidor_listo.wait()
-    opcionMenu = 0
-    try:
-        while opcionMenu != 4:
-            os.system('cls') 
-            if opcionMenu > 4:
-                input("Seleccione una opción válida. Enter para continuar...")
-                os.system('cls')  
-            print("         Sala de emergencias 1          \n")
-            print("1.Registro visita")
-            print("2.Cerrar visita [Doctores]")
-            print("3.Gestionar salas de emergencia")
-            print("4.Salir")
-            opcionMenu = int(input("Seleccione una opción: "))
-            if int(opcionMenu) == 1:
-                mostrarOpRegistro(servidor_listo)
-            if int(opcionMenu) == 2:
-                mostrarOpCerrarVisita()
-            if int(opcionMenu) == 3:
-                mostrarOpGestion()
 
-    except Exception as e:
-        input(f"Ingrese un numero correcto. Enter para continuar...{e}")
-        mostrarOpciones()
 
 def mostrarOpRegistro(servidor_list):
     #serverReady.wait()
@@ -52,17 +28,12 @@ def mostrarOpRegistro(servidor_list):
             edadPaciente = int(input("Edad paciente: "))
             descripcionEmergencia = input("Descripción de la emergencia: ")
             mensaje = nombrePaciente + '|' + str(edadPaciente) + '|' + descripcionEmergencia
-            if mensaje != '':
-                print("liberando semaforo")
-                semaforo.release()
             puertoNodo, ipNodo= middleware.asignar_info_nodo()
-            semaforo.acquire()
             ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)
             #mensaje = "INSERT|tbl_doctores|Jose Mauricio,PEPM960630HDF"
-            semaforo.acquire()
             #servidor_list.wait()
             #middleware.cliente(mensaje,12345,'192.168.252.134',servidor_list)
-            client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,12345,'192.168.252.134',servidor_list))
+            client_thread = threading.Thread(target=cliente, args=(mensaje,12345,'192.168.252.134',servidor_list))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
 
             #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
@@ -109,10 +80,11 @@ def mostrarOpCerrarVisita():
                 if opcion == 1:
                     comunicacion_base.cerrarVisitasDoctor(folio)
                 elif opcion == 2:
-                    mostrarOpciones()
+                    print("mostrando opcones")
+                    #mostrarOpciones()
                 else:
                     input("Opcion incorrecta. Se regresara al menu principal. Enter para continuar...")
-                    mostrarOpciones()
+                    #mostrarOpciones()
             else:
                 input("El doctor no tiene visitas asigndas. Se regresara al menu principal. Enter para continuar...")
         else:
