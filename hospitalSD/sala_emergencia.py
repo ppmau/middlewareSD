@@ -115,7 +115,7 @@ def mostrarOpCerrarVisita():
 def main():
     global server_ready
     salaEmergencia = 1
-    server_ready = middleware.inicializarMiddleware
+    server_ready = middleware.inicializarMiddleware()
     #middleware.mandarMensajeNodoMaestro("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF")
     #middleware.mandarMensajeNodoMaestro("UPDATE|tbl_doctores|1,v_nombre,Dr. Mauricio")
     #middleware.mandarMensajeNodoMaestro("DELETE|tbl_doctores|5")
