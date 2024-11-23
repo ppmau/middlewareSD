@@ -14,31 +14,31 @@ from datetime import datetime
 #server_ready = threading.Event() #Variable global para controlar inicializacion del servidor y sincronizar con los clientes
 
 
-# def mostrarOpciones(servidor_listo):
-#     servidor_listo.wait()
-#     opcionMenu = 0
-#     try:
-#         while opcionMenu != 4:
-#             os.system('cls') 
-#             if opcionMenu > 4:
-#                 input("Seleccione una opción válida. Enter para continuar...")
-#                 os.system('cls')  
-#             print("         Sala de emergencias 1          \n")
-#             print("1.Registro visita")
-#             print("2.Cerrar visita [Doctores]")
-#             print("3.Gestionar salas de emergencia")
-#             print("4.Salir")
-#             opcionMenu = int(input("Seleccione una opción: "))
-#             if int(opcionMenu) == 1:
-#                 mostrarOpRegistro(servidor_listo)
-#             if int(opcionMenu) == 2:
-#                 mostrarOpCerrarVisita()
-#             if int(opcionMenu) == 3:
-#                 mostrarOpGestion()
+def mostrarOpciones(servidor_listo):
+    servidor_listo.wait()
+    opcionMenu = 0
+    try:
+        while opcionMenu != 4:
+            os.system('cls') 
+            if opcionMenu > 4:
+                input("Seleccione una opción válida. Enter para continuar...")
+                os.system('cls')  
+            print("         Sala de emergencias 1          \n")
+            print("1.Registro visita")
+            print("2.Cerrar visita [Doctores]")
+            print("3.Gestionar salas de emergencia")
+            print("4.Salir")
+            opcionMenu = int(input("Seleccione una opción: "))
+            if int(opcionMenu) == 1:
+                mostrarOpRegistro(servidor_listo)
+            if int(opcionMenu) == 2:
+                mostrarOpCerrarVisita()
+            if int(opcionMenu) == 3:
+                mostrarOpGestion()
 
-#     except Exception as e:
-#         input(f"Ingrese un numero correcto. Enter para continuar...{e}")
-#         mostrarOpciones()
+    except Exception as e:
+        input(f"Ingrese un numero correcto. Enter para continuar...{e}")
+        mostrarOpciones()
 
 def mostrarOpRegistro(servidor_list):
     #serverReady.wait()
@@ -231,8 +231,9 @@ def inicializarMiddleware():
     server_ready = threading.Event()
     server_thread = threading.Thread(target=server, args=(server_ready,))
     server_thread.start()
-    client_thread = threading.Thread(target=cliente, args=('hola',12345,'192.168.252.134',server_ready))
-    client_thread.start()
+    mostrarOpciones()
+    # client_thread = threading.Thread(target=cliente, args=('hola',12345,'192.168.252.134',server_ready))
+    # client_thread.start()
 # def main():
 #     global server_ready
 #     salaEmergencia = 1
