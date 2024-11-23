@@ -231,7 +231,7 @@ def inicializarMiddleware():
     server_ready = threading.Event()
     server_thread = threading.Thread(target=server, args=(server_ready,))
     server_thread.start()
-    mostrarOpciones()
+    mostrarOpciones(server_ready)
     # client_thread = threading.Thread(target=cliente, args=('hola',12345,'192.168.252.134',server_ready))
     # client_thread.start()
 # def main():
