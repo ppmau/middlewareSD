@@ -200,10 +200,10 @@ def asigna_nodo_maestro(ipNodoActual):
             print(portNode[1], ipNodoActual)
             if verificar_conexion(int(portNode[2]),portNode[1]):
                 print("Maestro")
-                return [portNode[0], portNode[1], portNode[2]]
+                return [portNode[1], portNode[2]]
             else:
                 if portNode[1] == ipNodoActual:
-                    return [portNode[0], portNode[1], portNode[2]]
+                    return [portNode[1], portNode[2]]
                 
 def verificar_conexion(puerto, ipDestino):
     try:
