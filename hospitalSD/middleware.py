@@ -75,7 +75,6 @@ def enviaInstruccion(mensaje,puerto,ipDestino): #Función para crear el hilo que
     print(f"mandando mensaje en envia instruccion {mensaje}")
     client_thread = threading.Thread(target=cliente, args=(mensaje,puerto,ipDestino))
     client_thread.start()
-    input()
 
 def mandarMensajeNodo(mensaje):
     print(mensaje)
@@ -137,7 +136,4 @@ def asigna_nodo_maestro(ipNodoActual):
 
 #inicializarMiddleware('1')
 #mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF|")
-
-inicializarMiddleware()
-
 
