@@ -60,7 +60,7 @@ def cliente(mensaje,puerto,ipDestino):
         response = client_socket.recv(1024).decode()
         print(f"{response}")
     except Exception as e:
-        print(f"No se pudo conectar con el nodo en {ipDestino}:{puerto}. Conexión rechazada.{e}")
+        print(f"No se pudo conectar con el nodo en {ipDestino}:{puerto}. Conexión rechazada.{e}. Seleccione otra opcion: ")
     finally:
         client_socket.close()
 
