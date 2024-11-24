@@ -87,11 +87,11 @@ def replicarInformacion(data):
     print(f"Estas en replicar informacion {data}")
     instruccion, tabla, datos = data.split("|")
     print(f"instruccion: {instruccion}")
-    if instruccion == "INSERT":
+    if instruccion == 'INSERT':
         print("Entra a insertar paciente visita")
         comunicacion_base.insertar_en_tabla(datos.split(','),tabla)
         input("terminando insercion visita")
-    if instruccion == "UPDATE":
+    if instruccion == 'UPDATE':
         datos = datos.split(',')
         id = datos[0]
         campo = datos[1]
@@ -100,7 +100,7 @@ def replicarInformacion(data):
         comunicacion_base.actualizar_tabla(id,campo,tabla,valor)
     if instruccion == "DELETE":
         comunicacion_base.eliminar_en_tabla(datos,tabla)
-    if instruccion == "INSERT-PACIENTE-VISITA":
+    if instruccion == 'INSERT-PACIENTE-VISITA':
         print("Entra a insertar paciente visita")
         comunicacion_base.insertar_en_tabla(datos.split(','),"tbl_pacientes")
         id_doctor = comunicacion_base.obtenDoctorDisponible()
