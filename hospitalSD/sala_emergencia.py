@@ -118,7 +118,7 @@ def server():
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     nodoMaestro = asigna_nodo_maestro(ipNode)
     #server_ready.set()
-    print(f"Servidor escuchando {ipNode}")
+    print(f"Servidor activo: {ipNode}")
     try:
         server_socket.bind((ipNode,PORT))
         server_socket.listen(5)
@@ -128,8 +128,7 @@ def server():
             if data:
                 client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
                 print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
-                print (ipNode + nodoMaestro[1])
-                if ipNode == nodoMaestro[1]: #Instruccion recibida al nodo maestro
+                if ipNode == nodoMaestro[0]: #Instruccion recibida al nodo maestro
                     print("Estas en el nodo maestro")
                     replicarInformacion(data)
                     distribuirInformacion(data,nodoMaestro)
