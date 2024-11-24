@@ -96,6 +96,7 @@ def insertar_en_tabla(valores,tabla):
             else:
                 input("Hubo un problema al registrar al paciente. Enter para continuar...")
         if tabla == "tbl_pacientes":
+            print("entra a tbl_pacientes")
             nombre = valores[0]
             edad = valores[1]
             emergencia = valores[2]
