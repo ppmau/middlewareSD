@@ -3,7 +3,6 @@ import threading
 import comunicacion_base
 import os
 import subprocess
-import sala_emergencia
 from datetime import datetime
 
 def asignar_info_nodo():
