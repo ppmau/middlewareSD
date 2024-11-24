@@ -108,7 +108,7 @@ def mostrarOpCerrarVisita():
 
 
 def main():
-    middleware.inicializarMiddleware()
+    #middleware.inicializarMiddleware()
     menu_thread = threading.Thread(target=mostrarOpciones)
     menu_thread.start()
     mostrarOpciones()
