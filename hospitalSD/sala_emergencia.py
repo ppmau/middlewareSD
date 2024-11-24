@@ -52,7 +52,7 @@ def mostrarOpRegistro():
             mensaje = 'INSERT' + '|' + 'tbl_pacientes' + '|' + nombrePaciente + str(edadPaciente) + ',' + descripcionEmergencia
             puertoNodo, ipNodo= asignar_info_nodo()
             ipMaestro, puertoMaestro = asigna_nodo_maestro(ipNodo)
-            client_thread = threading.Thread(target=cliente, args=(mensaje,12345,ipMaestro))
+            client_thread = threading.Thread(target=cliente, args=(mensaje,int(puertoMaestro),ipMaestro))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
 
             #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
