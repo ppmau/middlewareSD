@@ -127,6 +127,7 @@ def server():
             if data:
                 client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
                 print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
+                print (ipNode + nodoMaestro[1])
                 if ipNode == nodoMaestro[1]: #Instruccion recibida al nodo maestro
                     print("Estas en el nodo maestro")
                     replicarInformacion(data)
