@@ -16,7 +16,7 @@ def mostrarOpciones():
     opcionMenu = 0
     try:
         while opcionMenu != 4:
-            os.system('cls') 
+            os.system('clear') 
             if opcionMenu > 4:
                 input("Seleccione una opción válida. Enter para continuar...")
                 os.system('cls')  
