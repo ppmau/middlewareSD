@@ -14,7 +14,6 @@ def asignar_info_nodo():
             portNode = ports.strip().split(',')
             if portNode[1] == ipNode:
                 PORT = int(portNode[2])
-    print(f"puerto asignado PORT:{PORT}")
     return PORT, ipNode
 
 
@@ -23,7 +22,6 @@ def server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     nodoMaestro = asigna_nodo_maestro(ipNode)
-    #server_ready.set()
     print(f"Servidor activo: {ipNode}")
     try:
         server_socket.bind((ipNode,PORT))
@@ -74,13 +72,6 @@ def enviaInstruccion(mensaje,puerto,ipDestino): #Función para crear el hilo que
     client_thread = threading.Thread(target=cliente, args=(mensaje,puerto,ipDestino))
     client_thread.start()
 
-def mandarMensajeNodo(mensaje):
-    print(mensaje)
-    print("Enviando mensaje a nodo 1... " )
-    client_thread = threading.Thread(target=cliente(mensaje,int(5000),'127.0.0.1'))
-    client_thread.start()
-
-
 def replicarInformacion(data):
     instruccion, tabla, datos = data.split("|")
     if instruccion == 'INSERT':
@@ -95,7 +86,6 @@ def replicarInformacion(data):
     if instruccion == "DELETE":
         comunicacion_base.eliminar_en_tabla(datos,tabla)
     if instruccion == 'INSERT-PACIENTE-VISITA':
-        print("Entra a insertar paciente visita")
         comunicacion_base.insertar_en_tabla(datos.split(','),"tbl_pacientes")
         id_doctor = comunicacion_base.obtenDoctorDisponible()
         id_paciente =comunicacion_base.obtenIdUltimoPaciente()
@@ -104,7 +94,6 @@ def replicarInformacion(data):
         folio_visita = "P" + str(id_paciente) + "D" + str(id_doctor) + "S" + str(id_sala[0]) + "C" + str(id_sala[1]) + "V" + str(id_visita)
         valores = [id_paciente,id_doctor,id_sala[0],id_sala[1],folio_visita,1,datetime.now().strftime("%Y-%m-%d")]
         comunicacion_base.insertar_en_tabla(valores,"tbl_visitas")
-        print("terminando insercion paciente visita")
     
 
 def distribuirInformacion(data,nodoMaestro):
@@ -135,9 +124,7 @@ def asigna_nodo_maestro(ipNodoActual):
     with open("prioridadNodos.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(',')
-            print(portNode[1], ipNodoActual)
             if verificar_conexion(int(portNode[2]),portNode[1]):
-                print("Maestro")
                 return [portNode[1], portNode[2]]
             else:
                 if portNode[1] == ipNodoActual:
