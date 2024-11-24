@@ -49,7 +49,7 @@ def mostrarOpRegistro():
             nombrePaciente = input("Nombre del paciente: ")
             edadPaciente = int(input("Edad paciente: "))
             descripcionEmergencia = input("Descripción de la emergencia: ")
-            mensaje = 'INSERT' + '|' + 'tbl_pacientes' + '|' + nombrePaciente + str(edadPaciente) + ',' + descripcionEmergencia
+            mensaje = 'INSERT' + '|' + 'tbl_pacientes' + '|' + nombrePaciente + ',' + str(edadPaciente) + ',' + descripcionEmergencia
             puertoNodo, ipNodo= asignar_info_nodo()
             ipMaestro, puertoMaestro = asigna_nodo_maestro(ipNodo)
             client_thread = threading.Thread(target=cliente, args=(mensaje,int(puertoMaestro),ipMaestro))
