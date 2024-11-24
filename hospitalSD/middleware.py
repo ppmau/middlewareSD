@@ -109,7 +109,7 @@ def replicarInformacion(data):
         print(f'paciente: {id_paciente}')
         id_sala = comunicacion_base.obtenSalaDisponible()
         print(f'paciente: {id_sala}')
-        id_visita = 1
+        id_visita = int(comunicacion_base.obtenIdUltimaVisita()) + 1
         print(f'visita: {id_visita}')
         folio_visita = "P" + str(id_paciente) + "D" + str(id_doctor) + "S" + str(id_sala[0]) + "C" + str(id_sala[1]) + "V" + str(id_visita)
         valores = [id_paciente,id_doctor,id_sala[0],id_sala[1],folio_visita,1,datetime.now().strftime("%Y-%m-%d")]
