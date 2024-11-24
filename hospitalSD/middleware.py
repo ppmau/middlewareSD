@@ -16,41 +16,40 @@ def asignar_info_nodo():
             if portNode[1] == ipNode:
                 PORT = int(portNode[2])
     print(f"puerto asignado PORT:{PORT}")
-
     return PORT, ipNode
 
 
-def server(server_ready):
+def server():
     PORT, ipNode= asignar_info_nodo()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
+    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     nodoMaestro = asigna_nodo_maestro(ipNode)
-    print(f"Servidor escuchando {ipNode}")
+    #server_ready.set()
+    print(f"Servidor activo: {ipNode}")
     try:
         server_socket.bind((ipNode,PORT))
         server_socket.listen(5)
         while True:
-            server_ready.set()
             client_socket, client_address = server_socket.accept()
             data = client_socket.recv(1024).decode()
-            client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
-            print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
-            if ipNode == nodoMaestro[1]: #Instruccion recibida al nodo maestro
-                print("Estas en el nodo maestro")
-                replicarInformacion(data)
-                distribuirInformacion(data,nodoMaestro)
-            else:
-                print("No estas en el nodo maestro")
-                #enviarInformacion(data,ipNode)
+            if data:
+                client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
+                print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
+                if ipNode == nodoMaestro[0]: #Instruccion recibida al nodo maestro
+                    print("Estas en el nodo maestro")
+                    replicarInformacion(data)
+                    distribuirInformacion(data,nodoMaestro)
+                else:
+                    print("No estas en el nodo maestro")
+                    #enviarInformacion(data,ipNode)
 
     except Exception as e:
         print(f"Error en el servidor: {e}")
     finally:
         server_socket.close()
 
-def cliente(mensaje,puerto,ipDestino,serverReady):
+def cliente(mensaje,puerto,ipDestino):
     try:
-        serverReady.wait()
         print("Mandando mensaje")
         print(mensaje)
         print(puerto)
@@ -67,14 +66,10 @@ def cliente(mensaje,puerto,ipDestino,serverReady):
     finally:
         client_socket.close()
 
+
 def inicializarMiddleware():
-    # Crear el hilo para el servidor
-    server_ready = threading.Event()
-    server_thread = threading.Thread(target=server, args=(server_ready,))
+    server_thread = threading.Thread(target=server)
     server_thread.start()
-    # client_thread = threading.Thread(target=cliente, args=('hola',12345,'192.168.252.134',server_ready))
-    # client_thread.start()
-    sala_emergencia.mostrarOpciones(server_ready)
 
 def enviaInstruccion(mensaje,puerto,ipDestino): #Función para crear el hilo que enviará el mensaje
     print(f"mandando mensaje en envia instruccion {mensaje}")
@@ -108,7 +103,7 @@ def distribuirInformacion(data,nodoMaestro):
     with open("prioridadNodos.txt", "r") as listaNodos:
         for nodo in listaNodos:
             infoNodo = nodo.strip().split(',')
-            if infoNodo[1] != nodoMaestro[1]:
+            if infoNodo[1] != nodoMaestro[0]:
                 print("Recorriendo nodos")
                 cliente(data,int(infoNodo[2]),infoNodo[1])
 
@@ -135,10 +130,10 @@ def asigna_nodo_maestro(ipNodoActual):
             print(portNode[1], ipNodoActual)
             if verificar_conexion(int(portNode[2]),portNode[1]):
                 print("Maestro")
-                return [portNode[0], portNode[1], portNode[2]]
+                return [portNode[1], portNode[2]]
             else:
                 if portNode[1] == ipNodoActual:
-                    return [portNode[0], portNode[1], portNode[2]]
+                    return [portNode[1], portNode[2]]
 
 #inicializarMiddleware('1')
 #mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF|")

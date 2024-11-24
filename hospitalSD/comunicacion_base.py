@@ -33,7 +33,7 @@ def lista_tabla(tabla):
                 id, nombre, edad, emergencia = fila
                 print(f"ID: {id}, Nombre: {nombre}, edad: {edad}, emergencia: {emergencia}")
         if tabla == "tbl_trabajadores_sociales":
-            consulta = f"SELECT i_id_trabajador, v_nombre, v_curp FROM {tabla}"
+            consulta = f"SELECT i_id_sala, v_nombre, v_curp FROM {tabla}"
             cursor.execute(consulta)
             resultados = cursor.fetchall()
             for fila in resultados:
@@ -66,7 +66,7 @@ def actualizar_tabla(id,campo,tabla,valor):
             else:
                 input("No se encontró el registro para actualizar. Enter para continuar...")
         if tabla == "tbl_trabajadores_sociales":
-            consulta = f"UPDATE {tabla} SET {campo} = %s WHERE i_id_trabajador = %s"
+            consulta = f"UPDATE {tabla} SET {campo} = %s WHERE i_id_sala = %s"
             cursor.execute(consulta, (valor, id))
             conexion.commit()
             if cursor.rowcount > 0:
@@ -170,7 +170,7 @@ def existe_id(id,tabla):
             else:
                 return 0
         elif tabla == "tbl_trabajadores_sociales":
-            consulta = f"SELECT EXISTS(SELECT 1 FROM {tabla} WHERE i_id_trabajador = %s)"
+            consulta = f"SELECT EXISTS(SELECT 1 FROM {tabla} WHERE i_id_sala = %s)"
             cursor.execute(consulta, (id,))
             resultados = cursor.fetchall()[0]
             for fila in resultados:
