@@ -10,13 +10,9 @@ import subprocess
 import middleware
 from datetime import datetime
 
-#server_ready = None
-#semaforo = threading.Semaphore(0)
-#server_ready = threading.Event() #Variable global para controlar inicializacion del servidor y sincronizar con los clientes
 
 
 def mostrarOpciones():
-    #servidor_listo.wait()
     opcionMenu = 0
     try:
         while opcionMenu != 4:
@@ -42,7 +38,6 @@ def mostrarOpciones():
         mostrarOpciones()
 
 def mostrarOpRegistro():
-    #serverReady.wait()
     opcionMenu = 0
     try:
         if comunicacion_base.verificaDisponibilidadCama() == 1 and comunicacion_base.verificaDisponiblidadDoctor() == 1:
@@ -55,8 +50,6 @@ def mostrarOpRegistro():
             ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)
             client_thread = threading.Thread(target=middleware.cliente, args=(mensaje,int(puertoMaestro),ipMaestro))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
-
-            #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia)
         else:
             input("Enter para continuar... 1")
     except Exception as e:
