@@ -178,7 +178,7 @@ def distribuirInformacion(data,nodoMaestro):
     with open("prioridadNodos.txt", "r") as listaNodos:
         for nodo in listaNodos:
             infoNodo = nodo.strip().split(',')
-            if infoNodo[1] != nodoMaestro[1]:
+            if infoNodo[1] != nodoMaestro[0]:
                 print("Recorriendo nodos")
                 cliente(data,int(infoNodo[2]),infoNodo[1])
 
