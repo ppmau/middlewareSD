@@ -54,17 +54,17 @@ def actualizar_tabla(id,campo,tabla,valor):
             cursor.execute(consulta, (valor, id))
             conexion.commit()
             if cursor.rowcount > 0:
-                input("Registro actualizado correctamente. Enter para continuar...")
+                print("Registro actualizado correctamente. Enter para continuar...")
             else:
-                input("No se encontró el registro para actualizar. Enter para continuar...")
+                print("No se encontró el registro para actualizar. Enter para continuar...")
         if tabla == "tbl_pacientes":
             consulta = f"UPDATE {tabla} SET {campo} = %s WHERE i_id_paciente = %s"
             cursor.execute(consulta, (valor, id))
             conexion.commit()
             if cursor.rowcount > 0:
-                input("Registro actualizado correctamente. Enter para continuar...")
+                print("Registro actualizado correctamente. Enter para continuar...")
             else:
-                input("No se encontró el registro para actualizar. Enter para continuar...")
+                print("No se encontró el registro para actualizar. Enter para continuar...")
         if tabla == "tbl_trabajadores_sociales":
             consulta = f"UPDATE {tabla} SET {campo} = %s WHERE i_id_sala = %s"
             cursor.execute(consulta, (valor, id))
@@ -92,9 +92,9 @@ def insertar_en_tabla(valores,tabla):
             cursor.execute(consulta, (nombre,curp,))
             conexion.commit()
             if cursor.rowcount > 0:
-                input("Registro exitoso. Enter para continuar...")
+                print("Registro exitoso. Seleccione una opcion para continuar...")
             else:
-                input("Hubo un problema al registrar al paciente. Enter para continuar...")
+                print("Hubo un problema al registrar al paciente. Seleccione una opcion para continuar...")
         if tabla == "tbl_pacientes":
             print("entra a tbl_pacientes")
             nombre = valores[0]
@@ -104,13 +104,12 @@ def insertar_en_tabla(valores,tabla):
             cursor.execute(consulta, (nombre,edad,emergencia,))
             conexion.commit()
             if cursor.rowcount > 0:
-                input("Registro exitoso. Enter para continuar...")
+                print("Registro exitoso. Seleccione una opcion para continuar...")
             else:
-                input("Hubo un problema al registrar al paciente. Enter para continuar...")
+                print("Hubo un problema al registrar al paciente. Enter para continuar...")
         if tabla == "tbl_visitas":
             consulta = f"INSERT INTO {tabla} (i_id_paciente, i_id_doctor, i_id_sala, i_id_cama, v_folio_visita, b_estatus_visita, fecha_visita) VALUES (%s,%s,%s,%s,%s,%s,%s)"
             cursor.execute(consulta, (valores[0],valores[1],valores[2],valores[3],valores[4],valores[5],valores[6]))
-            input("visitas")
             conexion.commit()
     except Exception as e:
             input(f"Ocurrió un error: {e}")
@@ -127,9 +126,9 @@ def eliminar_en_tabla(id, tabla):
             cursor.execute(consulta, (id,))
             conexion.commit()
             if cursor.rowcount > 0:
-                input("Registro actualizado correctamente. Enter para continuar...")
+                print("Registro actualizado correctamente. Enter para continuar...")
             else:
-                input("No se encontró el registro para eliminar. Enter para continuar...")
+                print("No se encontró el registro para eliminar. Enter para continuar...")
         if tabla == "tbl_pacientes":
             consulta = f"DELETE FROM {tabla} WHERE i_id_paciente = %s"
             cursor.execute(consulta, (id,))
@@ -207,14 +206,14 @@ def obtenIdUltimaVisita():
         cursor, conexion = conectar_base()
         consulta = "SELECT i_id_visita FROM tbl_visitas ORDER BY i_id_visita DESC LIMIT 1"
         cursor.execute(consulta)
-        id_doctor = cursor.fetchone()[0]
-        return id_doctor
+        id_visita = cursor.fetchone()[0]
     except Exception as e:
         input(f"Ocurrió un error{e}. Enter para continuar...")
     finally:
         cursor.close()
         conexion.close()
-    
+
+    return id_visita
 
 def obtenSalaDisponible():
     try:
