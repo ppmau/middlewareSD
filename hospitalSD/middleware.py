@@ -59,7 +59,6 @@ def cliente(mensaje,puerto,ipDestino):
         client_socket.send(mensaje.encode())
         response = client_socket.recv(1024).decode()
         print(f"{response}")
-        input("\nEnter para continuar... ")
     except Exception as e:
         print(f"No se pudo conectar con el nodo en {ipDestino}:{puerto}. Conexión rechazada.{e}")
         input("Presione enter para continuar...")
@@ -84,13 +83,9 @@ def mandarMensajeNodo(mensaje):
 
 
 def replicarInformacion(data):
-    print(f"Estas en replicar informacion {data}")
     instruccion, tabla, datos = data.split("|")
-    print(f"instruccion: {instruccion}")
     if instruccion == 'INSERT':
-        print("Entra a insertar paciente")
         comunicacion_base.insertar_en_tabla(datos.split(','),tabla)
-        input("terminando insercion visita")
     if instruccion == 'UPDATE':
         datos = datos.split(',')
         id = datos[0]
@@ -104,17 +99,13 @@ def replicarInformacion(data):
         print("Entra a insertar paciente visita")
         comunicacion_base.insertar_en_tabla(datos.split(','),"tbl_pacientes")
         id_doctor = comunicacion_base.obtenDoctorDisponible()
-        print(f'doctor: {id_doctor}')
         id_paciente =comunicacion_base.obtenIdUltimoPaciente()
-        print(f'paciente: {id_paciente}')
         id_sala = comunicacion_base.obtenSalaDisponible()
-        print(f'paciente: {id_sala}')
         id_visita = int(comunicacion_base.obtenIdUltimaVisita()) + 1
-        print(f'visita: {id_visita}')
         folio_visita = "P" + str(id_paciente) + "D" + str(id_doctor) + "S" + str(id_sala[0]) + "C" + str(id_sala[1]) + "V" + str(id_visita)
         valores = [id_paciente,id_doctor,id_sala[0],id_sala[1],folio_visita,1,datetime.now().strftime("%Y-%m-%d")]
         comunicacion_base.insertar_en_tabla(valores,"tbl_visitas")
-        input("terminando insercion paciente visita")
+        print("terminando insercion paciente visita")
     
 
 def distribuirInformacion(data,nodoMaestro):
