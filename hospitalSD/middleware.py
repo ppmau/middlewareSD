@@ -88,6 +88,7 @@ def replicarInformacion(data):
     instruccion, tabla, datos = data.split("|")
     if instruccion == "INSERT":
         comunicacion_base.insertar_en_tabla(datos.split(','),tabla)
+        input("terminando insercion visita")
     if instruccion == "UPDATE":
         datos = datos.split(',')
         id = datos[0]
