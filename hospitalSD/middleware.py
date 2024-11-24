@@ -97,6 +97,16 @@ def replicarInformacion(data):
         comunicacion_base.actualizar_tabla(id,campo,tabla,valor)
     if instruccion == "DELETE":
         comunicacion_base.eliminar_en_tabla(datos,tabla)
+    if instruccion == "INSERT-PACIENTE-VISITA":
+        comunicacion_base.insertar_en_tabla(datos.split(','),"tbl_pacientes")
+        id_doctor = comunicacion_base.obtenDoctorDisponible()
+        id_paciente =comunicacion_base.obtenIdUltimoPaciente()
+        id_sala = comunicacion_base.obtenSalaDisponible()
+        id_visita = int(comunicacion_base.obtenIdUltimaVisita()) + 1
+        folio_visita = "P" + str(id_paciente) + "D" + str(id_doctor) + "S" + str(id_sala[0]) + "C" + str(id_sala[1]) + "V" + str(id_visita)
+        valores = [id_paciente,id_doctor,id_sala[0],id_sala[1],folio_visita,1,datetime.now().strftime("%Y-%m-%d")]
+        comunicacion_base.insertar_en_tabla(valores,"tbl_visitas")
+    
 
 def distribuirInformacion(data,nodoMaestro):
     with open("prioridadNodos.txt", "r") as listaNodos:

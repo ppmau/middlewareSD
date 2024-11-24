@@ -1,5 +1,7 @@
 import os
 import comunicacion_base
+import middleware
+import threading
 from datetime import datetime
 
 def mostrarOpPacientes():
@@ -74,17 +76,11 @@ def mostrarOpEditarPaciente():
         input("Ingrese un número válido. Enter para continuar...")
         mostrarOpEditarPaciente()
 
-def insertaPacienteBD(nombrePaciente,edadPaciente,emergencia):
+def insertaPacienteBD(nombrePaciente,edadPaciente,emergencia,ipNodo,puertoNodo):
     valores = [nombrePaciente,edadPaciente,emergencia]
-    comunicacion_base.insertar_en_tabla(valores,"tbl_pacientes")
-    id_doctor = comunicacion_base.obtenDoctorDisponible()
-    id_paciente =comunicacion_base.obtenIdUltimoPaciente()
-    id_sala = comunicacion_base.obtenSalaDisponible()
-    id_visita = int(comunicacion_base.obtenIdUltimaVisita()) + 1
-    folio_visita = "P" + str(id_paciente) + "D" + str(id_doctor) + "S" + str(id_sala[0]) + "C" + str(id_sala[1]) + "V" + str(id_visita)
-    input(folio_visita)
-    valores = [id_paciente,id_doctor,id_sala[0],id_sala[1],folio_visita,1,datetime.now().strftime("%Y-%m-%d")]
-    comunicacion_base.insertar_en_tabla(valores,"tbl_visitas")
+    mensajePaciente = f'INSERT-PACIENTE-VISITA|tbl_pacientes|{nombrePaciente}' + ',' + {str(edadPaciente)} + ',' + {emergencia}
+    client_thread = threading.Thread(target=middleware.cliente, args=(mensajePaciente,int(puertoNodo),ipNodo))
+    client_thread.start() #Envia informacion directamente al server en nodo maestro 
 
 def bajaPacienteBD():
     print("Lista de pacientes para baja")
