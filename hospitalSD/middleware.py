@@ -104,9 +104,13 @@ def replicarInformacion(data):
         print("Entra a insertar paciente visita")
         comunicacion_base.insertar_en_tabla(datos.split(','),"tbl_pacientes")
         id_doctor = comunicacion_base.obtenDoctorDisponible()
+        print(id_doctor)
         id_paciente =comunicacion_base.obtenIdUltimoPaciente()
+        print(id_paciente)
         id_sala = comunicacion_base.obtenSalaDisponible()
+        print(id_sala)
         id_visita = int(comunicacion_base.obtenIdUltimaVisita()) + 1
+        print(id_visita)
         folio_visita = "P" + str(id_paciente) + "D" + str(id_doctor) + "S" + str(id_sala[0]) + "C" + str(id_sala[1]) + "V" + str(id_visita)
         valores = [id_paciente,id_doctor,id_sala[0],id_sala[1],folio_visita,1,datetime.now().strftime("%Y-%m-%d")]
         comunicacion_base.insertar_en_tabla(valores,"tbl_visitas")
