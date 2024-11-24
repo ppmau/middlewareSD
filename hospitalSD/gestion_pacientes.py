@@ -78,7 +78,7 @@ def mostrarOpEditarPaciente():
 
 def insertaPacienteBD(nombrePaciente,edadPaciente,emergencia,ipNodo,puertoNodo):
     valores = [nombrePaciente,edadPaciente,emergencia]
-    mensajePaciente = f'INSERT-PACIENTE-VISITA|tbl_pacientes|{nombrePaciente}' + ',' + {str(edadPaciente)} + ',' + {emergencia}
+    mensajePaciente = 'INSERT-PACIENTE-VISITA|tbl_pacientes|' + nombrePaciente + ',' + str(edadPaciente) + ',' + emergencia
     client_thread = threading.Thread(target=middleware.cliente, args=(mensajePaciente,int(puertoNodo),ipNodo))
     client_thread.start() #Envia informacion directamente al server en nodo maestro 
 
