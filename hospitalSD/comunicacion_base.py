@@ -208,10 +208,7 @@ def obtenIdUltimaVisita():
         consulta = "SELECT i_id_visita FROM tbl_visitas ORDER BY i_id_visita DESC LIMIT 1"
         cursor.execute(consulta)
         id_doctor = cursor.fetchone()[0]
-        if not id_doctor:
-            return 0
-        else:
-            return id_doctor
+        return 0
     except Exception as e:
         input(f"Ocurrió un error{e}. Enter para continuar...")
     finally:
