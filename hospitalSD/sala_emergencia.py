@@ -115,6 +115,7 @@ def mostrarOpCerrarVisita():
 def server():
     PORT, ipNode= asignar_info_nodo()
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     nodoMaestro = asigna_nodo_maestro(ipNode)
     #server_ready.set()
     print(f"Servidor escuchando {ipNode}")
