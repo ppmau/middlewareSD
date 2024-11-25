@@ -39,6 +39,7 @@ def server():
                     replicarInformacion(data)
                 else:
                     print("No estas en el nodo maestro")
+                    replicarInformacion(data)
                     #enviarInformacion(data,ipNode)
 
     except Exception as e:
