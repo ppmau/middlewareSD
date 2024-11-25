@@ -23,6 +23,7 @@ def server():
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     nodoMaestro = asigna_nodo_maestro(ipNode)
     print(f"Servidor activo: {ipNode}")
+    print(f"Nodo maestro: {nodoMaestro[1]}")
     try:
         server_socket.bind((ipNode,PORT))
         server_socket.listen(5)
