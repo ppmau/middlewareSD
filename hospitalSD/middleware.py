@@ -39,7 +39,7 @@ def server():
                         distribuirInformacion(data,nodoMaestro)
                         replicarInformacion(data)
                     if ipNode != nodoMaestro[0]:
-                        replicarInformacion()
+                        replicarInformacion(data)
                 else: 
                     replicarInformacion(data)
 
