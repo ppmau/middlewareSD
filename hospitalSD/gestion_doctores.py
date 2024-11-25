@@ -68,10 +68,8 @@ def mostrarOpEditarDoctor():
             valor = input("Escriba el valor actualizado:")
             if campo == 1:
                 mensajeDoctor = 'UPDATE|tbl_doctores|' + str(idDoctor) + ',' + 'v_nombre' + ',' + valor
-                #comunicacion_base.actualizar_tabla(idDoctor,"v_nombre","tbl_doctores",valor)
             elif campo == 2:
                 mensajeDoctor = 'UPDATE|tbl_doctores|' + str(idDoctor) + ',' + 'v_nombre' + ',' + valor
-                #comunicacion_base.actualizar_tabla(idDoctor,"v_curp","tbl_doctores", valor)
             client_thread = threading.Thread(target=middleware.cliente, args=(mensajeDoctor,int(puertoNodo),ipNodo))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
         else:
@@ -82,11 +80,16 @@ def mostrarOpEditarDoctor():
         mostrarOpEditarDoctor()
 
 def insertarDoctor():
+    puertoNodo, ipNodo= middleware.asignar_info_nodo()
+    ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)
     print("Escriba los datos del Doctor")
     nombreDoctor = input("Nombre doctor: ")
     curpDoctror = input("CURP: ")
-    valores = [nombreDoctor,curpDoctror]
-    comunicacion_base.insertar_en_tabla(valores,"tbl_doctores")
+    #valores = [nombreDoctor,curpDoctror]
+    mensajeDoctor = 'INSERT|tbl_doctores|' + nombreDoctor + ',' + curpDoctror
+    client_thread = threading.Thread(target=middleware.cliente, args=(mensajeDoctor,int(puertoNodo),ipNodo))
+    client_thread.start() #Envia informacion directamente al server en nodo maestro 
+    #comunicacion_base.insertar_en_tabla(valores,"tbl_doctores")
 
 def bajaDoctorBD():
     print("Lista de doctores para baja")
