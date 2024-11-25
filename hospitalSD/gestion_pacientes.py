@@ -66,14 +66,14 @@ def mostrarOpEditarPaciente():
             campo = int(input("Ingrese la opcion deseada: "))
             valor = input("Escriba el valor actualizado:")
             if campo == 1:
-                mensajePaciente = 'UPDATE|tbl_pacientes|' + idPaciente + ',' + 'v_nombre' + ',' + valor
+                mensajePaciente = 'UPDATE|tbl_pacientes|' + str(idPaciente) + ',' + 'v_nombre' + ',' + valor
                 #comunicacion_base.actualizar_tabla(idPaciente,"v_nombre","tbl_pacientes",valor)
             elif campo == 2:
-                mensajePaciente = 'UPDATE|tbl_pacientes|' + idPaciente + ',' + 'v_edad' + ',' + valor
+                mensajePaciente = 'UPDATE|tbl_pacientes|' + str(idPaciente) + ',' + 'v_edad' + ',' + valor
                 #comunicacion_base.actualizar_tabla(idPaciente, "v_edad","tbl_pacientes", valor)
                 
             elif campo == 3:
-                mensajePaciente = 'UPDATE|tbl_pacientes|' + idPaciente + ',' + 'v_emergencia' + ',' + valor
+                mensajePaciente = 'UPDATE|tbl_pacientes|' + str(idPaciente) + ',' + 'v_emergencia' + ',' + valor
                 #comunicacion_base.actualizar_tabla(idPaciente,"v_emergencia", "tbl_pacientes", valor)
 
             client_thread = threading.Thread(target=middleware.cliente, args=(mensajePaciente,int(puertoNodo),ipNodo))
