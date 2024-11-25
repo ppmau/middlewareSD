@@ -139,4 +139,4 @@ def asigna_nodo_maestro(ipNodoActual):
 #mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF|")
 
 
-print(asigna_nodo_maestro('192.168.252.134'))
+print(asigna_nodo_maestro('192.168.252.138'))
