@@ -99,7 +99,6 @@ def bajaPacienteBD():
             mensajePaciente = 'DELETE|tbl_pacientes|' + str(idPaciente)
             client_thread = threading.Thread(target=middleware.cliente, args=(mensajePaciente,int(puertoNodo),ipNodo))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
-            #comunicacion_base.eliminar_en_tabla(idPaciente,"tbl_pacientes")
         else:
             input("ID incorrecto, seleccione uno valido. Enter para continuar...")
             mostrarOpEditarPaciente()

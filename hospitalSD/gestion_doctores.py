@@ -1,5 +1,7 @@
 import os
 import comunicacion_base
+import middleware
+import threading
 
 def mostrarOpDoctores():
     opcionMenu = 0
@@ -55,6 +57,8 @@ def mostrarOpEditarDoctor():
     print("     Edición de datos de doctor")
     listarDoctores()
     try:
+        puertoNodo, ipNodo= middleware.asignar_info_nodo()
+        ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)
         idDoctor = int(input("Ingrese el id del doctor a editar: "))
         existeId = comunicacion_base.existe_id(idDoctor, "tbl_doctores") ######Trabajo en BASES
         if existeId == 1:
@@ -63,9 +67,13 @@ def mostrarOpEditarDoctor():
             campo = int(input("Ingrese la opcion deseada: "))
             valor = input("Escriba el valor actualizado:")
             if campo == 1:
-                comunicacion_base.actualizar_tabla(idDoctor,"v_nombre","tbl_doctores",valor)
+                mensajeDoctor = 'UPDATE|tbl_pacientes|' + str(idDoctor) + ',' + 'v_nombre' + ',' + valor
+                #comunicacion_base.actualizar_tabla(idDoctor,"v_nombre","tbl_doctores",valor)
             elif campo == 2:
-                comunicacion_base.actualizar_tabla(idDoctor,"v_curp","tbl_doctores", valor)
+                mensajeDoctor = 'UPDATE|tbl_pacientes|' + str(idDoctor) + ',' + 'v_nombre' + ',' + valor
+                #comunicacion_base.actualizar_tabla(idDoctor,"v_curp","tbl_doctores", valor)
+            client_thread = threading.Thread(target=middleware.cliente, args=(mensajeDoctor,int(puertoNodo),ipNodo))
+            client_thread.start() #Envia informacion directamente al server en nodo maestro 
         else:
             input("ID incorrecto, seleccione uno valido. Enter para continuar...")
             mostrarOpEditarDoctor()
