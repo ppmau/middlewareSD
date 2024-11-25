@@ -129,7 +129,9 @@ def asigna_nodo_maestro(ipNodoActual):
     with open("prioridadNodos.txt", "r") as nodeRelation:
         for ports in nodeRelation:
             portNode = ports.strip().split(',')
+            print(int(portNode[2]),portNode[1])
             if verificar_conexion(int(portNode[2]),portNode[1]):
+                print("hubo conexion")
                 return [portNode[1], portNode[2]]
             else:
                 if portNode[1] == ipNodoActual:
