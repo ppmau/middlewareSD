@@ -33,12 +33,14 @@ def server():
             data = client_socket.recv(1024).decode()
             if data:
                 client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
-                input(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
+                print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
                 if client_address[0] == nodoMaestro[0]: #si se recibe un mensaje y se encuentra en nodo maestro
-                    distribuirInformacion(data,nodoMaestro)
-                    replicarInformacion(data)
-                    print("Replicando y distribuyendo")
-                else: #Si se recibe un mensaje
+                    if ipNode == nodoMaestro[0]:
+                        distribuirInformacion(data,nodoMaestro)
+                        replicarInformacion(data)
+                    if ipNode != nodoMaestro[0]:
+                        replicarInformacion()
+                else: 
                     replicarInformacion(data)
 
     except Exception as e:
