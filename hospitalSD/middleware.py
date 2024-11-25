@@ -138,3 +138,5 @@ def asigna_nodo_maestro(ipNodoActual):
 #inicializarMiddleware('1')
 #mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF|")
 
+
+asigna_nodo_maestro('192.168.252.134')
