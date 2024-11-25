@@ -33,14 +33,13 @@ def server():
             if data:
                 client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
                 print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
-                if ipNode == nodoMaestro[0]: #Instruccion recibida al nodo maestro
+                if ipNode == nodoMaestro[0]: #Instruccion recibida desde el nodo maestro al nodo maestro
                     print("Estas en el nodo maestro")
                     distribuirInformacion(data,nodoMaestro)
                     replicarInformacion(data)
-                else:
+                elif ipNode != nodoMaestro[0] and (client_address[0] == nodoMaestro[0]): #Si el nodo no es el nodo maestro y el mensaje llego del nodo maestro
                     print("No estas en el nodo maestro")
                     replicarInformacion(data)
-                    #enviarInformacion(data,ipNode)
 
     except Exception as e:
         print(f"Error en el servidor: {e}")
@@ -69,9 +68,9 @@ def inicializarMiddleware():
     server_thread = threading.Thread(target=server)
     server_thread.start()
 
-def enviaInstruccion(mensaje,puerto,ipDestino): #Función para crear el hilo que enviará el mensaje
-    print(f"mandando mensaje en envia instruccion {mensaje}")
-    client_thread = threading.Thread(target=cliente, args=(mensaje,puerto,ipDestino))
+def enviaDatoAMaestro(mensaje,puertoMaestro,ipMaestro): #Función para crear el hilo que enviará el mensaje
+    print(f"mandando mensaje a nodo maestro {mensaje}")
+    client_thread = threading.Thread(target=cliente, args=(mensaje,puertoMaestro,ipMaestro))
     client_thread.start()
 
 def replicarInformacion(data):
