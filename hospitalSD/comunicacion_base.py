@@ -134,7 +134,7 @@ def eliminar_en_tabla(id, tabla):
             cursor.execute(consulta, (id,))
             conexion.commit()
             if cursor.rowcount > 0:
-                input("Registro actualizado correctamente. Enter para continuar...")
+                print("Registro actualizado correctamente. Enter para continuar...")
             else:
                 input("No se encontró el registro para eliminar. Enter para continuar...")
             
@@ -336,10 +336,10 @@ def cerrarVisitasDoctor(folio):
                         SET b_estatus_visita = 0
                         WHERE v_folio_visita = %s"""
         cursor.execute(consulta,(folio,))
-        input("Visita Cerrada. Enter para continuar...")
+        print("Visita Cerrada. Enter para continuar...")
         conexion.commit()
     except Exception as e:
-        input(f"Ocurrió un error{e}. Enter para continuar...")
+        print(f"Ocurrió un error{e}. Enter para continuar...")
     finally:
         cursor.close()
         conexion.close()
