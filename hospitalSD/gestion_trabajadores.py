@@ -66,24 +66,20 @@ def mostrarOpEditarTrabajador(opcionEdicion):
                 campo = int(input("Ingrese la opcion deseada: "))
                 valor = input("Escriba el valor actualizado:")
                 if campo == 1:
-                    #comunicacion_base.actualizar_tabla(idTrabajador,"v_nombre","tbl_trabajadores_sociales",valor)
                     mensajeTrabajador = 'UPDATE|tbl_trabajadores_sociales|' + str(idTrabajador) + ',' + 'v_nombre' + ',' + valor
                 elif campo == 2:
-                    mensajeTrabajador = 'UPDATE|tbl_trabajadores_sociales|' + str(idTrabajador) + ',' + 'v_nombre' + ',' + valor
-                    #comunicacion_base.actualizar_tabla(idTrabajador,"v_curp","tbl_trabajadores_sociales", valor)   
+                    mensajeTrabajador = 'UPDATE|tbl_trabajadores_sociales|' + str(idTrabajador) + ',' + 'v_curp' + ',' + valor
                 client_thread = threading.Thread(target=middleware.cliente, args=(mensajeTrabajador,int(puertoMaestro),ipMaestro))
                 client_thread.start() #Envia informacion directamente al server en nodo maestro 
             elif opcionEdicion == 1:
                 nombreTrabajador = input("Ingrese el nombre del nuevo trabajador: ")
-                #comunicacion_base.actualizar_tabla(idTrabajador,"v_nombre","tbl_trabajadores_sociales",nombreTrabajador)
                 mensajeTrabajador = 'UPDATE|tbl_trabajadores_sociales|' + str(idTrabajador) + ',' + 'v_nombre' + ',' + nombreTrabajador
                 client_thread = threading.Thread(target=middleware.cliente, args=(mensajeTrabajador,int(puertoMaestro),ipMaestro))
                 client_thread.start() #Envia informacion directamente al server en nodo maestro 
                 curpTrabajador = input("Ingrese el CURP del nuevo trabajador: ")
-                mensajeTrabajador = 'UPDATE|tbl_trabajadores_sociales|' + str(idTrabajador) + ',' + 'v_nombre' + ',' + curpTrabajador
+                mensajeTrabajador = 'UPDATE|tbl_trabajadores_sociales|' + str(idTrabajador) + ',' + 'v_curp' + ',' + curpTrabajador
                 client_thread = threading.Thread(target=middleware.cliente, args=(mensajeTrabajador,int(puertoMaestro),ipMaestro))
                 client_thread.start() #Envia informacion directamente al server en nodo maestro 
-                #comunicacion_base.actualizar_tabla(idTrabajador,"v_curp","tbl_trabajadores_sociales",curpTrabajador)
             else:
                 input("ID incorrecto, seleccione uno valido. Enter para continuar...")
                 mostrarOpEditarTrabajador()
