@@ -77,7 +77,7 @@ def mostrarOpCerrarVisita():
                 opcion = int(input("Seleccione una opcion: "))
                 if opcion == 1:
                     mensajeVisita = 'UPDATE-CERRAR-VISITAS|tbl_visitas|' + folio 
-                    client_thread = threading.Thread(target=middleware.cliente, args=(mensajeVisita,int(puertoNodo),ipNodo))
+                    client_thread = threading.Thread(target=middleware.cliente, args=(mensajeVisita,int(puertoMaestro),ipMaestro))
                     client_thread.start() #Envia informacion directamente al server en nodo maestro 
                     #comunicacion_base.cerrarVisitasDoctor(folio)
                 elif opcion == 2:
@@ -105,7 +105,7 @@ def mostrarOpRegistro():
             puertoNodo, ipNodo= middleware.asignar_info_nodo()
             ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)
             mensajePaciente = 'INSERT-PACIENTE-VISITA|tbl_pacientes|' + nombrePaciente + ',' + str(edadPaciente) + ',' + descripcionEmergencia
-            client_thread = threading.Thread(target=middleware.cliente, args=(mensajePaciente,int(puertoNodo),ipNodo))
+            client_thread = threading.Thread(target=middleware.cliente, args=(mensajePaciente,int(puertoMaestro),ipMaestro))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
             #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia,ipMaestro,puertoMaestro) #Siempre se mandara al nodo maestro
         else:
