@@ -112,7 +112,7 @@ def mostrarOpRegistro():
             input("Enter para continuar... 1")
     except Exception as e:
         input(f"Datos erroneos, repita el registro y digite la edad correctamente. {e}")
-    os.system('clear')
+    os.system('cls')
 
 
 def main():

@@ -30,15 +30,14 @@ def server():
         while True:
             client_socket, client_address = server_socket.accept()
             data = client_socket.recv(1024).decode()
-            input(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
             if data:
                 client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
-                input(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
+                print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
                 if ipNode == nodoMaestro[0]: #Instruccion recibida desde el nodo maestro al nodo maestro
                     print("Estas en el nodo maestro")
                     distribuirInformacion(data,nodoMaestro)
                     replicarInformacion(data)
-                    input("Estas en el nodo maestro, replicando y distribuyendo")
+                    input("No en el nodo maestro, mensaje desde nodo maestro")
                 elif ipNode != nodoMaestro[0] and (client_address[0] == nodoMaestro[0]): #Si el nodo no es el nodo maestro y el mensaje llego del nodo maestro
                     input("No en el nodo maestro, mensaje desde nodo maestro")
                     replicarInformacion(data)
