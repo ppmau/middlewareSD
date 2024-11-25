@@ -67,14 +67,10 @@ def mostrarOpEditarPaciente():
             valor = input("Escriba el valor actualizado:")
             if campo == 1:
                 mensajePaciente = 'UPDATE|tbl_pacientes|' + str(idPaciente) + ',' + 'v_nombre' + ',' + valor
-                #comunicacion_base.actualizar_tabla(idPaciente,"v_nombre","tbl_pacientes",valor)
             elif campo == 2:
                 mensajePaciente = 'UPDATE|tbl_pacientes|' + str(idPaciente) + ',' + 'v_edad' + ',' + valor
-                #comunicacion_base.actualizar_tabla(idPaciente, "v_edad","tbl_pacientes", valor)
-                
             elif campo == 3:
                 mensajePaciente = 'UPDATE|tbl_pacientes|' + str(idPaciente) + ',' + 'v_emergencia' + ',' + valor
-                #comunicacion_base.actualizar_tabla(idPaciente,"v_emergencia", "tbl_pacientes", valor)
 
             client_thread = threading.Thread(target=middleware.cliente, args=(mensajePaciente,int(puertoNodo),ipNodo))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
@@ -95,10 +91,15 @@ def bajaPacienteBD():
     print("Lista de pacientes para baja")
     listarPacientes()
     try:
+        puertoNodo, ipNodo= middleware.asignar_info_nodo()
+        ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)
         idPaciente = int(input("Ingrese el id del paciente a dar de baja: "))
         existeId = comunicacion_base.existe_id(idPaciente, "tbl_pacientes")
         if existeId == 1:
-            comunicacion_base.eliminar_en_tabla(idPaciente,"tbl_pacientes")
+            mensajePaciente = 'DELETE|tbl_pacientes|' + str(idPaciente)
+            client_thread = threading.Thread(target=middleware.cliente, args=(mensajePaciente,int(puertoNodo),ipNodo))
+            client_thread.start() #Envia informacion directamente al server en nodo maestro 
+            #comunicacion_base.eliminar_en_tabla(idPaciente,"tbl_pacientes")
         else:
             input("ID incorrecto, seleccione uno valido. Enter para continuar...")
             mostrarOpEditarPaciente()
