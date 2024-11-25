@@ -67,10 +67,10 @@ def mostrarOpEditarDoctor():
             campo = int(input("Ingrese la opcion deseada: "))
             valor = input("Escriba el valor actualizado:")
             if campo == 1:
-                mensajeDoctor = 'UPDATE|tbl_pacientes|' + str(idDoctor) + ',' + 'v_nombre' + ',' + valor
+                mensajeDoctor = 'UPDATE|tbl_doctores|' + str(idDoctor) + ',' + 'v_nombre' + ',' + valor
                 #comunicacion_base.actualizar_tabla(idDoctor,"v_nombre","tbl_doctores",valor)
             elif campo == 2:
-                mensajeDoctor = 'UPDATE|tbl_pacientes|' + str(idDoctor) + ',' + 'v_nombre' + ',' + valor
+                mensajeDoctor = 'UPDATE|tbl_doctores|' + str(idDoctor) + ',' + 'v_nombre' + ',' + valor
                 #comunicacion_base.actualizar_tabla(idDoctor,"v_curp","tbl_doctores", valor)
             client_thread = threading.Thread(target=middleware.cliente, args=(mensajeDoctor,int(puertoNodo),ipNodo))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
