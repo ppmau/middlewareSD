@@ -18,10 +18,10 @@ def mostrarOpciones():
     opcionMenu = 0
     try:
         while opcionMenu != 4:
-            os.system('clear') 
+            os.system('cls') 
             if opcionMenu > 4:
                 input("Seleccione una opción válida. Enter para continuar...")
-                os.system('clear')  
+                os.system('cls')  
             print("         Sala de emergencias 1          \n")
             print("1.Registro visita")
             print("2.Cerrar visita [Doctores]")
@@ -43,10 +43,10 @@ def mostrarOpGestion():
     opcionMenu = 0
     try:
         while opcionMenu != 4:
-            os.system('clear') 
+            os.system('cls') 
             if opcionMenu > 3:
                 input("Seleccione una opción válida. Enter para continuar...")
-                os.system('clear')  
+                os.system('cls')  
             print("         Gestion de sala de emergencias 1         \n")
             print("1.Doctores")
             print("2.Pacientes")
@@ -64,7 +64,7 @@ def mostrarOpGestion():
         mostrarOpGestion()
 
 def mostrarOpCerrarVisita():
-    os.system('clear') 
+    os.system('cls') 
     print("         Cerrar visita activa [Doctores]")
     try:
         puertoNodo, ipNodo= middleware.asignar_info_nodo()
