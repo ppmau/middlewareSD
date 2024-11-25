@@ -27,19 +27,17 @@ def server():
     try:
         server_socket.bind((ipNode,PORT))
         server_socket.listen(5)
-        while True:
+        while True:  #Siempre se reciben los mensajes al nodo maestro
             client_socket, client_address = server_socket.accept()
             data = client_socket.recv(1024).decode()
             if data:
                 client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
                 input(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
-                if ipNode == nodoMaestro[0]: #Instruccion recibida desde el nodo maestro al nodo maestro
-                    print("Estas en el nodo maestro")
+                if client_address[0] == nodoMaestro[0]: #si se recibe un mensaje y se encuentra en nodo maestro
                     distribuirInformacion(data,nodoMaestro)
                     replicarInformacion(data)
-                    input("No en el nodo maestro, mensaje desde nodo maestro")
-                else: #Si el nodo no es el nodo maestro y el mensaje llego del nodo maestro
-                    input("No en el nodo maestro, mensaje desde nodo maestro")
+                    input("Replicando y distribuyendo")
+                else: #Si se recibe un mensaje
                     replicarInformacion(data)
 
     except Exception as e:
