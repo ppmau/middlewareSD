@@ -113,7 +113,7 @@ def verificar_conexion(puerto, ipDestino):
     try:
         # Crear socket para el cliente
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.settimeout(5)  # Tiempo de espera para evitar bloqueos
+        #client_socket.settimeout(5)  # Tiempo de espera para evitar bloqueos
 
         # Intentar conectar al nodo
         client_socket.connect((ipDestino, puerto))
