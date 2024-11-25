@@ -23,10 +23,11 @@ def server():
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     nodoMaestro = asigna_nodo_maestro(ipNode)
     print(f"Servidor activo: {ipNode}")
-    input(f"Nodo maestro: {nodoMaestro[0]}")
+    print(f"IP:{ipNode} port {PORT}")
     try:
         server_socket.bind((ipNode,PORT))
         server_socket.listen(5)
+        print(f"IP:{ipNode} port {PORT}")
         while True:  #Siempre se reciben los mensajes al nodo maestro
             client_socket, client_address = server_socket.accept()
             data = client_socket.recv(1024).decode()
