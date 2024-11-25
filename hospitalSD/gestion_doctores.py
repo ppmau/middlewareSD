@@ -93,10 +93,14 @@ def bajaDoctorBD():
     print("Lista de doctores para baja")
     listarDoctores()
     try:
+        puertoNodo, ipNodo= middleware.asignar_info_nodo()
+        ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)
         idDoctor = int(input("Ingrese el id del doctor a dar de bajaaa: "))
         existeId = comunicacion_base.existe_id(idDoctor, "tbl_doctores")
         if existeId == 1:
-            comunicacion_base.eliminar_en_tabla(idDoctor,"tbl_doctores")
+            mensajeDoctor = 'DELETE|tbl_doctores|' + str(idDoctor)
+            client_thread = threading.Thread(target=middleware.cliente, args=(mensajeDoctor,int(puertoMaestro),ipMaestro))
+            #comunicacion_base.eliminar_en_tabla(idDoctor,"tbl_doctores")
         else:
             input("ID incorrecto, seleccione uno valido. Enter para continuar...")
             mostrarOpEditarDoctor()
