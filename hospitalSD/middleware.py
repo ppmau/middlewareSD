@@ -38,13 +38,9 @@ def server():
                     distribuirInformacion(data,nodoMaestro)
                     replicarInformacion(data)
                     input("No en el nodo maestro, mensaje desde nodo maestro")
-                elif ipNode != nodoMaestro[0] and (client_address[0] == nodoMaestro[0]): #Si el nodo no es el nodo maestro y el mensaje llego del nodo maestro
+                else: #Si el nodo no es el nodo maestro y el mensaje llego del nodo maestro
                     input("No en el nodo maestro, mensaje desde nodo maestro")
                     replicarInformacion(data)
-                elif ipNode != nodoMaestro[0] and (client_address[0] == nodoMaestro[0]): #Si el nodo no es el maestro y el mensaje no llego desde el nodo maestro
-                    input("No en el nodo maestro, mensaje no desde nodo maestro")
-                    enviaDatoAMaestro(data,nodoMaestro[0],nodoMaestro[1]) #Se envia el mensaje al nodo maestro
-                
 
     except Exception as e:
         print(f"Error en el servidor: {e}")
