@@ -38,8 +38,9 @@ def server():
                     distribuirInformacion(data,nodoMaestro)
                     replicarInformacion(data)
                 elif ipNode != nodoMaestro[0] and (client_address[0] == nodoMaestro[0]): #Si el nodo no es el nodo maestro y el mensaje llego del nodo maestro
-                    print("No estas en el nodo maestro")
+                    input("No estas en el nodo maestro")
                     replicarInformacion(data)
+                
 
     except Exception as e:
         print(f"Error en el servidor: {e}")
