@@ -55,6 +55,8 @@ def mostrarOpEditarPaciente():
     print("     Edición de datos de paciente")
     listarPacientes()
     try:
+        puertoNodo, ipNodo= middleware.asignar_info_nodo()
+        ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)
         idPaciente = int(input("Ingrese el id del paciente a editar: "))
         existeId = comunicacion_base.existe_id(idPaciente, "tbl_pacientes") ######Trabajo en BASES
         if existeId == 1:
@@ -64,11 +66,18 @@ def mostrarOpEditarPaciente():
             campo = int(input("Ingrese la opcion deseada: "))
             valor = input("Escriba el valor actualizado:")
             if campo == 1:
-                comunicacion_base.actualizar_tabla(idPaciente,"v_nombre","tbl_pacientes",valor)
+                mensajePaciente = 'UPDATE|tbl_pacientes|' + idPaciente + ',' + 'v_nombre' + ',' + valor
+                #comunicacion_base.actualizar_tabla(idPaciente,"v_nombre","tbl_pacientes",valor)
             elif campo == 2:
-                comunicacion_base.actualizar_tabla(idPaciente, "v_edad","tbl_pacientes", valor)
+                mensajePaciente = 'UPDATE|tbl_pacientes|' + idPaciente + ',' + 'v_edad' + ',' + valor
+                #comunicacion_base.actualizar_tabla(idPaciente, "v_edad","tbl_pacientes", valor)
+                
             elif campo == 3:
-                comunicacion_base.actualizar_tabla(idPaciente,"v_emergencia", "tbl_pacientes", valor)
+                mensajePaciente = 'UPDATE|tbl_pacientes|' + idPaciente + ',' + 'v_emergencia' + ',' + valor
+                #comunicacion_base.actualizar_tabla(idPaciente,"v_emergencia", "tbl_pacientes", valor)
+
+            client_thread = threading.Thread(target=middleware.cliente, args=(mensajePaciente,int(puertoNodo),ipNodo))
+            client_thread.start() #Envia informacion directamente al server en nodo maestro 
         else:
             input("ID incorrecto, seleccione uno valido. Enter para continuar...")
             mostrarOpEditarPaciente()
