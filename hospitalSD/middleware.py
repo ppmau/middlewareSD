@@ -30,6 +30,7 @@ def server():
         while True:
             client_socket, client_address = server_socket.accept()
             data = client_socket.recv(1024).decode()
+            input(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
             if data:
                 client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
                 input(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
