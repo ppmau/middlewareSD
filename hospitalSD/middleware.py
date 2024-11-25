@@ -105,7 +105,9 @@ def distribuirInformacion(data,nodoMaestro):
             infoNodo = nodo.strip().split(',')
             if infoNodo[1] != nodoMaestro[0]:
                 print("Recorriendo nodos")
-                cliente(data,int(infoNodo[2]),infoNodo[1])
+                client_thread = threading.Thread(target=cliente, args=(data,infoNodo[2],infoNodo[1]))
+                client_thread.start()
+                #cliente(data,int(infoNodo[2]),infoNodo[1])
 
 def verificar_conexion(puerto, ipDestino):
     try:
