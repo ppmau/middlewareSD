@@ -81,8 +81,8 @@ def mostrarOpEditarPaciente():
         else:
             input("ID incorrecto, seleccione uno valido. Enter para continuar...")
             mostrarOpEditarPaciente()
-    except:
-        input("Ingrese un número válido. Enter para continuar...")
+    except Exception as e:
+        input(f"Ingrese un número válido. Enter para continuar...{e}")
         mostrarOpEditarPaciente()
 
 def insertaPacienteBD(nombrePaciente,edadPaciente,emergencia,ipNodo,puertoNodo):
