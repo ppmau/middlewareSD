@@ -94,6 +94,9 @@ def replicarInformacion(data):
         folio_visita = "P" + str(id_paciente) + "D" + str(id_doctor) + "S" + str(id_sala[0]) + "C" + str(id_sala[1]) + "V" + str(id_visita)
         valores = [id_paciente,id_doctor,id_sala[0],id_sala[1],folio_visita,1,datetime.now().strftime("%Y-%m-%d")]
         comunicacion_base.insertar_en_tabla(valores,"tbl_visitas")
+    if instruccion == 'UPDATE-CERRAR-VISITAS':
+        print("entro UPDATE-CERRAR-VISITAS")
+        comunicacion_base.cerrarVisitasDoctor(datos)
     
 
 def distribuirInformacion(data,nodoMaestro):
