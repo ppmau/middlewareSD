@@ -37,7 +37,7 @@ def server():
                 if client_address[0] == nodoMaestro[0]: #si se recibe un mensaje y se encuentra en nodo maestro
                     distribuirInformacion(data,nodoMaestro)
                     replicarInformacion(data)
-                    input("Replicando y distribuyendo")
+                    print("Replicando y distribuyendo")
                 else: #Si se recibe un mensaje
                     replicarInformacion(data)
 
