@@ -113,7 +113,7 @@ def verificar_conexion(puerto, ipDestino):
     try:
         # Crear socket para el cliente
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        #client_socket.settimeout(5)  # Tiempo de espera para evitar bloqueos
+        client_socket.settimeout(5)  # Tiempo de espera para evitar bloqueos
 
         # Intentar conectar al nodo
         client_socket.connect((ipDestino, puerto))
@@ -130,6 +130,7 @@ def asigna_nodo_maestro(ipNodoActual):
         for ports in nodeRelation:
             portNode = ports.strip().split(',')
             print(int(portNode[2]),portNode[1])
+            print(verificar_conexion(int(portNode[2]),portNode[1]))
             if verificar_conexion(int(portNode[2]),portNode[1]):
                 print("hubo conexion")
                 return [portNode[1], portNode[2]]
