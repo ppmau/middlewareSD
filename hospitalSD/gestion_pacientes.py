@@ -72,7 +72,7 @@ def mostrarOpEditarPaciente():
             elif campo == 3:
                 mensajePaciente = 'UPDATE|tbl_pacientes|' + str(idPaciente) + ',' + 'v_emergencia' + ',' + valor
 
-            client_thread = threading.Thread(target=middleware.cliente, args=(mensajePaciente,int(puertoNodo),ipNodo))
+            client_thread = threading.Thread(target=middleware.cliente, args=(mensajePaciente,int(puertoMaestro),ipMaestro))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
         else:
             input("ID incorrecto, seleccione uno valido. Enter para continuar...")
@@ -97,7 +97,7 @@ def bajaPacienteBD():
         existeId = comunicacion_base.existe_id(idPaciente, "tbl_pacientes")
         if existeId == 1:
             mensajePaciente = 'DELETE|tbl_pacientes|' + str(idPaciente)
-            client_thread = threading.Thread(target=middleware.cliente, args=(mensajePaciente,int(puertoNodo),ipNodo))
+            client_thread = threading.Thread(target=middleware.cliente, args=(mensajePaciente,int(puertoMaestro),ipMaestro))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
         else:
             input("ID incorrecto, seleccione uno valido. Enter para continuar...")

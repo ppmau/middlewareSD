@@ -70,7 +70,7 @@ def mostrarOpEditarDoctor():
                 mensajeDoctor = 'UPDATE|tbl_doctores|' + str(idDoctor) + ',' + 'v_nombre' + ',' + valor
             elif campo == 2:
                 mensajeDoctor = 'UPDATE|tbl_doctores|' + str(idDoctor) + ',' + 'v_nombre' + ',' + valor
-            client_thread = threading.Thread(target=middleware.cliente, args=(mensajeDoctor,int(puertoNodo),ipNodo))
+            client_thread = threading.Thread(target=middleware.cliente, args=(mensajeDoctor,int(puertoMaestro),ipMaestro))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
         else:
             input("ID incorrecto, seleccione uno valido. Enter para continuar...")
@@ -86,7 +86,7 @@ def insertarDoctor():
     nombreDoctor = input("Nombre doctor: ")
     curpDoctror = input("CURP: ")
     mensajeDoctor = 'INSERT|tbl_doctores|' + nombreDoctor + ',' + curpDoctror
-    client_thread = threading.Thread(target=middleware.cliente, args=(mensajeDoctor,int(puertoNodo),ipNodo))
+    client_thread = threading.Thread(target=middleware.cliente, args=(mensajeDoctor,int(puertoMaestro),ipMaestro))
     client_thread.start() #Envia informacion directamente al server en nodo maestro 
 
 def bajaDoctorBD():

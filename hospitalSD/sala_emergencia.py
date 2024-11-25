@@ -12,6 +12,8 @@ from datetime import datetime
 
 
 
+
+
 def mostrarOpciones():
     opcionMenu = 0
     try:
@@ -36,23 +38,6 @@ def mostrarOpciones():
     except Exception as e:
         input(f"Ingrese un numero correcto. Enter para continuar...{e}")
         mostrarOpciones()
-
-def mostrarOpRegistro():
-    opcionMenu = 0
-    try:
-        if comunicacion_base.verificaDisponibilidadCama() == 1 and comunicacion_base.verificaDisponiblidadDoctor() == 1:
-            mensaje = ''
-            nombrePaciente = input("Nombre del paciente: ")
-            edadPaciente = int(input("Edad paciente: "))
-            descripcionEmergencia = input("Descripción de la emergencia: ")
-            puertoNodo, ipNodo= middleware.asignar_info_nodo()
-            ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)
-            gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia,ipMaestro,puertoMaestro) #Siempre se mandara al nodo maestro
-        else:
-            input("Enter para continuar... 1")
-    except Exception as e:
-        input(f"Datos erroneos, repita el registro y digite la edad correctamente. {e}")
-    os.system('cls')
 
 def mostrarOpGestion():
     opcionMenu = 0
@@ -82,6 +67,8 @@ def mostrarOpCerrarVisita():
     os.system('cls') 
     print("         Cerrar visita activa [Doctores]")
     try:
+        puertoNodo, ipNodo= middleware.asignar_info_nodo()
+        ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)
         id_doctor = int(input("Proporcione su ID: "))
         if comunicacion_base.existe_id(id_doctor,"tbl_doctores") == 1:
             folio =comunicacion_base.obtenVisitasDoctor(id_doctor)
@@ -89,7 +76,10 @@ def mostrarOpCerrarVisita():
                 print("Desea cerrar su visita?\n1.Si\n2.No")
                 opcion = int(input("Seleccione una opcion: "))
                 if opcion == 1:
-                    comunicacion_base.cerrarVisitasDoctor(folio)
+                    mensajeVisita = 'UPDATE-CERRAR-VISITAS|tbl_visitas|' + folio 
+                    client_thread = threading.Thread(target=middleware.cliente, args=(mensajeVisita,int(puertoNodo),ipNodo))
+                    client_thread.start() #Envia informacion directamente al server en nodo maestro 
+                    #comunicacion_base.cerrarVisitasDoctor(folio)
                 elif opcion == 2:
                     input("op2")
                     #mostrarOpciones()
@@ -103,6 +93,23 @@ def mostrarOpCerrarVisita():
     except Exception as e:
         input("Digite un numero valido. Enter para continuar...")
         mostrarOpCerrarVisita()
+
+def mostrarOpRegistro():
+    opcionMenu = 0
+    try:
+        if comunicacion_base.verificaDisponibilidadCama() == 1 and comunicacion_base.verificaDisponiblidadDoctor() == 1:
+            mensaje = ''
+            nombrePaciente = input("Nombre del paciente: ")
+            edadPaciente = int(input("Edad paciente: "))
+            descripcionEmergencia = input("Descripción de la emergencia: ")
+            puertoNodo, ipNodo= middleware.asignar_info_nodo()
+            ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)
+            gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia,ipMaestro,puertoMaestro) #Siempre se mandara al nodo maestro
+        else:
+            input("Enter para continuar... 1")
+    except Exception as e:
+        input(f"Datos erroneos, repita el registro y digite la edad correctamente. {e}")
+    os.system('cls')
 
 
 def main():

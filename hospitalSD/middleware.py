@@ -34,8 +34,8 @@ def server():
                 print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
                 if ipNode == nodoMaestro[0]: #Instruccion recibida al nodo maestro
                     print("Estas en el nodo maestro")
-                    replicarInformacion(data)
                     distribuirInformacion(data,nodoMaestro)
+                    replicarInformacion(data)
                 else:
                     print("No estas en el nodo maestro")
                     #enviarInformacion(data,ipNode)
