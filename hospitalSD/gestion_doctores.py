@@ -85,11 +85,9 @@ def insertarDoctor():
     print("Escriba los datos del Doctor")
     nombreDoctor = input("Nombre doctor: ")
     curpDoctror = input("CURP: ")
-    #valores = [nombreDoctor,curpDoctror]
     mensajeDoctor = 'INSERT|tbl_doctores|' + nombreDoctor + ',' + curpDoctror
     client_thread = threading.Thread(target=middleware.cliente, args=(mensajeDoctor,int(puertoNodo),ipNodo))
     client_thread.start() #Envia informacion directamente al server en nodo maestro 
-    #comunicacion_base.insertar_en_tabla(valores,"tbl_doctores")
 
 def bajaDoctorBD():
     print("Lista de doctores para baja")

@@ -1,6 +1,7 @@
 import os
 import comunicacion_base
-
+import middleware
+import threading
 def mostrarOpTrabajadores():
     opcionMenu = 0
     try:
@@ -54,6 +55,8 @@ def mostrarOpEditarTrabajador(opcionEdicion):
     print("     Edición de datos de doctor")
     listarTrabajadores()
     try:
+        puertoNodo, ipNodo= middleware.asignar_info_nodo()
+        ipMaestro, puertoMaestro = middleware.asigna_nodo_maestro(ipNodo)
         idTrabajador = int(input("Ingrese la sala del trabajador a editar: "))
         existeId = comunicacion_base.existe_id(idTrabajador, "tbl_trabajadores_sociales") ######Trabajo en BASES
         if existeId == 1:
@@ -63,39 +66,27 @@ def mostrarOpEditarTrabajador(opcionEdicion):
                 campo = int(input("Ingrese la opcion deseada: "))
                 valor = input("Escriba el valor actualizado:")
                 if campo == 1:
-                    comunicacion_base.actualizar_tabla(idTrabajador,"v_nombre","tbl_trabajadores_sociales",valor)
+                    #comunicacion_base.actualizar_tabla(idTrabajador,"v_nombre","tbl_trabajadores_sociales",valor)
+                    mensajeTrabajador = 'UPDATE|tbl_trabajadores_sociales|' + str(idTrabajador) + ',' + 'v_nombre' + ',' + valor
                 elif campo == 2:
-                    comunicacion_base.actualizar_tabla(idTrabajador,"v_curp","tbl_trabajadores_sociales", valor)   
+                    mensajeTrabajador = 'UPDATE|tbl_trabajadores_sociales|' + str(idTrabajador) + ',' + 'v_nombre' + ',' + valor
+                    #comunicacion_base.actualizar_tabla(idTrabajador,"v_curp","tbl_trabajadores_sociales", valor)   
+                client_thread = threading.Thread(target=middleware.cliente, args=(mensajeTrabajador,int(puertoMaestro),ipMaestro))
+                client_thread.start() #Envia informacion directamente al server en nodo maestro 
             elif opcionEdicion == 1:
                 nombreTrabajador = input("Ingrese el nombre del nuevo trabajador: ")
-                comunicacion_base.actualizar_tabla(idTrabajador,"v_nombre","tbl_trabajadores_sociales",nombreTrabajador)
+                #comunicacion_base.actualizar_tabla(idTrabajador,"v_nombre","tbl_trabajadores_sociales",nombreTrabajador)
+                mensajeTrabajador = 'UPDATE|tbl_trabajadores_sociales|' + str(idTrabajador) + ',' + 'v_nombre' + ',' + nombreTrabajador
+                client_thread = threading.Thread(target=middleware.cliente, args=(mensajeTrabajador,int(puertoMaestro),ipMaestro))
+                client_thread.start() #Envia informacion directamente al server en nodo maestro 
                 curpTrabajador = input("Ingrese el CURP del nuevo trabajador: ")
-                comunicacion_base.actualizar_tabla(idTrabajador,"v_curp","tbl_trabajadores_sociales",curpTrabajador)
+                mensajeTrabajador = 'UPDATE|tbl_trabajadores_sociales|' + str(idTrabajador) + ',' + 'v_nombre' + ',' + curpTrabajador
+                client_thread = threading.Thread(target=middleware.cliente, args=(mensajeTrabajador,int(puertoMaestro),ipMaestro))
+                client_thread.start() #Envia informacion directamente al server en nodo maestro 
+                #comunicacion_base.actualizar_tabla(idTrabajador,"v_curp","tbl_trabajadores_sociales",curpTrabajador)
             else:
                 input("ID incorrecto, seleccione uno valido. Enter para continuar...")
                 mostrarOpEditarTrabajador()
-    except:
-        input("Ingrese un número válido. Enter para continuar...")
-        mostrarOpEditarTrabajador()
-
-def insertarDoctor():
-    print("Escriba los datos del Doctor")
-    nombreDoctor = input("Nombre doctor: ")
-    curpDoctror = input("CURP: ")
-    valores = [nombreDoctor,curpDoctror]
-    comunicacion_base.insertar_en_tabla(valores,"tbl_doctores")
-
-def bajaDoctorBD():
-    print("Lista de doctores para baja")
-    listarTrabajadores()
-    try:
-        idDoctor = int(input("Ingrese el id del doctor a dar de bajaaa: "))
-        existeId = comunicacion_base.existe_id(idDoctor, "tbl_doctores")
-        if existeId == 1:
-            comunicacion_base.eliminar_en_tabla(idDoctor,"tbl_doctores")
-        else:
-            input("ID incorrecto, seleccione uno valido. Enter para continuar...")
-            mostrarOpEditarTrabajador()
     except:
         input("Ingrese un número válido. Enter para continuar...")
         mostrarOpEditarTrabajador()
