@@ -37,8 +37,10 @@ def server():
                         replicarInformacion(data)
                     if ipNode != nodoMaestro[0]:
                         replicarInformacion(data)
-                else: 
+                elif client_address[0] != nodoMaestro[0]:
+                    distribuirInformacion(data,nodoMaestro)
                     replicarInformacion(data)
+                    
 
     except Exception as e:
         print(f"Error en el servidor: {e}")
