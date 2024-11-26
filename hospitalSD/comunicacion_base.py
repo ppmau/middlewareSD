@@ -385,7 +385,7 @@ def moverVisitasDeNodoFallido(salaCaida):
 
         consulta2 = f"""
                     SELECT i_id_sala_emergencia, i_id_cama FROM tbl_camas
-                    WHERE i_id_sala != {salaCaida}
+                    WHERE i_id_sala_emergencia != {salaCaida}
                     AND b_estatus = 1
                     """        
         cursor.execute(consulta2)
