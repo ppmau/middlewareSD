@@ -376,7 +376,7 @@ def moverVisitasDeNodoFallido(salaCaida):
     try:
         cursor, conexion = conectar_base()
         consulta = f"""
-                    SELECT v_folio FROM tbl_visitas
+                    SELECT v_folio_visita FROM tbl_visitas
                     WHERE i_id_sala = {salaCaida} 
                     """
         cursor.execute(consulta)
