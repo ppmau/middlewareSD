@@ -217,16 +217,19 @@ def obtenIdUltimaVisita():
         cursor, conexion = conectar_base()
         consulta = "SELECT i_id_visita FROM tbl_visitas ORDER BY i_id_visita DESC LIMIT 1"
         cursor.execute(consulta)
-        id_visita = cursor.fetchone()[0]
-        if not id_visita:
+        resultado = cursor.fetchone()  # Obtener el resultado de la consulta
+
+        if resultado is None:  # Si no hay resultados, devolver 0
             return 0
         else:
-            return 1
+            id_visita = resultado[0]  # Obtener el valor de la primera columna
+            return id_visita
     except Exception as e:
-        input(f"Ocurrió un error{e}. Enter para continuar...")
+        input(f"Ocurrió un error: {e}. Enter para continuar...")
     finally:
         cursor.close()
         conexion.close()
+
 
 
 def obtenSalaDisponible():
