@@ -8,7 +8,7 @@ def mostrarOpPacientes():
     opcionMenu = 0
     try:
         while opcionMenu != 3:
-            os.system('cls') 
+            os.system('clear') 
             print("         Gestión de Pacientes        \n")
             print("1.Lista de pacientes ")
             print("2.Alta/Actualización/Baja de pacientes ")
@@ -25,7 +25,7 @@ def mostrarOpPacientes():
         mostrarOpPacientes()
 
 def listarPacientes():
-    os.system('cls')
+    os.system('clear')
     print("Lista de pacientes")
     comunicacion_base.lista_tabla("tbl_pacientes")
     input("Enter para continuar...")
@@ -35,7 +35,7 @@ def actualizarPacientes():
     opcionActualizar = int(0)
     try:
         while opcionActualizar != 3:
-            os.system('cls')
+            os.system('clear')
             print("         Actualizar Pacientes         \n")
             print("1. Editar un paciente")
             print("2. Dar de baja un paciente")

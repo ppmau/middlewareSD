@@ -6,7 +6,7 @@ def mostrarOpTrabajadores():
     opcionMenu = 0
     try:
         while opcionMenu != 3:
-            os.system('cls') 
+            os.system('clear') 
             print("         Gestión de Trabajadores         \n")
             print("1.Lista de trabajadores disponibles ")
             print("2.Actualización de trabajadores")
@@ -24,7 +24,7 @@ def mostrarOpTrabajadores():
         mostrarOpTrabajadores()
 
 def listarTrabajadores():
-    os.system('cls')
+    os.system('clear')
     print("Lista de trabajadores")
     comunicacion_base.lista_tabla("tbl_trabajadores_sociales")
    
@@ -34,7 +34,7 @@ def actualizarTrabajadores():
     opcionActualizar = int(0)
     try:
         while opcionActualizar != 3:
-            os.system('cls')
+            os.system('clear')
             print("         Actualizar Trabajadores         \n")
             print("1. Actualizar datos de trabajador de sala")
             print("2. Cambiar trabajador de sala")

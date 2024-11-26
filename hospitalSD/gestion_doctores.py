@@ -7,7 +7,7 @@ def mostrarOpDoctores():
     opcionMenu = 0
     try:
         while opcionMenu != 3:
-            os.system('cls') 
+            os.system('clear') 
             print("         Gestión de Doctores         \n")
             print("1.Lista de doctores disponibles ")
             print("2.Alta/Actualización/Baja de doctor ")
@@ -24,7 +24,7 @@ def mostrarOpDoctores():
         mostrarOpDoctores()
 
 def listarDoctores():
-    os.system('cls')
+    os.system('clear')
     print("Lista de doctores")
     comunicacion_base.lista_tabla("tbl_doctores")
     input("Enter para continuar...")
@@ -34,7 +34,7 @@ def actualizarDoctores():
     opcionActualizar = int(0)
     try:
         while opcionActualizar != 4:
-            os.system('cls')
+            os.system('clear')
             print("         Actualizar Doctores         \n")
             print("1. Editar un doctor")
             print("2. Agregar un doctor")
