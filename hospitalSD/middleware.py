@@ -59,12 +59,12 @@ def cliente(mensaje,puerto,ipDestino):
                 if verificar_conexion(puerto,ipDestino): #Si se puede conectar al nodo
                     with open(nombreArchivo, "r") as pendientes:
                         for instruccion in pendientes:  # Iterar sobre cada línea
-                            instruccion = instruccion.strip()  # Eliminar saltos de línea extra o espacios
+                            #instruccion = instruccion.strip()  # Eliminar saltos de línea extra o espacios
                             if instruccion:  # Validar que la línea no esté vacía
-                                client_socket.send((instruccion).encode())
+                                client_socket.send((instruccion + "\n").encode())
                                 print(instruccion)
                                 # Enviar con un salto de línea
-                                time.sleep(0.01) 
+                                #time.sleep(0.1) 
                             client_socket.send(mensaje.encode()) #Envia el mensaje actual al final
 
                             
