@@ -99,7 +99,6 @@ def insertar_en_tabla(valores,tabla):
         if tabla == "tbl_doctores":
             nombre = valores[0]
             curp = valores[1]
-            print(f"entro a tbl_doctores: {valores}")
             consulta = f"INSERT INTO {tabla} (v_nombre, v_curp) VALUES (%s, %s)"
             cursor.execute(consulta, (nombre,curp,))
             conexion.commit()

@@ -31,7 +31,7 @@ def server():
             data = client_socket.recv(1024).decode()
             if data:
                 client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
-                print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
+                #print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
                 if ipNode == nodoMaestro[0]:
                     distribuirInformacion(data,nodoMaestro)
                     replicarInformacion(data)
