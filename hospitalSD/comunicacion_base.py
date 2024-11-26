@@ -391,8 +391,11 @@ def moverVisitasDeNodoFallido(salaCaida):
         cursor.execute(consulta2)
         camasDisponibles = cursor.fetchall()
 
-        print(v_folios)
-        print(camasDisponibles)
+        if len(v_folios) < len(camasDisponibles):
+            for visitas in v_folios:
+                print(visitas)
+        else:
+            print("No es posible cambiar las visitas por falla de nodo. No hay cupo disponible")
 
     except Exception as e:
         print(f"Ocurrió un error{e} Seleccione una opcion: ")
