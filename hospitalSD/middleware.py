@@ -48,26 +48,22 @@ def cliente(mensaje,puerto,ipDestino):
     try:
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        client_socket.connect((ipDestino, puerto))
         if os.path.exists(nombreArchivo):
             print(ipDestino)
             if os.stat(nombreArchivo).st_size == 0:
-                client_socket.connect((ipDestino, puerto))
                 client_socket.send(mensaje.encode())
                 response = client_socket.recv(1024).decode()
                 input("El archivo existe y está vacio")
             else: #Si el archivo existe y tiene contenido
                 if verificar_conexion(puerto,ipDestino): #Si se puede conectar al nodo
+                    chunk_size = 128  # Tamaño del bloque en bytes
                     with open(nombreArchivo, "r") as pendientes:
-                        for instruccion in pendientes:  # Iterar sobre cada línea
-                            client_socket.connect((ipDestino, puerto))
-                            #instruccion = instruccion.strip()  # Eliminar saltos de línea extra o espacios
-                            if instruccion:  # Validar que la línea no esté vacía
-                                client_socket.send((instruccion).encode())
-                                print(instruccion)
-                                client_socket.close()
-                                # Enviar con un salto de línea
-                                #time.sleep(0.001)
-                            client_socket.connect((ipDestino, puerto))
+                        for instruccion in pendientes:
+                            instruccion = instruccion.strip()
+                            if instruccion:
+                                for i in range(0, len(instruccion), chunk_size):
+                                    client_socket.send((instruccion[i:i+chunk_size]).encode())
                             client_socket.send(mensaje.encode()) #Envia el mensaje actual al final
 
                             
