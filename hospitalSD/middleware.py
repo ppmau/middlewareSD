@@ -48,32 +48,10 @@ def cliente(mensaje,puerto,ipDestino):
     try:
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        client_socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
         client_socket.connect((ipDestino, puerto))
-        if os.path.exists(nombreArchivo):
-            print(ipDestino)
-            if os.stat(nombreArchivo).st_size == 0:
-                client_socket.send(mensaje.encode())
-                response = client_socket.recv(1024).decode()
-                input("El archivo existe y está vacio")
-            else: #Si el archivo existe y tiene contenido
-                if verificar_conexion(puerto,ipDestino): #Si se puede conectar al nodo
-                    chunk_size = 0  # Tamaño del bloque en bytes
-                    with open(nombreArchivo, "r") as pendientes:
-                        for instruccion in pendientes:
-                            instruccion = instruccion.strip()
-                            print(instruccion)
-                            client_socket.send(instruccion.encode())
-                            #time.sleep(0.05)
-                            #client_socket.send(mensaje.encode()) #Envia el mensaje actual al final                         
-        else:
-            client_socket.send(mensaje.encode())
-            response = client_socket.recv(1024).decode()
-            input("El archivo no existe, puede enviar mensaje")
-        #print(f"{response}")
+        client_socket.send(mensaje.encode())
     except Exception as e:
         print(f"No se pudo conectar con el nodo en {ipDestino}:{puerto}. Conexión rechazada.{e}. Seleccione otra opcion: ")
-        escribeMensajePendiente(mensaje,ipDestino)
     finally:
         client_socket.close()
 
