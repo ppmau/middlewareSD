@@ -341,6 +341,19 @@ def cerrarVisitasDoctor(folio):
                         SET b_estatus_visita = 0
                         WHERE v_folio_visita = %s"""
         cursor.execute(consulta,(folio,))
+        cursor, conexion = conectar_base()
+
+        consulta2 = f"""UPDATE tbl_doctores
+                        SET b_estatus_disponibilidad = 1
+                        WHERE i_id_doctor = (SELECT i_id_doctor FROM tbl_visitas WHERE v_folio_visita = %s)"""
+        cursor.execute(consulta2,(folio,))
+
+        consulta3 = f"""UPDATE tbl_camas
+                        SET b_disponibilidad = 1
+                        WHERE i_id_cama = (SELECT i_id_cama FROM tbl_visitas WHERE v_folio_visita = %s)
+                        AND i_id_sala_emergencia = (SELECT i_id_sala FROM tbl_visitas WHERE v_folio_visita = %s) """
+        cursor.execute(consulta2,(folio,))
+
         print("Visita Cerrada. Enter para continuar...")
         conexion.commit()
     except Exception as e:
