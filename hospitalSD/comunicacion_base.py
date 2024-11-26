@@ -352,7 +352,7 @@ def cerrarVisitasDoctor(folio):
                         SET b_disponibilidad = 1
                         WHERE i_id_cama = (SELECT i_id_cama FROM tbl_visitas WHERE v_folio_visita = %s)
                         AND i_id_sala_emergencia = (SELECT i_id_sala FROM tbl_visitas WHERE v_folio_visita = %s) """
-        cursor.execute(consulta3,(folio,))
+        cursor.execute(consulta3,(folio,folio))
 
         print("Visita Cerrada. Enter para continuar...")
         conexion.commit()
