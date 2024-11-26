@@ -31,12 +31,13 @@ def lista_tabla(tabla):
                             p.v_nombre AS nombre_paciente, 
                             p.v_edad, 
                             p.v_emergencia, 
-                            v.i_id_sala, 
-                            v.i_id_cama, 
+                            v.i_id_sala AS sala_emergencia, 
+                            v.i_id_cama AS cama, 
                             d.v_nombre AS nombre_doctor
                         FROM tbl_pacientes p
                         INNER JOIN tbl_visitas v ON p.i_id_paciente = v.i_id_paciente
-                        INNER JOIN tbl_doctores d ON v.i_id_doctor = d.i_id_doctor;"""
+                        INNER JOIN tbl_doctores d ON v.i_id_doctor = d.i_id_doctor
+                        """
             cursor.execute(consulta)
             resultados = cursor.fetchall()
             for fila in resultados:
