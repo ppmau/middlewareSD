@@ -53,7 +53,7 @@ def cliente(mensaje,puerto,ipDestino):
         #print(f"{response}")
     except Exception as e:
         print(f"No se pudo conectar con el nodo en {ipDestino}:{puerto}. Conexión rechazada.{e}. Seleccione otra opcion: ")
-        escribeMensajePendiente(mensaje)
+        escribeMensajePendiente(mensaje + '|'  + ipDestino + '|' + puerto )
     finally:
         client_socket.close()
 
