@@ -378,10 +378,22 @@ def moverVisitasDeNodoFallido(salaCaida):
         consulta = f"""
                     SELECT v_folio_visita FROM tbl_visitas
                     WHERE i_id_sala = {salaCaida} 
+                    AND b_estatus_visita = 1
                     """
         cursor.execute(consulta)
         v_folios = cursor.fetchall()
+
+        consulta2 = f"""
+                    SELECT i_id_sala, i_id_cama FROM tbl_camas
+                    WHERE i_id_sala != {salaCaida}
+                    AND b_estatus = 1
+                    """        
+        cursor.execute(consulta2)
+        camasDisponibles = cursor.fetchall()
+
         print(v_folios)
+        print(camasDisponibles)
+
     except Exception as e:
         print(f"Ocurrió un error{e} Seleccione una opcion: ")
     finally:
