@@ -31,24 +31,10 @@ def server():
             if data:
                 client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
                 #print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
-                if client_address[0] == nodoMaestro[0]: #si se recibe un mensaje y se encuentra en nodo maestro
-                    if ipNode == nodoMaestro[0]:
-                        input("Mensaje viene de nodo maestro, se encuentra en nodo maestro, replica y distribuye")
-                        distribuirInformacion(data,nodoMaestro)
-                        replicarInformacion(data)
-                    if ipNode != nodoMaestro[0]:
-                        input("Mensaje viene de nodo maestro, no se encuentra en nodo maestro, replica")
-                        replicarInformacion(data)
-                elif client_address[0] != nodoMaestro[0]:
-                    if ipNode != nodoMaestro[0]:
-                        enviaDatoAMaestro(data)
-                        input("Mensaje no viene de nodo maestro y no se encuentra en el nodo maestro. Envia mensaje a nodo maestro")
-                    if ipNode == nodoMaestro[0]:
-                        distribuirInformacion(data,nodoMaestro)
-                        replicarInformacion(data)
-                        input("Mensaje no viene de nodo maestro y se encuentra en nodo maestro")
-                        
+                if ipNode == nodoMaestro[0]:
                     distribuirInformacion(data,nodoMaestro)
+                    replicarInformacion(data)
+                else:
                     replicarInformacion(data)
                     
 
