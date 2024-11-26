@@ -125,6 +125,3 @@ def asigna_nodo_maestro(ipNodoActual):
             else:
                 if portNode[1] == ipNodoActual:
                     return [portNode[1], portNode[2]]
-
-#inicializarMiddleware('1')
-#mandarMensajeNodo("INSERT|tbl_doctores|Jose Mauricio, PEPM960630HDF|")
