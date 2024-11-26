@@ -44,9 +44,18 @@ def server():
         server_socket.close()
 
 def cliente(mensaje,puerto,ipDestino):
+    nombreArchivo = f"mensajesPendientes{ipDestino}"
     try:
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        if os.path.exists(nombreArchivo):
+            print(ipDestino)
+            if os.stat(nombreArchivo).st_size == 0:
+                input("El archivo existe y tiene")
+            else:
+                input("El archivo no está vacío.")       
+        else:
+            input("El archivo no existe, puede enviar mensaje")
         client_socket.connect((ipDestino, puerto))
         client_socket.send(mensaje.encode())
         response = client_socket.recv(1024).decode()
