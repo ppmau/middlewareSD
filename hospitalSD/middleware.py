@@ -25,7 +25,6 @@ def server():
     try:
         server_socket.bind((ipNode,PORT))
         server_socket.listen(5)
-        #print(f"IP:{ipNode} port {PORT}")
         while True:  #Siempre se reciben los mensajes al nodo maestro
             client_socket, client_address = server_socket.accept()
             data = client_socket.recv(1024).decode()
