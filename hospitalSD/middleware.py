@@ -65,9 +65,7 @@ def cliente(mensaje,puerto,ipDestino):
                             print(instruccion)
                             client_socket.send(instruccion.encode())
                             #time.sleep(0.05)
-                            #client_socket.send(mensaje.encode()) #Envia el mensaje actual al final
-
-                            
+                            #client_socket.send(mensaje.encode()) #Envia el mensaje actual al final                         
         else:
             client_socket.send(mensaje.encode())
             response = client_socket.recv(1024).decode()
