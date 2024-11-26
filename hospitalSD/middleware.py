@@ -63,7 +63,7 @@ def cliente(mensaje,puerto,ipDestino):
                         for instruccion in pendientes:
                             instruccion = instruccion.strip()
                             print(instruccion)
-                            client_socket.send((instruccion.encode())
+                            client_socket.send(instruccion.encode())
                             #time.sleep(0.05)
                             #client_socket.send(mensaje.encode()) #Envia el mensaje actual al final
 
