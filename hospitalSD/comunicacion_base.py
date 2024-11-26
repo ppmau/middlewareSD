@@ -401,6 +401,10 @@ def moverVisitasDeNodoFallido(salaCaida):
         else:
             print("No es posible cambiar las visitas por falla de nodo. No hay cupo disponible")
 
+
+        print(v_folios)
+        print(camasDisponibles)
+
     except Exception as e:
         print(f"Ocurrió un error{e} Seleccione una opcion: ")
     finally:
