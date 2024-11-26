@@ -30,13 +30,12 @@ def server():
             data = client_socket.recv(1024).decode()
             if data:
                 client_socket.send(f"El nodo {ipNode} ha recibido el mensaje: {data}".encode() )
-                #print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
+                print(f"\nMensaje: {data} recibido desde {client_address[0]}".encode())
                 if ipNode == nodoMaestro[0]:
                     distribuirInformacion(data,nodoMaestro)
                     replicarInformacion(data)
                 else:
-                    replicarInformacion(data)
-                    
+                    replicarInformacion(data)                  
 
     except Exception as e:
         print(f"Error en el servidor: {e}")
@@ -52,7 +51,6 @@ def cliente(mensaje,puerto,ipDestino):
         if os.path.exists(nombreArchivo):
             print(ipDestino)
             if os.stat(nombreArchivo).st_size == 0:
-
                 client_socket.send(mensaje.encode())
                 response = client_socket.recv(1024).decode()
                 input("El archivo existe y está vacio")
