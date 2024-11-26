@@ -371,3 +371,22 @@ def cerrarVisitasDoctor(folio):
     finally:
         cursor.close()
         conexion.close()
+
+def moverVisitasDeNodoFallido(salaCaida):
+    try:
+        cursor, conexion = conectar_base()
+        consulta = f"""
+                    SELECT v_folio FROM tbl_visitas
+                    WHERE i_id_sala = {salaCaida} 
+                    """
+        cursor.execute(consulta)
+        v_folios = cursor.fetchall()
+        print(v_folios)
+    except Exception as e:
+        print(f"Ocurrió un error{e} Seleccione una opcion: ")
+    finally:
+        cursor.close()
+        conexion.close()
+
+
+moverVisitasDeNodoFallido(1)
