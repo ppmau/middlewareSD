@@ -418,4 +418,4 @@ def moverVisitasDeNodoFallido(salaCaida):
         conexion.close()
 
 
-moverVisitasDeNodoFallido(1)
+#moverVisitasDeNodoFallido(1)

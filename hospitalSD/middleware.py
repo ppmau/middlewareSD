@@ -53,6 +53,7 @@ def cliente(mensaje,puerto,ipDestino):
         #print(f"{response}")
     except Exception as e:
         print(f"No se pudo conectar con el nodo en {ipDestino}:{puerto}. Conexión rechazada.{e}. Seleccione otra opcion: ")
+        escribeMensajePendiente(mensaje)
     finally:
         client_socket.close()
 
@@ -125,3 +126,8 @@ def asigna_nodo_maestro(ipNodoActual):
             else:
                 if portNode[1] == ipNodoActual:
                     return [portNode[1], portNode[2]]
+
+def escribeMensajePendiente(mensaje):
+    with open("mensajesPendientes.txt", "a") as archivo:  # Usa "a" para agregar al archivo sin borrar su contenido
+        archivo.write(mensaje)
+
