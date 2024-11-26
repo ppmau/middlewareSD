@@ -44,7 +44,7 @@ def server():
         server_socket.close()
 
 def cliente(mensaje,puerto,ipDestino):
-    nombreArchivo = f"mensajesPendientes{ipDestino}"
+    nombreArchivo = f"mensajesPendientes{ipDestino}.txt"
     try:
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
