@@ -18,10 +18,10 @@ def mostrarOpciones():
     opcionMenu = 0
     try:
         while opcionMenu != 4:
-            os.system('clear') 
+            os.system('cls') 
             if opcionMenu > 4:
                 input("Seleccione una opción válida. Enter para continuar...")
-                os.system('clear')  
+                os.system('cls')  
             print("         Sala de emergencias 1          \n")
             print("1.Registro visita")
             print("2.Cerrar visita [Doctores]")
@@ -43,10 +43,10 @@ def mostrarOpGestion():
     opcionMenu = 0
     try:
         while opcionMenu != 4:
-            os.system('clear') 
+            os.system('cls') 
             if opcionMenu > 3:
                 input("Seleccione una opción válida. Enter para continuar...")
-                os.system('clear')  
+                os.system('cls')  
             print("         Gestion de sala de emergencias 1         \n")
             print("1.Doctores")
             print("2.Pacientes")
@@ -64,7 +64,7 @@ def mostrarOpGestion():
         mostrarOpGestion()
 
 def mostrarOpCerrarVisita():
-    os.system('clear') 
+    os.system('cls') 
     print("         Cerrar visita activa [Doctores]")
     try:
         puertoNodo, ipNodo= middleware.asignar_info_nodo()
@@ -96,7 +96,6 @@ def mostrarOpRegistro():
     opcionMenu = 0
     try:
         if comunicacion_base.verificaDisponibilidadCama() == 1 and comunicacion_base.verificaDisponiblidadDoctor() == 1:
-            mensaje = ''
             nombrePaciente = input("Nombre del paciente: ")
             edadPaciente = int(input("Edad paciente: "))
             descripcionEmergencia = input("Descripción de la emergencia: ")
@@ -105,12 +104,11 @@ def mostrarOpRegistro():
             mensajePaciente = 'INSERT-PACIENTE-VISITA|tbl_pacientes|' + nombrePaciente + ',' + str(edadPaciente) + ',' + descripcionEmergencia
             client_thread = threading.Thread(target=middleware.cliente, args=(mensajePaciente,int(puertoMaestro),ipMaestro))
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
-            #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia,ipMaestro,puertoMaestro) #Siempre se mandara al nodo maestro
         else:
             print("No hay camas o doctores disponibes. Seleccione una opcion: ")
     except Exception as e:
         input(f"Datos erroneos, repita el registro y digite la edad correctamente. {e}")
-    os.system('clear')
+    os.system('cls')
 
 
 def main():
