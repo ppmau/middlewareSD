@@ -100,6 +100,7 @@ def bajaDoctorBD():
         if existeId == 1:
             mensajeDoctor = 'DELETE|tbl_doctores|' + str(idDoctor)
             client_thread = threading.Thread(target=middleware.cliente, args=(mensajeDoctor,int(puertoMaestro),ipMaestro))
+            client_thread.start()
             #comunicacion_base.eliminar_en_tabla(idDoctor,"tbl_doctores")
         else:
             input("ID incorrecto, seleccione uno valido. Enter para continuar...")
