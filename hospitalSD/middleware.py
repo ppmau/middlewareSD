@@ -25,7 +25,7 @@ def server():
     try:
         server_socket.bind((ipNode,PORT))
         server_socket.listen(5)
-        print(f"IP:{ipNode} port {PORT}")
+        #print(f"IP:{ipNode} port {PORT}")
         while True:  #Siempre se reciben los mensajes al nodo maestro
             client_socket, client_address = server_socket.accept()
             data = client_socket.recv(1024).decode()
@@ -48,16 +48,12 @@ def server():
 
 def cliente(mensaje,puerto,ipDestino):
     try:
-        print("Mandando mensaje")
-        print(mensaje)
-        print(puerto)
-        print(ipDestino)
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         client_socket.connect((ipDestino, puerto))
         client_socket.send(mensaje.encode())
         response = client_socket.recv(1024).decode()
-        print(f"{response}")
+        #print(f"{response}")
     except Exception as e:
         print(f"No se pudo conectar con el nodo en {ipDestino}:{puerto}. Conexión rechazada.{e}. Seleccione otra opcion: ")
     finally:
