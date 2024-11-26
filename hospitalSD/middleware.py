@@ -64,7 +64,7 @@ def cliente(mensaje,puerto,ipDestino):
                             if instruccion:
                                 for i in range(0, len(instruccion), chunk_size):
                                     client_socket.send((instruccion[i:i+chunk_size]).encode())
-                            client_socket.send(mensaje.encode()) #Envia el mensaje actual al final
+                            #client_socket.send(mensaje.encode()) #Envia el mensaje actual al final
 
                             
         else:
