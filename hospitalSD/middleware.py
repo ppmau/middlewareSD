@@ -57,9 +57,12 @@ def cliente(mensaje,puerto,ipDestino):
             else: #Si el archivo existe y tiene contenido
                 if verificar_conexion(puerto,ipDestino): #Si se puede conectar al nodo
                     with open(nombreArchivo, "r") as pendientes:
-                        for instruccion in pendientes:
-                            client_socket.send(instruccion.encode())
-                    client_socket.send(mensaje.encode()) #Envia el mensaje actual al final
+                        for instruccion in pendientes:  # Iterar sobre cada línea
+                            instruccion = instruccion.strip()  # Eliminar saltos de línea extra o espacios
+                            if instruccion:  # Validar que la línea no esté vacía
+                                client_socket.send((instruccion).encode())  # Enviar con un salto de línea
+                            client_socket.send(mensaje.encode()) #Envia el mensaje actual al final
+
                             
         else:
             client_socket.send(mensaje.encode())
