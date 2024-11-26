@@ -398,7 +398,7 @@ def moverVisitasDeNodoFallido(salaCaida):
                                 SET i_id_sala = {int(camasDisponibles[contador][0])}, i_id_cama = {int(camasDisponibles[contador][1])}
                                 WHERE v_folio_visita = {visitas}    
                             """    
-                print(visitas)
+                print(visitas[0])
                 print(camasDisponibles[contador][0])
                 print(camasDisponibles[contador][1])
                 contador = contador + 1
