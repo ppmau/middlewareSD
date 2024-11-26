@@ -18,10 +18,10 @@ def mostrarOpciones():
     opcionMenu = 0
     try:
         while opcionMenu != 4:
-            os.system('cls') 
+            os.system('clear') 
             if opcionMenu > 4:
                 input("Seleccione una opción válida. Enter para continuar...")
-                os.system('cls')  
+                os.system('clear')  
             print("         Sala de emergencias 1          \n")
             print("1.Registro visita")
             print("2.Cerrar visita [Doctores]")
@@ -43,10 +43,10 @@ def mostrarOpGestion():
     opcionMenu = 0
     try:
         while opcionMenu != 4:
-            os.system('cls') 
+            os.system('clear') 
             if opcionMenu > 3:
                 input("Seleccione una opción válida. Enter para continuar...")
-                os.system('cls')  
+                os.system('clear')  
             print("         Gestion de sala de emergencias 1         \n")
             print("1.Doctores")
             print("2.Pacientes")
@@ -64,7 +64,7 @@ def mostrarOpGestion():
         mostrarOpGestion()
 
 def mostrarOpCerrarVisita():
-    os.system('cls') 
+    os.system('clear') 
     print("         Cerrar visita activa [Doctores]")
     try:
         puertoNodo, ipNodo= middleware.asignar_info_nodo()
@@ -112,7 +112,7 @@ def mostrarOpRegistro():
             input("Enter para continuar... 1")
     except Exception as e:
         input(f"Datos erroneos, repita el registro y digite la edad correctamente. {e}")
-    os.system('cls')
+    os.system('clear')
 
 
 def main():
