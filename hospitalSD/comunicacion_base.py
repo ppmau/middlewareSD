@@ -26,7 +26,7 @@ def lista_tabla(tabla):
                 id, nombre, curp= fila
                 print(f"ID: {id}, Nombre: {nombre}, CURP: {curp}")
         if tabla == "tbl_pacientes":
-            consulta = f""""SELECT 
+            consulta = f"""SELECT 
                             p.i_id_paciente, 
                             p.v_nombre, 
                             p.v_edad, 
