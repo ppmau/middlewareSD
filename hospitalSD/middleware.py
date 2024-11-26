@@ -61,6 +61,7 @@ def cliente(mensaje,puerto,ipDestino):
                     with open(nombreArchivo, "r") as pendientes:
                         for instruccion in pendientes:
                             instruccion = instruccion.strip()
+                            print(instruccion)
                             if instruccion:
                                 for i in range(0, len(instruccion), chunk_size):
                                     client_socket.send((instruccion[i:i+chunk_size]).encode())
