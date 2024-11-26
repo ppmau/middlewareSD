@@ -258,6 +258,12 @@ def obtenDoctorDisponible():
                     WHERE i_id_doctor = %s
                     """
         cursor.execute(consulta2,(int(id_doctor[0][0]),))
+        consulta3 =f"""
+                    UPDATE tbl_doctores
+                    SET i_consultas_realizadas = (SELECT i_consultas_realizadas FROM tbl_doctores WHERE i_id_doctor = %s) + 1
+                    WHERE i_id_doctor = %s
+                    """
+        cursor.execute(consulta3,(int(id_doctor[0][0]),int(id_doctor[0][0]),))
         conexion.commit()
         return id_doctor[0][0]
     except Exception as e:

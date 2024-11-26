@@ -79,12 +79,10 @@ def mostrarOpCerrarVisita():
                     mensajeVisita = 'UPDATE-CERRAR-VISITAS|tbl_visitas|' + folio 
                     client_thread = threading.Thread(target=middleware.cliente, args=(mensajeVisita,int(puertoMaestro),ipMaestro))
                     client_thread.start() #Envia informacion directamente al server en nodo maestro 
-                    #comunicacion_base.cerrarVisitasDoctor(folio)
                 elif opcion == 2:
-                    input("op2")
-                    #mostrarOpciones()
+                    mostrarOpGestion()
                 else:
-                    input("Opcion incorrecta. Se regresara al menu principal. Enter para continuar...")
+                    print("Opcion incorrecta. Se regresara al menu principal. Seleccione una opcion: ")
                     #mostrarOpciones()
             else:
                 input("El doctor no tiene visitas asigndas. Se regresara al menu principal. Enter para continuar...")
@@ -109,7 +107,7 @@ def mostrarOpRegistro():
             client_thread.start() #Envia informacion directamente al server en nodo maestro 
             #gestion_pacientes.insertaPacienteBD(nombrePaciente,edadPaciente,descripcionEmergencia,ipMaestro,puertoMaestro) #Siempre se mandara al nodo maestro
         else:
-            input("Enter para continuar... 1")
+            print("No hay camas o doctores disponibes. Seleccione una opcion: ")
     except Exception as e:
         input(f"Datos erroneos, repita el registro y digite la edad correctamente. {e}")
     os.system('clear')
