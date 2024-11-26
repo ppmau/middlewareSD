@@ -146,5 +146,5 @@ def asigna_nodo_maestro(ipNodoActual):
 
 def escribeMensajePendiente(mensaje,ipDestino):
     with open(f"mensajesPendientes{ipDestino}.txt", "a") as archivo:  # Usa "a" para agregar al archivo sin borrar su contenido
-        archivo.write(mensaje)
+        archivo.write(mensaje+'\n')
 
