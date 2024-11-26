@@ -394,7 +394,7 @@ def moverVisitasDeNodoFallido(salaCaida):
         if len(v_folios) < len(camasDisponibles):
             contador = 0
             for visitas in v_folios:
-                consulta2 = f"""UPDATE tbl_visitas
+                consulta3 = f"""UPDATE tbl_visitas
                                 SET i_id_sala = {camasDisponibles[contador][0]}, i_id_cama = {camasDisponibles[contador][1]}
                                 WHERE v_folio_visita = {visitas}    
                             """    
@@ -402,7 +402,7 @@ def moverVisitasDeNodoFallido(salaCaida):
                 print(camasDisponibles[contador][0])
                 print(camasDisponibles[contador][1])
                 contador = contador + 1
-                cursor.execute(consulta2)
+                cursor.execute(consulta3)
             conexion.commit()
         else:
             print("No es posible cambiar las visitas por falla de nodo. No hay cupo disponible")
