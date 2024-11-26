@@ -52,7 +52,7 @@ def cliente(mensaje,puerto,ipDestino):
         if os.path.exists(nombreArchivo):
             print(ipDestino)
             if os.stat(nombreArchivo).st_size == 0:
-                client_socket.connect((ipDestino, puerto))
+
                 client_socket.send(mensaje.encode())
                 response = client_socket.recv(1024).decode()
                 input("El archivo existe y está vacio")
@@ -70,7 +70,7 @@ def cliente(mensaje,puerto,ipDestino):
         #print(f"{response}")
     except Exception as e:
         print(f"No se pudo conectar con el nodo en {ipDestino}:{puerto}. Conexión rechazada.{e}. Seleccione otra opcion: ")
-        escribeMensajePendiente((mensaje + '|'  + ipDestino + '|' + str(puerto) + '\n'), ipDestino)
+        escribeMensajePendiente(mensaje,ipDestino)
     finally:
         client_socket.close()
 
