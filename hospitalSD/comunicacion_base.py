@@ -114,7 +114,6 @@ def insertar_en_tabla(valores,tabla):
     except Exception as e:
             input(f"Ocurrió un error: {e}")
     finally:
-            print("sale de bases")
             cursor.close()
             conexion.close()
 
