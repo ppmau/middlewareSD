@@ -395,7 +395,7 @@ def moverVisitasDeNodoFallido(salaCaida):
             contador = 0
             for visitas in v_folios:
                 consulta2 = f"""UPDATE tbl_visitas
-                                SET i_id_sala, i_id_cama = {camasDisponibles[contador][0]}, {camasDisponibles[contador][1]}
+                                SET i_id_sala = {camasDisponibles[contador][0]}, i_id_cama = {camasDisponibles[contador][1]}
                                 WHERE v_folio_visita = {visitas}    
                             """    
                 print(visitas)
