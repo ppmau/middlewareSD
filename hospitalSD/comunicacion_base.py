@@ -33,7 +33,7 @@ def lista_tabla(tabla):
                             p.v_emergencia, 
                             v.i_id_sala, 
                             v.i_id_cama, 
-                            d.v_nombre
+                            d.v_nombre,
                             v.b_estatus_visita
                         FROM {tabla} AS p
                         INNER JOIN tbl_visitas AS v ON p.i_id_paciente = v.i_id_paciente
