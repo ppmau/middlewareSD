@@ -397,6 +397,7 @@ def moverVisitasDeNodoFallido(salaCaida):
                 print(visitas)
                 print(camasDisponibles[contador][0])
                 print(camasDisponibles[contador][1])
+                contador = contador + 1
         else:
             print("No es posible cambiar las visitas por falla de nodo. No hay cupo disponible")
 
