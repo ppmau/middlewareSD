@@ -34,6 +34,7 @@ def lista_tabla(tabla):
                             v.i_id_sala, 
                             v.i_id_cama, 
                             d.v_nombre
+                            v.b_estatus_visita
                         FROM {tabla} AS p
                         INNER JOIN tbl_visitas AS v ON p.i_id_paciente = v.i_id_paciente
                         INNER JOIN tbl_doctores AS d ON v.i_id_doctor = d.i_id_doctor
@@ -41,8 +42,8 @@ def lista_tabla(tabla):
             cursor.execute(consulta)
             resultados = cursor.fetchall()
             for fila in resultados:
-                id, nombre, edad, emergencia = fila
-                print(f"ID: {id}, Nombre: {nombre}, edad: {edad}, emergencia: {emergencia}")
+                id, nombre, edad, emergencia, sala, cama, doctor, estatus = fila
+                print(f"ID: {id}, Nombre: {nombre}, Edad: {edad}, Emergencia: {emergencia}, Sala: {sala}, Cama: {cama}, Doctor: {doctor} Estatus: {estatus}")
         if tabla == "tbl_trabajadores_sociales":
             consulta = f"SELECT i_id_sala, v_nombre, v_curp FROM {tabla}"
             cursor.execute(consulta)
