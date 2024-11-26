@@ -3,6 +3,7 @@ import threading
 import comunicacion_base
 import os
 import subprocess
+import time
 from datetime import datetime
 
 def asignar_info_nodo():
@@ -61,6 +62,7 @@ def cliente(mensaje,puerto,ipDestino):
                             instruccion = instruccion.strip()  # Eliminar saltos de línea extra o espacios
                             if instruccion:  # Validar que la línea no esté vacía
                                 client_socket.send((instruccion).encode())  # Enviar con un salto de línea
+                                time.sleep(0.1) 
                             client_socket.send(mensaje.encode()) #Envia el mensaje actual al final
 
                             
